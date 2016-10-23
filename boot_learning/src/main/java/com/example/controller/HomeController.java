@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    @RequestMapping("/")
+    @RequestMapping("")
     // 重定向到home
     public String charon(){
         return "redirect:/home";
@@ -19,8 +20,23 @@ public class HomeController {
 
     @RequestMapping("home")
     // 首页
-    public String home(ModelMap map){
+    public String home(ModelMap map, HttpServletRequest request){
+
+        if (request.getSession().getAttribute("username") == null){
+            map.addAttribute("name", "error");
+            return "home";
+        }
+
         map.addAttribute("name", "Home");
+
         return "home";
+    }
+
+    @RequestMapping("loginout")
+    // 登出
+    public String loginOut(HttpServletRequest request){
+        request.getSession().invalidate();
+
+        return "redirect:home";
     }
 }

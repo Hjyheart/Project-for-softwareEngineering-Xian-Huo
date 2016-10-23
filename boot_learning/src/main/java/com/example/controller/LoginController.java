@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by hongjiayong on 2016/10/21.
@@ -19,14 +18,19 @@ public class LoginController {
     // 登录页
     public String loginView(ModelMap map){
         map.addAttribute("name", "LoginView");
-        return "home";
+        return "loginView";
     }
 
     @RequestMapping(value = "/vertify", method = RequestMethod.POST)
     // 处理登录
-    public @ResponseBody String dealLogin(HttpServletRequest request, ModelMap map){
+    public String dealLogin(HttpServletRequest request, ModelMap map){
         String username = request.getParameter("username").trim();
+        String password = request.getParameter("password").trim();
         System.out.println(username);
+        System.out.println(password);
+
+        request.getSession().setAttribute("username", username);
+        request.getSession().setAttribute("password", password);
 
         return "redirect:/home";
     }
