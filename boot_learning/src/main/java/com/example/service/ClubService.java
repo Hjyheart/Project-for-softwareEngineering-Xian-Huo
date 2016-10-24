@@ -1,7 +1,7 @@
 package com.example.service;
 
-import com.example.entity.Student;
-import com.example.service.repository.StudentRepository;
+import com.example.entity.Club;
+import com.example.service.repository.ClubRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,13 +11,12 @@ import javax.annotation.Resource;
  * Created by deado on 2016/10/23.
  */
 @Service
-public class StudentService {
-
+public class ClubService {
     @Resource
-    private StudentRepository studentRepository;
+    private ClubRepository clubRepository;
 
     @Transactional
-    public void save(Student student){
-        studentRepository.save(student);
+    public void save(Club club){
+        clubRepository.save(club);
     }
 }
