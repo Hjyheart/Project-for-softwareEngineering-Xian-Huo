@@ -1,14 +1,11 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by deado on 2016/10/22.
  */
-@Entity @Table(name = "FILE", schema = "test")
+@Entity @Table(name = "FILE")
 public class File {
     @Id @Column(nullable = false, name = "ID")
     private String ID;//??
@@ -18,6 +15,7 @@ public class File {
     private String URL;
     @Column(nullable = false, name = "CLUB")
     private String CLUB;
+
 
     public File(String ID, String NAME, String URL, String CLUB) {
         this.ID = ID;
