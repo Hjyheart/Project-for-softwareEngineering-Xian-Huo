@@ -1,14 +1,12 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by hongjiayong on 2016/10/17.
  */
-@Entity @Table(name = "STUDENT", schema = "test")
+@Entity @Table(name = "STUDENT")
 public class Student{
 
     @Id @Column(nullable = false, name = "ID")
@@ -21,6 +19,12 @@ public class Student{
     private String MAJOR;
     @Column(nullable = true, name = "CONTACT")
     private String CONTACT;
+
+    @ManyToMany
+    private Set<Club> clubs;
+
+    @ManyToMany
+    private Set<Activity> activities;
 
     public Student(String ID, String NAME, String GRADE, String MAJOR, String CONTACT) {
         this.ID = ID;

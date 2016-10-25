@@ -1,16 +1,13 @@
 package com.example.entity;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/22.
  */
 
-@Entity @Table(name = "CLUB", schema = "test")
+@Entity @Table(name = "CLUB")
 public class Club {
     @Id @GeneratedValue @Column(nullable = false, name = "ID")
     private long ID;
@@ -25,17 +22,29 @@ public class Club {
 
 
     @Column(nullable = true, name = "CHAIRMAN")
-    private String CHAIRMAN;
+    private String CHAIRMANID; //
 
     @Column(nullable = true, name = "MEMBER_NUMBER")
     private Integer MEMBER_NUMBER;
+
+    @ManyToMany
+    private Set<Student> students;
+
+    @ManyToMany
+    private Set<Activity> activities;
+
+    @OneToMany
+    private Set<File> files;
+
+    @OneToMany
+    private Set<Comment> comments;
 
     //data get & set ways
 
     public Club(String NAME, String TEACHER, String CHAIRMAN, Integer MEMBER_NUMBER) {
         this.NAME = NAME;
         this.TEACHER = TEACHER;
-        this.CHAIRMAN = CHAIRMAN;
+        this.CHAIRMANID = CHAIRMAN;
         this.MEMBER_NUMBER = MEMBER_NUMBER;
     }
 
@@ -64,11 +73,11 @@ public class Club {
     }
 
     public String getCHAIRMAN() {
-        return CHAIRMAN;
+        return CHAIRMANID;
     }
 
     public void setCHAIRMAN(String CHAIRMAN) {
-        this.CHAIRMAN = CHAIRMAN;
+        this.CHAIRMANID = CHAIRMAN;
     }
 
     public Integer getMEMBER_NUMBER() {
