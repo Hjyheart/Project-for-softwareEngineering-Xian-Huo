@@ -1,0 +1,130 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title th:text="${name}">鲜活</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="/css/sm.min.css"/>
+    <link rel="stylesheet" href="/css/sm-extend.min.css"/>
+
+</head>
+<body>
+
+<div class="page-group">
+    <!-- 你的html代码 -->
+    <div class="page page-current" id="">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left" href="/demos/card">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">我的主页</h1>
+        </header>
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="/home">
+                <span class="icon icon-me"></span>
+                <span class="tab-label">我</span>
+            </a>
+            <a class="tab-item external" href="/activity">
+                <span class="icon icon-app"></span>
+                <span class="tab-label">活动</span>
+            </a>
+            <a class="tab-item external" href="/organize">
+                <span class="icon icon-emoji"></span>
+                <span class="tab-label">社团</span>
+            </a>
+            <a class="tab-item external" href="/login">
+                <span class="icon icon-message"></span>
+                <span class="tab-label">信息中心</span>
+            </a>
+        </nav>
+        <div class="content">
+            <!-- 这里是页面内容区 -->
+            <br/>
+            <center><img src="http://127.0.0.1:8080/D.jpg" style="max-height: 20%; max-width: 20%"/></center>
+            <div class="content-block-title">基本信息</div>
+            <div class="list-block">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">用户名</div>
+                            <div class="item-after" th:text="${username}">test</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">性别</div>
+                            <div class="item-after" th:text="${sex}">男</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">学号</div>
+                            <div class="item-after" th:text="${studentId}">1452822</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block-title">我的社团和活动</div>
+            <div class="list-block">
+                <ul>
+                    <li class="item-content item-link open-organizes">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">我的社团</div>
+                            <div class="item-after"></div>
+                        </div>
+                    </li>
+                    <li class="item-content item-link open-activities">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title">我的活动</div>
+                            <div class="item-after"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 我的社团 -->
+<div class="popup popup-organizes">
+    <div class="content-block">
+        <center><p>我的社团</p></center>
+        <p><a href="#" class="button button-danger close-popup">关 闭</a></p>
+    </div>
+</div>
+
+<!-- 我的活动 -->
+<div class="popup popup-activities">
+    <div class="content-block">
+        <center><p>我的活动</p></center>
+        <p><a href="#" class="button button-danger close-popup">关 闭</a></p>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='js/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='/js/sm-extend.js' charset='utf-8'></script>
+<script>
+    $.init();
+
+    $(document).on('click','.open-organizes', function () {
+        $.popup('.popup-organizes');
+    });
+
+    $(document).on('click','.open-activities', function () {
+        $.popup('.popup-activities');
+    });
+</script>
+</body>
+</html>
