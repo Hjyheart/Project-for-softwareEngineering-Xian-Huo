@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by deado on 2016/10/24.
  */
 @Entity
-@Table(name = "COMMENT")
+@Table(name = "COMMENT", schema = "test")
 public class Comment {
     @Id
     @GeneratedValue
@@ -31,12 +31,6 @@ public class Comment {
         this.CONTENT = CONTENT;
         this.DATE = DATE;
     }
-
-    @ManyToOne
-    private Activity activity;
-
-    @ManyToOne
-    private Club club;
 
     // data get & set ways
 
@@ -87,21 +81,5 @@ public class Comment {
 
     public void setDATE(Date DATE) {
         this.DATE = DATE;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
     }
 }

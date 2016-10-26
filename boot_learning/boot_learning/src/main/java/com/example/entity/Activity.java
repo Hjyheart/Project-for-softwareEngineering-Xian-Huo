@@ -1,13 +1,15 @@
 package com.example.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Created by deado on 2016/10/22.
  */
-@Entity @Table(name = "ACTIVITY")
+@Entity @Table(name = "ACTIVITY", schema = "test")
 public class Activity {
     @Id @Column(nullable = false, name = "ID")
     private String ID;
@@ -26,15 +28,6 @@ public class Activity {
 
     @Column(nullable = false, name = "PRAISE")
     private Integer PRAISE;
-
-    @ManyToMany
-    private Set<Student> students;
-
-    @ManyToMany
-    private Set<Club> clubs;
-
-    @OneToMany
-    private Set<Comment> comments;
 
     public Activity(String ID, String NAME, String LOCATION, Date TIME, String CONTACT, Integer PRAISE) {
         this.ID = ID;
@@ -94,29 +87,5 @@ public class Activity {
 
     public void setPRAISE(Integer PRAISE) {
         this.PRAISE = PRAISE;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
-
-    public Set<Club> getClubs() {
-        return clubs;
-    }
-
-    public void setClubs(Set<Club> clubs) {
-        this.clubs = clubs;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
     }
 }

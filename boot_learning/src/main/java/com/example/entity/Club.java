@@ -72,19 +72,51 @@ public class Club {
         this.TEACHER = TEACHER;
     }
 
-    public String getCHAIRMAN() {
-        return CHAIRMANID;
-    }
-
-    public void setCHAIRMAN(String CHAIRMAN) {
-        this.CHAIRMANID = CHAIRMAN;
-    }
-
     public Integer getMEMBER_NUMBER() {
         return MEMBER_NUMBER;
     }
 
     public void setMEMBER_NUMBER(Integer MEMBER_NUMBER) {
         this.MEMBER_NUMBER = MEMBER_NUMBER;
+    }
+
+    public String getCHAIRMANID() {
+        return CHAIRMANID;
+    }
+
+    public void setCHAIRMANID(String CHAIRMANID) {
+        this.CHAIRMANID = CHAIRMANID;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public Set<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public Set<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<File> files) {
+        this.files = files;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }
