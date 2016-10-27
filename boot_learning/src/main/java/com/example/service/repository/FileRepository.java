@@ -16,16 +16,16 @@ import java.util.Set;
 public interface FileRepository extends JpaRepository<File, String> {
 
     //find ways
-    Set<File> findByID(String Id);
-    Set<File> findByNAME(String Name);
-    Set<File> findByCLUB(String CLUBID);
-    Set<File> findByURL(String Url);
+    Set<File> findByMId(String Id);
+    Set<File> findByMName(String Name);
+    Set<File> findByMClub(String CLUBID);
+    Set<File> findByMUrl(String Url);
 
     //delete
-    @Query("delete from FILE f where f.ID=?1")
+    @Query("delete from File f where f.mId=?1")
     int deleteFileById(String Id);
 
-    @Query("delete from FILE f where f.URL=?1")
+    @Query("delete from File f where f.mUrl=?1")
     int deleteFileByUrl(String Url);
 
 

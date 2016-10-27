@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,33 +18,33 @@ import java.util.Set;
 public interface ActivityRepository extends JpaRepository<Activity, String> {
 
     //find
-    Set<Activity> findByNAME(String Name);
-    Set<Activity> findByID(String Id);
-    Set<Activity> findByLOCATION(String Location);
-    Set<Activity> findByTIME(Date Time);
+    Set<Activity> findActivityByMName(String Name);
+    Set<Activity> findActivityByMId(String Id);
+    Set<Activity> findActivityByMLocation(String Location);
+    Set<Activity> findActivityByMTime(Date Time);
 
 
 
     //modifying
     @Modifying
-    @Query("update ACTIVITY a set a.NAME=?1 where a.ID=?2")
+    @Query("update Activity a set a.mName=?1 where a.mId=?2")
     int setActivityNameById(String NewName, String Id);
 
     @Modifying
-    @Query("update ACTIVITY a set a.LOCATION=?1 where a.ID=?2")
+    @Query("update Activity a set a.mLocation=?1 where a.mId=?2")
     int setActivityLocationById(String NewLocation, String Id);
 
     @Modifying
-    @Query("update ACTIVITY a set a.TIME=?1 where a.ID=?2")
+    @Query("update Activity a set a.mTime=?1 where a.mId=?2")
     int setActivityDateById(String NewTime, String Id);
 
     @Modifying
-    @Query("update ACTIVITY a set a.CONTACT =?1 where a.ID=?2")
+    @Query("update Activity a set a.mContact =?1 where a.mId=?2")
     int setActivityContactById(String NewContact, String Id);
 
 
     @Modifying
-    @Query("update ACTIVITY a set a.PRAISE = a.PRAISE + 1 where a.ID=?1")
+    @Query("update Activity a set a.mPraise = a.mPraise + 1 where a.mId=?1")
     int addOneActivityPraiseById(String Id);
 
 

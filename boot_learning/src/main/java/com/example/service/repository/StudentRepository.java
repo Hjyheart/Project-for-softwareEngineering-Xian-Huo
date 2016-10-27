@@ -16,30 +16,27 @@ import java.util.Set;
 public interface StudentRepository extends JpaRepository<Student, String> {
 
     //query
-    Student findByName(String name);
+    Set<Student> findByMName(String name);
 
-    Student findById(String id);
+    Set<Student> findByMId(String id);
 
-    @Query("from STUDENT s where s.NAME=:name")
-    Student findStudent(@Param("name") String name);
-
-    Set<Student> findDistinctStudentByMAJOR(String Major);
+    Set<Student> findDistinctStudentByMMajor(String Major);
 
     //modifying
     @Modifying
-    @Query("update STUDENT s set s.NAME=?1 where s.ID =?2")
+    @Query("update Student s set s.mName=?1 where s.mId =?2")
     int setStudentNameById(String NewName, String Id);
 
     @Modifying
-    @Query("update STUDENT s set s.MAJOR=?1 where s.ID=?2")
+    @Query("update Student s set s.mMajor=?1 where s.mId=?2")
     int setStudentMajorById(String NewMajor, String Id);
 
     @Modifying
-    @Query("update STUDENT s set s.CONTACT=?1 where s.ID=?2")
+    @Query("update Student s set s.mContact=?1 where s.mId=?2")
     int setStudentContactById(String NewContact, String Id);
 
     @Modifying
-    @Query("update STUDENT s set s.GRADE=?1 where s.ID=?2")
+    @Query("update Student s set s.mGrade=?1 where s.mId=?2")
     int setStudentGradeById(String NewGrade, String Id);
 
 }

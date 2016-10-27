@@ -15,14 +15,14 @@ import java.util.Set;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     //find ways
-    Set<Comment>  findBySTUDENTID(String Id);
-    Set<Comment>  findByTARGETID(String Id);
-    Set<Comment>  findByDATE(Date date);
-    Set<Comment>  findByID(String Id);
+    Set<Comment>  findByMStudentId(String Id);
+    Set<Comment>  findByMTargetId(String Id);
+    Set<Comment>  findByMDate(Date date);
+    Set<Comment>  findByMId(String Id);
 
     //modifying
     @Modifying
-    @Query("update COMMENT c set c.CONTENT=?1 where c.ID=?2")
+    @Query("update Comment c set c.mContent=?1 where c.mId=?2")
     int setCommentContentById(String NewContent , String Id);
 
 

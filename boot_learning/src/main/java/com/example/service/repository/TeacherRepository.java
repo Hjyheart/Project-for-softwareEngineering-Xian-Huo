@@ -15,15 +15,15 @@ import java.util.Set;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
     //find ways
-    Set<Teacher>  findByID(String Id);
-    Set<Teacher>  findByNAME(String Name);
+    Set<Teacher>  findByMId(String Id);
+    Set<Teacher>  findByMName(String Name);
 
     //modifying
     @Modifying
-    @Query("update TEACHER t set t.CONTACT=?1 where t.ID=?2")
+    @Query("update Teacher t set t.mContact=?1 where t.mId=?2")
     int setContactById(String NewContact, String Id);
 
     @Modifying
-    @Query("update TEACHER t set t.NAME=?1 where t.ID=?2")
+    @Query("update Teacher t set t.mName=?1 where t.mId=?2")
     int setNameById(String NewName, String Id);
 }

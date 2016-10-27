@@ -10,15 +10,15 @@ import java.util.Set;
 public class Student{
 
     @Id @Column(nullable = false, name = "ID")
-    private String ID;
+    private String mId;
     @Column(nullable = false, name = "NAME")
-    private String NAME;
+    private String mName;
     @Column(nullable = true, name = "GRADE")
-    private String GRADE;
+    private String mGrade;
     @Column(nullable = true, name = "MAJOR")
-    private String MAJOR;
+    private String mMajor;
     @Column(nullable = true, name = "CONTACT")
-    private String CONTACT;
+    private String mContact;
 
     @ManyToMany
     private Set<Club> clubs;
@@ -26,52 +26,53 @@ public class Student{
     @ManyToMany
     private Set<Activity> activities;
 
-    public Student(String ID, String NAME, String GRADE, String MAJOR, String CONTACT) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.GRADE = GRADE;
-        this.MAJOR = MAJOR;
-        this.CONTACT = CONTACT;
+    public Student(String mId, String mName, String mGrade, String mMajor, String mCcontact) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mGrade = mGrade;
+        this.mMajor = mMajor;
+        this.mContact = mCcontact;
     }
 
-    public String getGRADE() {
-        return GRADE;
+
+    public String getmId() {
+        return mId;
     }
 
-    public void setGRADE(String GRADE) {
-        this.GRADE = GRADE;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public String getMAJOR() {
-        return MAJOR;
+    public String getmName() {
+        return mName;
     }
 
-    public void setMAJOR(String MAJOR) {
-        this.MAJOR = MAJOR;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public String getCONTACT() {
-        return CONTACT;
+    public String getmGrade() {
+        return mGrade;
     }
 
-    public void setCONTACT(String CONTACT) {
-        this.CONTACT = CONTACT;
+    public void setmGrade(String mGrade) {
+        this.mGrade = mGrade;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getmMajor() {
+        return mMajor;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public void setmMajor(String mMajor) {
+        this.mMajor = mMajor;
     }
 
-    public String getID() {
-        return ID;
+    public String getmContact() {
+        return mContact;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setmContact(String mContact) {
+        this.mContact = mContact;
     }
 
     public Set<Club> getClubs() {
@@ -89,6 +90,4 @@ public class Student{
     public void setActivities(Set<Activity> activities) {
         this.activities = activities;
     }
-
-
 }

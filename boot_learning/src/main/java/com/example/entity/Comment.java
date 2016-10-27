@@ -12,25 +12,18 @@ public class Comment {
     @Id
     @GeneratedValue
     @Column(nullable = false, name = "ID")
-    private long ID;
+    private long mId;
     @Column(nullable = false, name = "STUDENTID")
-    private String STUDENTID;
+    private String mStudentId;
     @Column(nullable = false, name = "TARGETID")
-    private String TARGETID;
+    private String mTargetId;
     @Column(nullable = false, name = "TARGETTYPE")
-    private Integer TARGETTYPE; // 0 -- club, 1 -- activity
+    private Integer mTargetType; // 0 -- club, 1 -- activity
     @Column(nullable = false, name = "CONTENT")
-    private String  CONTENT;
+    private String  mContent;
     @Column(nullable = false, name = "DATE")
-    private Date   DATE;
+    private Date   mDate;
 
-    public Comment(String STUDENTID, String TARGETID, Integer TARGETTYPE, String CONTENT, Date DATE) {
-        this.STUDENTID = STUDENTID;
-        this.TARGETID = TARGETID;
-        this.TARGETTYPE = TARGETTYPE;
-        this.CONTENT = CONTENT;
-        this.DATE = DATE;
-    }
 
     @ManyToOne
     private Activity activity;
@@ -38,55 +31,62 @@ public class Comment {
     @ManyToOne
     private Club club;
 
-    // data get & set ways
 
+    public Comment(String mStudentId, String mTargetId, Integer mTargetType, String mContent, Date mDate) {
 
-    public long getID() {
-        return ID;
+        this.mStudentId = mStudentId;
+        this.mTargetId = mTargetId;
+        this.mTargetType = mTargetType;
+        this.mContent = mContent;
+        this.mDate = mDate;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public long getmId() {
+        return mId;
     }
 
-    public String getSTUDENTID() {
-        return STUDENTID;
+    public void setmId(long mId) {
+        this.mId = mId;
     }
 
-    public void setSTUDENTID(String STUDENTID) {
-        this.STUDENTID = STUDENTID;
+    public String getmStudentId() {
+        return mStudentId;
     }
 
-    public String getTARGETID() {
-        return TARGETID;
+    public void setmStudentId(String mStudentId) {
+        this.mStudentId = mStudentId;
     }
 
-    public void setTARGETID(String TARGETID) {
-        this.TARGETID = TARGETID;
+    public String getmTargetId() {
+        return mTargetId;
     }
 
-    public Integer getTARGETTYPE() {
-        return TARGETTYPE;
+    public void setmTargetId(String mTargetId) {
+        this.mTargetId = mTargetId;
     }
 
-    public void setTARGETTYPE(Integer TARGETTYPE) {
-        this.TARGETTYPE = TARGETTYPE;
+    public Integer getmTargetType() {
+        return mTargetType;
     }
 
-    public String getCONTENT() {
-        return CONTENT;
+    public void setmTargetType(Integer mTargetType) {
+        this.mTargetType = mTargetType;
     }
 
-    public void setCONTENT(String CONTENT) {
-        this.CONTENT = CONTENT;
+    public String getmContent() {
+        return mContent;
     }
 
-    public Date getDATE() {
-        return DATE;
+    public void setmContent(String mContent) {
+        this.mContent = mContent;
     }
 
-    public void setDATE(Date DATE) {
-        this.DATE = DATE;
+    public Date getmDate() {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 
     public Activity getActivity() {
