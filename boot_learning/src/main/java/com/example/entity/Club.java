@@ -22,26 +22,11 @@ public class Club {
 
 
     @Column(nullable = true, name = "CHAIRMAN")
-<<<<<<< HEAD
-    private String CHAIRMANID; //
-=======
-    private String mChairmanId; //
->>>>>>> ZhangYinjia
+    private String mChairmanId;
 
     @Column(nullable = true, name = "MEMBER_NUMBER")
     private Integer mMemberNumber;
 
-    @ManyToMany
-    private Set<Student> students;
-
-    @ManyToMany
-    private Set<Activity> activities;
-
-    @OneToMany
-    private Set<File> files;
-
-    @OneToMany
-    private Set<Comment> comments;
 
     @ManyToMany
     private Set<Student> students;
@@ -57,13 +42,7 @@ public class Club {
 
     //data get & set ways
 
-<<<<<<< HEAD
-    public Club(String NAME, String TEACHER, String CHAIRMAN, Integer MEMBER_NUMBER) {
-        this.NAME = NAME;
-        this.TEACHER = TEACHER;
-        this.CHAIRMANID = CHAIRMAN;
-        this.MEMBER_NUMBER = MEMBER_NUMBER;
-=======
+
 
     public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
         this.mName = mName;
@@ -102,7 +81,6 @@ public class Club {
 
     public void setmChairmanId(String mChairmanId) {
         this.mChairmanId = mChairmanId;
->>>>>>> ZhangYinjia
     }
 
     public Integer getmMemberNumber() {
@@ -129,21 +107,10 @@ public class Club {
         this.activities = activities;
     }
 
-<<<<<<< HEAD
-    public String getCHAIRMAN() {
-        return CHAIRMANID;
-    }
 
-    public void setCHAIRMAN(String CHAIRMAN) {
-        this.CHAIRMANID = CHAIRMAN;
-=======
-    public Set<File> getFiles() {
-        return files;
-    }
 
     public void setFiles(Set<File> files) {
         this.files = files;
->>>>>>> ZhangYinjia
     }
 
     public Set<Comment> getComments() {

@@ -18,11 +18,8 @@ public class Student{
     @Column(nullable = true, name = "MAJOR")
     private String mMajor;
     @Column(nullable = true, name = "CONTACT")
-<<<<<<< HEAD
-    private String CONTACT;
-=======
     private String mContact;
->>>>>>> ZhangYinjia
+
 
     @ManyToMany
     private Set<Club> clubs;
@@ -30,14 +27,6 @@ public class Student{
     @ManyToMany
     private Set<Activity> activities;
 
-<<<<<<< HEAD
-    public Student(String ID, String NAME, String GRADE, String MAJOR, String CONTACT) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.GRADE = GRADE;
-        this.MAJOR = MAJOR;
-        this.CONTACT = CONTACT;
-=======
     public Student(String mId, String mName, String mGrade, String mMajor, String mCcontact) {
         this.mId = mId;
         this.mName = mName;
@@ -61,7 +50,6 @@ public class Student{
 
     public void setmName(String mName) {
         this.mName = mName;
->>>>>>> ZhangYinjia
     }
 
     public String getmGrade() {

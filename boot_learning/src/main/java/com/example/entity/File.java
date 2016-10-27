@@ -16,14 +16,7 @@ public class File {
     @Column(nullable = false, name = "CLUB")
     private String mClub;
 
-<<<<<<< HEAD
 
-    public File(String ID, String NAME, String URL, String CLUB) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.URL = URL;
-        this.CLUB = CLUB;
-=======
     @ManyToOne
     private Club club;
 
@@ -36,7 +29,6 @@ public class File {
 
     public String getmId() {
         return mId;
->>>>>>> ZhangYinjia
     }
 
     public void setmId(String mId) {

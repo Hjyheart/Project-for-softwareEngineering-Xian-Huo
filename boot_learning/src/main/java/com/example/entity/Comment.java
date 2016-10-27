@@ -41,19 +41,9 @@ public class Comment {
         this.mDate = mDate;
     }
 
-<<<<<<< HEAD
-    @ManyToOne
-    private Activity activity;
-
-    @ManyToOne
-    private Club club;
-
-    // data get & set ways
-=======
     public long getmId() {
         return mId;
     }
->>>>>>> ZhangYinjia
 
     public void setmId(long mId) {
         this.mId = mId;

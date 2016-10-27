@@ -16,10 +16,7 @@ import java.util.Set;
  */
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, String> {
-
-<<<<<<< HEAD
     
-=======
     //find
     Set<Activity> findActivityByMName(String Name);
     Set<Activity> findActivityByMId(String Id);
@@ -51,5 +48,4 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
     int addOneActivityPraiseById(String Id);
 
 
->>>>>>> ZhangYinjia
 }

@@ -36,15 +36,7 @@ public class Activity {
     @OneToMany
     private Set<Comment> comments;
 
-<<<<<<< HEAD
-    public Activity(String ID, String NAME, String LOCATION, Date TIME, String CONTACT, Integer PRAISE) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.LOCATION = LOCATION;
-        this.TIME = TIME;
-        this.CONTACT = CONTACT;
-        this.PRAISE = PRAISE;
-=======
+
 
     public Activity(String mId, String mName, String mLocation, Date mTime, String mContact, Integer mPraise) {
         this.mId = mId;
@@ -65,7 +57,6 @@ public class Activity {
 
     public String getmName() {
         return mName;
->>>>>>> ZhangYinjia
     }
 
     public void setmName(String mName) {
