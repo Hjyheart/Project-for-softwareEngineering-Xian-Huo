@@ -18,14 +18,10 @@
     <!-- 你的html代码 -->
     <div class="page page-current" id="">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="/demos/card">
-                <span class="icon icon-left"></span>
-                返回
-            </a>
-            <h1 class="title" th:text="${name}">我的主页</h1>
+            <h1 class="title">活动中心</h1>
         </header>
         <nav class="bar bar-tab">
-            <a class="tab-item external" href="/home">
+            <a class="tab-item external" href="/">
                 <span class="icon icon-me"></span>
                 <span class="tab-label">我</span>
             </a>
@@ -94,7 +90,6 @@
         // 模拟2s的加载过程
         setTimeout(function() {
             $.get("/activity/refresh", {Action: "get", Name: "activity"}, function(data, textStatus){
-//                alert(data);
                 $(".card-container").replaceWith(data);
             });
 

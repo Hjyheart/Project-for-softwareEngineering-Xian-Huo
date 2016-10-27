@@ -98,7 +98,7 @@ public class ActivityController {
 
 
     // for testing
-    public class activity{
+    public static class activity{
         private String name;
         private String desc;
         private String data;

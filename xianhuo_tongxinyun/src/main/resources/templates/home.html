@@ -18,11 +18,7 @@
     <!-- 你的html代码 -->
     <div class="page page-current" id="">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="/demos/card">
-                <span class="icon icon-left"></span>
-                返回
-            </a>
-            <h1 class="title" th:text="${name}">我的主页</h1>
+            <h1 class="title">我的主页</h1>
         </header>
         <nav class="bar bar-tab">
             <a class="tab-item external active" href="/home">
@@ -75,7 +71,7 @@
             <div class="content-block-title">我的社团和活动</div>
             <div class="list-block">
                 <ul>
-                    <li class="item-content item-link open-organizes">
+                    <li class="item-content item-link open-organize" id="router">
                         <div class="item-media"><i class="icon icon-f7"></i></div>
                         <div class="item-inner">
                             <div class="item-title">我的社团</div>
@@ -99,14 +95,6 @@
                 </ul>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- 我的社团 -->
-<div class="popup popup-organizes">
-    <div class="content-block">
-        <center><p>我的社团</p></center>
-        <p><a href="#" class="button button-danger close-popup">关 闭</a></p>
     </div>
 </div>
 
@@ -148,9 +136,6 @@
 <script>
     $.init();
 
-    $(document).on('click','.open-organizes', function () {
-        $.popup('.popup-organizes');
-    });
 
     $(document).on('click','.open-activities', function () {
         $.popup('.popup-activities');
@@ -159,6 +144,10 @@
     $(document).on('click','.open-comments', function () {
         $.popup('.popup-comments');
     });
+
+    $(document).on('click', '.open-organize', function(){
+        $.router.load("/stu/myorganize");
+    })
 </script>
 </body>
 </html>
