@@ -13,42 +13,40 @@ import javax.persistence.Table;
 public class Teacher {
 
     @Id @Column(nullable = false, name = "ID")
-    private String ID;
+    private String mId;
     @Column(nullable = false, name = "NAME")
-    private String NAME;
+    private String mName;
     @Column( name = "CONTACT")
-    private String CONTACT;
+    private String mContact;
 
-    public Teacher(String ID, String NAME, String CONTACT) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.CONTACT = CONTACT;
+    public Teacher(String mId, String mName, String mContact) {
+
+        this.mId = mId;
+        this.mName = mName;
+        this.mContact = mContact;
     }
 
-    // data get & set ways
-
-
-    public String getID() {
-        return ID;
+    public String getmId() {
+        return mId;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getmName() {
+        return mName;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public String getCONTACT() {
-        return CONTACT;
+    public String getmContact() {
+        return mContact;
     }
 
-    public void setCONTACT(String CONTACT) {
-        this.CONTACT = CONTACT;
+    public void setmContact(String mContact) {
+        this.mContact = mContact;
     }
 }
