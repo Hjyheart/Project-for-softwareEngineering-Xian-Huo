@@ -98,38 +98,6 @@
     </div>
 </div>
 
-<!-- 我的活动 -->
-<div class="popup popup-activities">
-    <div class="content-block-title">我的活动</div>
-
-        <div class="card demo-card-header-pic" th:each="user:${users}" >
-            <div valign="bottom" class="card-header color-white no-border no-padding">
-                <img class='card-cover' src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" alt=""/>
-            </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p class="color-gray" th:text="${user.name}">发表于 2015/01/15</p>
-                    <p th:text="${user.description}">此处是内容...</p>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="#" class="link">赞</a>
-                <a href="#" class="link">更多</a>
-            </div>
-        </div>
-
-    <p><a href="#" class="button button-danger close-popup">关 闭</a></p>
-</div>
-
-<!-- 我的评论 -->
-<div class="popup popup-comments">
-    <div class="content-block">
-        <center><p>我的评论</p></center>
-        <p><a href="#" class="button button-danger close-popup">关 闭</a></p>
-    </div>
-</div>
-
-
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='js/sm.js' charset='utf-8'></script>
 <script type='text/javascript' src='/js/sm-extend.js' charset='utf-8'></script>
@@ -142,11 +110,15 @@
     });
 
     $(document).on('click','.open-comments', function () {
-        $.popup('.popup-comments');
+        $.router.load("/stu/mycomment");
     });
 
     $(document).on('click', '.open-organize', function(){
         $.router.load("/stu/myorganize");
+    })
+
+    $(document).on('click', '.open-activities', function(){
+        $.router.load("/stu/myactivity");
     })
 </script>
 </body>

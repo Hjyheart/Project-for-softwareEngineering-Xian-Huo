@@ -15,6 +15,19 @@ import java.util.ArrayList;
 @RequestMapping("/stu")
 public class StudentController {
 
+    @RequestMapping("/mycomment")
+    // 显示我的评论列表
+    public String myComment(ModelMap map, HttpServletRequest request){
+        ArrayList <ActivityController.activity> organizeList = new ArrayList<>();
+
+        organizeList.add(new ActivityController.activity("李阳", "无敌", "2016/10.27"));
+        organizeList.add(new ActivityController.activity("洪嘉勇", "菜鸡", "2016/10.27"));
+
+        map.addAttribute("comments", organizeList);
+
+        return "mycomment";
+    }
+
     @RequestMapping(value = "/deletecomment")
     public @ResponseBody String deleteComment(Long id, HttpServletRequest request){
         System.out.println(id);
@@ -38,6 +51,13 @@ public class StudentController {
     @RequestMapping("/myactivity")
     // 返回申请和玩过的活动
     public String myActivity(ModelMap map, HttpServletRequest request){
+        ArrayList <ActivityController.activity> organizeList = new ArrayList<>();
+
+        organizeList.add(new ActivityController.activity("李阳", "无敌", "2016/10.27"));
+        organizeList.add(new ActivityController.activity("洪嘉勇", "菜鸡", "2016/10.27"));
+
+        map.addAttribute("activities", organizeList);
+
         return "myactivity";
     }
 
