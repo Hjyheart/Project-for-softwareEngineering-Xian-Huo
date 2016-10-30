@@ -18,7 +18,7 @@
     <!-- 你的html代码 -->
     <div class="page page-current" id="">
         <header class="bar bar-nav">
-            <h1 class="title">社团中心</h1>
+            <h1 class="title">我的信息中心</h1>
         </header>
         <nav class="bar bar-tab">
             <a class="tab-item external" href="/">
@@ -29,37 +29,32 @@
                 <span class="icon icon-app"></span>
                 <span class="tab-label">活动</span>
             </a>
-            <a class="tab-item external active" href="/organize">
+            <a class="tab-item external" href="/organize">
                 <span class="icon icon-emoji"></span>
                 <span class="tab-label">社团</span>
             </a>
-            <a class="tab-item external" href="/message">
+            <a class="tab-item external active" href="/message">
                 <span class="icon icon-message"></span>
                 <span class="tab-label">信息中心</span>
             </a>
         </nav>
-
         <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 这里是页面内容区 -->
             <!-- 默认的下拉刷新层 -->
             <div class="pull-to-refresh-layer">
                 <div class="preloader"></div>
                 <div class="pull-to-refresh-arrow"></div>
             </div>
 
-            <div align="center">
-                <img src="http://www.ohwonews.com/wp-content/uploads/2015/08/2ce07b59942f6732f12b9aa1cd42197a.jpg" style="width: 92%;"/>
-            </div>
-
-            <div class="card-container" th:fragment="organizeList">
-                <div class="card facebook-card" th:each="organize:${organizes}">
-                    <div class="card-header no-border">
-                        <div class="facebook-avatar"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="34" height="34"/></div>
-                        <div class="facebook-name" th:text="${organize.name}">夜萧</div>
-                        <div class="facebook-date" th:text="${organize.data}">星期一 3:47pm</div>
-                    </div>
-                    <div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"/></div>
-                    <div class="card-footer no-border">
-                        <a href="#" class="link">详情</a>
+            <div class="card-container" th:fragment="messageList">
+                <div th:each="message:${messages}">
+                    <div class="content-block-title" th:text="${message.name}">简单卡片</div>
+                    <div class="card" th:each="notice:${message.messageList}">
+                        <div class="card-header" th:text="${notice.name}">卡头</div>
+                        <div class="card-content">
+                            <div class="card-content-inner" th:text="${notice.description}">头和尾的卡片。卡头是用来显示一些额外的信息，或自定义操作卡标题和页脚。</div>
+                        </div>
+                        <div class="card-footer">日期</div>
                     </div>
                 </div>
             </div>
@@ -73,10 +68,11 @@
 <script>
     $.init();
 
+
     $(document).on('refresh', '.pull-to-refresh-content',function(e) {
         // 模拟2s的加载过程
         setTimeout(function() {
-            $.get("/organize/refresh", {Action: "get", Name: "organize"}, function(data, textStatus){
+            $.get("/message/refresh", {Action: "get", Name: "message"}, function(data, textStatus){
                 $(".card-container").replaceWith(data);
             });
 
