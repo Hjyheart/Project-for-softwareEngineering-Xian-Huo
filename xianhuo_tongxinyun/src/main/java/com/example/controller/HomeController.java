@@ -34,7 +34,7 @@ public class HomeController {
 
 
 
-    public class testUser{
+    public static class testUser{
         private String name;
         private int age;
         private String description;
@@ -56,6 +56,7 @@ public class HomeController {
         public int getAge() {
             return age;
         }
+
     }
 
 
