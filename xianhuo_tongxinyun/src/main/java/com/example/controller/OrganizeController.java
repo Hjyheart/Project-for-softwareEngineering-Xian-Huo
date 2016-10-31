@@ -3,6 +3,7 @@ package com.example.controller;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -39,4 +40,12 @@ public class OrganizeController {
 
         return "organizes :: organizeList";
     }
+
+    @RequestMapping(value = "/{name}")
+    public String showOrganize(@PathVariable String name, ModelMap map, HttpServletRequest request){
+        map.addAttribute("name", name);
+
+        return "organize";
+    }
 }
+
