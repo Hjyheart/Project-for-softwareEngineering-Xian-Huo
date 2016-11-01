@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"/></div>
                 <div class="card-footer no-border">
-                    <a href="#" class="link">详情</a>
+                    <a th:href="@{/organize/{name}(name=${organize.name})}" class="link">详情</a>
                 </div>
             </div>
         </div>
@@ -43,8 +43,9 @@
 
 
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='js/sm.js' charset='utf-8'></script>
-<script type='text/javascript' src='/js/sm-extend.js' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
+
 <script>
     $.init();
 </script>

@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="/css/sm.min.css"/>
     <link rel="stylesheet" href="/css/sm-extend.min.css"/>
+
     <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
     <script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
     <script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
@@ -20,11 +21,11 @@
     <!-- 你的html代码 -->
     <div class="page page-current" id="">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" th:href="@{/activity/}">
+            <a class="button button-link button-nav pull-left back" th:href="@{/organize/}">
                 <span class="icon icon-left"></span>
                 返回
             </a>
-            <h1 class="title" th:text="${name}">我的活动</h1>
+            <h1 class="title" th:text="${name}">社团详情</h1>
         </header>
 
         <div class="content">
@@ -36,7 +37,7 @@
                 <h1>标题</h1>
             </div>
             <div class="content-padded">
-                <p>活动内容</p>
+                <p>社团详情</p>
             </div>
 
             <div class="content-block">
@@ -100,28 +101,15 @@
                     label: true
                 },
                 {
-                    text: '报名',
+                    text: '申请',
                     bold: true,
                     color: 'danger',
                     onClick: function() {
-                        $.get("/activity/" + [[${name}]] + "/apply", {Action: "get", Name: "activityapply"}, function(data, textStatus){
+                        $.get("/organize/" + [[${name}]] + "/apply", {Action: "get", Name: "organizeapply"}, function(data, textStatus){
                             if (data == "true"){
-                                $.alert("报名成功!");
+                                $.alert("申请已经投递!");
                             }else{
-                                $.confirm('已经报名,是否取消报名',
-                                        function () {
-                                            $.get("/activity/" + [[${name}]] + "/unapply", {Action: "get", Name: "activityunapply"}, function(data, textStatus){
-                                                if (data == "true"){
-                                                    $.alert("成功取消报名!");
-                                                }else{
-                                                    $.alert("取消失败");
-                                                }
-                                            })
-                                        },
-                                        function () {
-
-                                        }
-                                );
+                                $.alert("已经申请!");
                             }
                         });
                     }
@@ -129,13 +117,13 @@
                 {
                     text: '赞',
                     onClick: function() {
-                        $.get("/activity/" + [[${name}]] + "/good", {Action: "get", Name: "activitygood"}, function(data, textStatus){
+                        $.get("/organize/" + [[${name}]] + "/good", {Action: "get", Name: "organizegood"}, function(data, textStatus){
                             if (data == "true"){
                                 $.alert("赞!");
                             }else{
                                 $.confirm('已经赞,是否取消赞',
                                         function () {
-                                            $.get("/activity/" + [[${name}]] + "/ungood", {Action: "get", Name: "activityungood"}, function(data, textStatus){
+                                            $.get("/organize/" + [[${name}]] + "/ungood", {Action: "get", Name: "organizeungood"}, function(data, textStatus){
                                                 if (data == "true"){
                                                     $.alert("成功取消赞!");
                                                 }else{
@@ -169,7 +157,7 @@
         });
 
         $(document).on('click', '.submit-comment', function(){
-            $.get("/activity/" + [[${name}]] + "/comment?comment=" + $('#comment').val(), {Action: 'get', Name: 'comment'}, function(data, textStatus){
+            $.get("/organize/" + [[${name}]] + "/comment?comment=" + $('#comment').val(), {Action: 'get', Name: 'comment'}, function(data, textStatus){
                 if (data == 'true') {
                     $.closeModal('.popup-comment');
                 }else{
@@ -219,7 +207,7 @@
                     return;
                 }
 
-                $.get('/activity/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=2', {Action: 'get', Name: 'refreshComment'}, function(data){
+                $.get('/organize/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=2', {Action: 'get', Name: 'refreshComment'}, function(data){
                     // 添加新条目
                     for (var i = 0; i < data.length; i++) {
                         addItems(2, lastIndex, data[i]);
@@ -237,6 +225,5 @@
         /*]]>*/
     </script>
 </div>
-
 </body>
 </html>

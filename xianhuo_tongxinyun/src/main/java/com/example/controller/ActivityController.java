@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ public class ActivityController {
     @RequestMapping("")
     // 活动合集首页
     public String activities(ModelMap map){
-        map.addAttribute("name", "活动合集");
 
         ArrayList<activity> activityList = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class ActivityController {
     String applyActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
         System.out.println(name);
 
-        return "true";
+        return "false";
 
     }
 
@@ -79,12 +79,31 @@ public class ActivityController {
         return "home";
     }
 
+    @RequestMapping(value = "/{name}/comment", method = RequestMethod.GET)
+    // 进行评论
+    public @ResponseBody String commentActivity(@PathVariable String name, String comment, HttpServletRequest servletRequest){
+        System.out.println(comment);
+
+        return "true";
+    }
+
+    @RequestMapping(value = "/{name}/comment/refresh", method = RequestMethod.GET)
+    // 异步加载评论
+    public @ResponseBody ArrayList<activity> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
+        ArrayList<activity> activityList = new ArrayList<>();
+
+        activityList.add(new activity("liyang", "wudi", "lala"));
+        activityList.add(new activity("liyang", "lala", "lala"));
+
+        return activityList;
+    }
+
     @RequestMapping(value = "/{name}/good")
     // 点赞
     public @ResponseBody String goodForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
         map.addAttribute("name", name + " good");
 
-        return "true";
+        return "false";
     }
 
     @RequestMapping(value = "/{name}/ungood")

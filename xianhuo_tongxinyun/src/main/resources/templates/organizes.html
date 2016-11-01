@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="/css/sm.min.css"/>
     <link rel="stylesheet" href="/css/sm-extend.min.css"/>
 
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
+
 </head>
 <body>
 
@@ -39,6 +43,16 @@
             </a>
         </nav>
 
+        <div class="bar bar-header-secondary">
+            <div class="searchbar">
+                <a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search" id='search' placeholder='输入关键字...'/>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
         <div class="content pull-to-refresh-content" data-ptr-distance="55">
             <!-- 默认的下拉刷新层 -->
             <div class="pull-to-refresh-layer">
@@ -47,9 +61,9 @@
             </div>
 
             <div align="center">
-                <img src="http://www.ohwonews.com/wp-content/uploads/2015/08/2ce07b59942f6732f12b9aa1cd42197a.jpg" style="width: 92%;"/>
+                <img th:src="@{/D.jpg}" style="width: 92%; height: 40%;"/>
             </div>
-
+            <hr/>
             <div class="card-container" th:fragment="organizeList">
                 <div class="card facebook-card" th:each="organize:${organizes}">
                     <div class="card-header no-border">
@@ -59,31 +73,30 @@
                     </div>
                     <div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"/></div>
                     <div class="card-footer no-border">
-                        <a href="#" class="link">详情</a>
+                        <a th:href="@{/organize/{name}/(name=${organize.name})}" class="link open-organize">详情</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $.init();
+
+        $(document).on('refresh', '.pull-to-refresh-content',function(e) {
+            // 模拟2s的加载过程
+            setTimeout(function() {
+                $.get("/organize/refresh", {Action: "get", Name: "organize"}, function(data, textStatus){
+                    $(".card-container").replaceWith(data);
+                });
+
+                // 加载完毕需要重置
+                $.pullToRefreshDone('.pull-to-refresh-content');
+            }, 2000);
+        });
+
+    </script>
 </div>
 
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='js/sm.js' charset='utf-8'></script>
-<script type='text/javascript' src='/js/sm-extend.js' charset='utf-8'></script>
-<script>
-    $.init();
-
-    $(document).on('refresh', '.pull-to-refresh-content',function(e) {
-        // 模拟2s的加载过程
-        setTimeout(function() {
-            $.get("/organize/refresh", {Action: "get", Name: "organize"}, function(data, textStatus){
-                $(".card-container").replaceWith(data);
-            });
-
-            // 加载完毕需要重置
-            $.pullToRefreshDone('.pull-to-refresh-content');
-        }, 2000);
-    });
-</script>
 </body>
 </html>
