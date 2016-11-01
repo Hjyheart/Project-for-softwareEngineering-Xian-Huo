@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
+    private StudentService studentService = new StudentService();
+
     @RequestMapping("")
     // 登录页
     public String loginView(ModelMap map){
@@ -24,15 +29,21 @@ public class LoginController {
     @RequestMapping(value = "/vertify", method = RequestMethod.POST)
     // 处理登录
     public String dealLogin(HttpServletRequest request, ModelMap map){
-        String username = request.getParameter("username").trim();
+
+        String id = request.getParameter("id").trim();
         String password = request.getParameter("password").trim();
-        System.out.println(username);
-        System.out.println(password);
 
-        request.getSession().setAttribute("username", username);
-        request.getSession().setAttribute("password", password);
 
-        return "redirect:/home";
+        if (studentService.findByMId(id) != null) {
+            request.getSession().setAttribute("user_id", id);
+            request.getSession().setAttribute("user_password", password);
+
+            return "redirect:/home";
+
+        }
+        else return "redirect:/home";
+
+
     }
 
     @RequestMapping("/register")

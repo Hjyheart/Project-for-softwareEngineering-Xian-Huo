@@ -6,13 +6,18 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Set;
 
 /**
  * Created by deado on 2016/10/22.
  */
-@Repository
+
+@Transactional(readOnly = true)
 public interface StudentRepository extends JpaRepository<Student, String> {
 
     //query
@@ -21,6 +26,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     Set<Student> findByMId(String id);
 
     Set<Student> findDistinctStudentByMMajor(String Major);
+
 
     //modifying
     @Modifying

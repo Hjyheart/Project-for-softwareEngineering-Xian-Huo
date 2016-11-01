@@ -11,6 +11,8 @@ public class Student{
 
     @Id @Column(nullable = false, name = "ID")
     private String mId;
+    @Column(nullable = false,name = "PASSWORD")
+    private String password;
     @Column(nullable = false, name = "NAME")
     private String mName;
     @Column(nullable = true, name = "GRADE")
@@ -27,12 +29,17 @@ public class Student{
     @ManyToMany
     private Set<Activity> activities;
 
-    public Student(String mId, String mName, String mGrade, String mMajor, String mCcontact) {
+    public Student(){
+        this.password = "123456";
+    }
+
+    public Student(String mId, String mName, String mGrade, String mMajor, String mCcontact,String password) {
         this.mId = mId;
         this.mName = mName;
         this.mGrade = mGrade;
         this.mMajor = mMajor;
         this.mContact = mCcontact;
+        this.password = password;
     }
 
 
@@ -90,5 +97,13 @@ public class Student{
 
     public void setActivities(Set<Activity> activities) {
         this.activities = activities;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

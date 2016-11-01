@@ -22,11 +22,6 @@ public class HomeController {
     // 首页
     public String home(ModelMap map, HttpServletRequest request){
 
-        if (request.getSession().getAttribute("username") == null){
-            map.addAttribute("name", "error");
-            return "home";
-        }
-
         map.addAttribute("name", "Home");
 
         return "home";
