@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="/css/sm.min.css"/>
     <link rel="stylesheet" href="/css/sm-extend.min.css"/>
 
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
+
 </head>
 <body>
 
@@ -39,6 +43,16 @@
             </a>
         </nav>
 
+        <div class="bar bar-header-secondary">
+            <div class="searchbar">
+                <a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search" id='search' placeholder='输入关键字...'/>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
         <div class="content pull-to-refresh-content" data-ptr-distance="55">
             <!-- 默认的下拉刷新层 -->
             <div class="pull-to-refresh-layer">
@@ -66,26 +80,23 @@
         </div>
     </div>
 
+    <script>
+        $.init();
+
+        $(document).on('refresh', '.pull-to-refresh-content',function(e) {
+            // 模拟2s的加载过程
+            setTimeout(function() {
+                $.get("/organize/refresh", {Action: "get", Name: "organize"}, function(data, textStatus){
+                    $(".card-container").replaceWith(data);
+                });
+
+                // 加载完毕需要重置
+                $.pullToRefreshDone('.pull-to-refresh-content');
+            }, 2000);
+        });
+
+    </script>
 </div>
 
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
-<script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
-<script>
-    $.init();
-
-    $(document).on('refresh', '.pull-to-refresh-content',function(e) {
-        // 模拟2s的加载过程
-        setTimeout(function() {
-            $.get("/organize/refresh", {Action: "get", Name: "organize"}, function(data, textStatus){
-                $(".card-container").replaceWith(data);
-            });
-
-            // 加载完毕需要重置
-            $.pullToRefreshDone('.pull-to-refresh-content');
-        }, 2000);
-    });
-
-</script>
 </body>
 </html>

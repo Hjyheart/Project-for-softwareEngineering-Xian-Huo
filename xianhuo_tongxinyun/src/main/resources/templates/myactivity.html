@@ -32,7 +32,7 @@
                     <div class="list-block media-list">
                         <ul>
                             <li>
-                                <a href="#" class="item-link item-content">
+                                <a th:href="@{/activity/{name}(name=${activity.name})}" class="item-link item-content">
                                     <div class="item-media">
                                         <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"/>
                                     </div>
@@ -58,8 +58,9 @@
 
 
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='/js/sm.js' charset='utf-8'></script>
-<script type='text/javascript' src='/js/sm-extend.js' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
+
 <script>
     $.init();
 </script>

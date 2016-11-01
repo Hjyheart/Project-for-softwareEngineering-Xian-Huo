@@ -10,6 +10,9 @@
 
     <link rel="stylesheet" href="/css/sm.min.css"/>
     <link rel="stylesheet" href="/css/sm-extend.min.css"/>
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
 
 </head>
 <body>
@@ -81,7 +84,7 @@
                     </ul>
                 </div>
                 <div class="content-block">
-                    <p><a href="#" class="button button-fill">查看更多</a></p>
+                    <p><a href="#" class="button button-fill more">查看更多</a></p>
                 </div>
             </div>
         </div>
@@ -198,7 +201,7 @@
         var lastIndex = 1;
 
         // 注册'infinite'事件处理函数
-        $(document).on('click', '.button-fill', function() {
+        $(document).on('click', '.more', function() {
             $.showPreloader("正在加载评论");
 
             // 如果正在加载，则退出
@@ -235,10 +238,5 @@
     </script>
 </div>
 
-
-
-<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
-<script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
 </body>
 </html>
