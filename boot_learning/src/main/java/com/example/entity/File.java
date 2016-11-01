@@ -20,6 +20,10 @@ public class File {
     @ManyToOne
     private Club club;
 
+
+    public File() {
+    }
+
     public File(String mId, String mName, String mUrl, String mClub) {
         this.mId = mId;
         this.mName = mName;

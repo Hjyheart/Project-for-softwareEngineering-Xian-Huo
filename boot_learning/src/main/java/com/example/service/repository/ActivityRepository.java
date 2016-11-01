@@ -18,10 +18,10 @@ import java.util.Set;
 public interface ActivityRepository extends JpaRepository<Activity, String> {
     
     //find
-    Set<Activity> findActivityByMName(String Name);
-    Set<Activity> findActivityByMId(String Id);
-    Set<Activity> findActivityByMLocation(String Location);
-    Set<Activity> findActivityByMTime(Date Time);
+    Set<Activity> findByMName(String Name);
+    Set<Activity> findByMId(String Id);
+    Set<Activity> findByMLocation(String Location);
+    Set<Activity> findByMTime(Date Time);
 
 
 

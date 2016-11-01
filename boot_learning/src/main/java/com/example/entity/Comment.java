@@ -32,6 +32,9 @@ public class Comment {
     private Club club;
 
 
+    public Comment() {
+    }
+
     public Comment(String mStudentId, String mTargetId, Integer mTargetType, String mContent, Date mDate) {
 
         this.mStudentId = mStudentId;

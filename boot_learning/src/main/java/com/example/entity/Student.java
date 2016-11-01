@@ -33,12 +33,12 @@ public class Student{
         this.password = "123456";
     }
 
-    public Student(String mId, String mName, String mGrade, String mMajor, String mCcontact,String password) {
+    public Student(String mId, String mName, String mGrade, String mMajor, String mContact,String password) {
         this.mId = mId;
         this.mName = mName;
         this.mGrade = mGrade;
         this.mMajor = mMajor;
-        this.mContact = mCcontact;
+        this.mContact = mContact;
         this.password = password;
     }
 

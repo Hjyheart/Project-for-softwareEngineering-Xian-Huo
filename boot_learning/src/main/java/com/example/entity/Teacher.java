@@ -19,6 +19,9 @@ public class Teacher {
     @Column( name = "CONTACT")
     private String mContact;
 
+    public Teacher() {
+    }
+
     public Teacher(String mId, String mName, String mContact) {
 
         this.mId = mId;

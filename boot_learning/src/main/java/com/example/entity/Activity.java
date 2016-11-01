@@ -37,6 +37,8 @@ public class Activity {
     private Set<Comment> comments;
 
 
+    public Activity() {
+    }
 
     public Activity(String mId, String mName, String mLocation, Date mTime, String mContact, Integer mPraise) {
         this.mId = mId;

@@ -43,6 +43,8 @@ public class Club {
     //data get & set ways
 
 
+    public Club() {
+    }
 
     public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
         this.mName = mName;
