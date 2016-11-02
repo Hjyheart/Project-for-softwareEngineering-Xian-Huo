@@ -27,6 +27,4 @@ public interface FileRepository extends JpaRepository<File, String> {
 
     @Query("delete from File f where f.mUrl=?1")
     int deleteFileByUrl(String Url);
-
-
 }
