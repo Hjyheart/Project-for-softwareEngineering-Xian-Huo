@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -22,8 +23,9 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     Set<Club> findByMTeacher(String TeacherId);
     Set<Club> findByMChairmanId(String ChairmanId);
 
-    //modifying ways
 
+
+    //modifying ways
     @Modifying
     @Query("update Club c set c.mName=?1 where c.mId=?2")
     int setClubName(String NewName, String Id);
@@ -39,4 +41,11 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     @Modifying
     @Query("update Club c set c.mTeacher=?1 where c.mId=?2")
     int setClubTeacherById(String Id);
+
+    @Modifying
+    @Transactional
+    @Query("update Club c set c.mMemberNumber=c.mMemberNumber-1 where c.mId=?1")
+    int decreaseNumtFromClub(String Id);
+
+
 }

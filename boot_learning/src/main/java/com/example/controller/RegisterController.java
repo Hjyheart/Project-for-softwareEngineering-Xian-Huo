@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Student;
 import com.example.service.StudentService;
-
+import com.example.service.TeacherService;
 import net.sf.json.JSONObject;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.hibernate.mapping.List;
@@ -24,6 +24,9 @@ public class RegisterController {
     @Autowired
     private StudentService studentService = new StudentService();
 
+    @Autowired
+    private TeacherService teacherService = new TeacherService();
+
     @RequestMapping("")
     // 注册页
     public String register(ModelMap map){
@@ -34,9 +37,9 @@ public class RegisterController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     // 处理注册
-    public @ResponseBody String dealRegister( HttpServletRequest request){
+    public @ResponseBody String dealRegister(@RequestParam String value, HttpServletRequest request){
 
-
+/*
         String mId = request.getParameter("id").trim();
         String password = request.getParameter("password").trim();
         String name = request.getParameter("name").trim();
@@ -52,6 +55,17 @@ public class RegisterController {
 
 
        //studentService.setPersonalInfo(mId,name,grade,major,contact,password);
+        String contact = request.getParameter("contact").trim();*/
+
+
+        System.out.print(value);
+
+        /*
+        if(id.equals("student")){
+            studentService.setPersonalInfo(mId,name,grade,major,contact,password);
+        }else if(id.equals("teacher")){
+        }*/
+
 
         return "redirect:/home";
     }

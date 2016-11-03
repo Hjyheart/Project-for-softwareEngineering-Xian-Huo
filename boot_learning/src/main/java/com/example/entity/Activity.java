@@ -36,9 +36,8 @@ public class Activity {
     @OneToMany
     private Set<Comment> comments;
 
+    public Activity(){}
 
-    public Activity() {
-    }
 
     public Activity(String mId, String mName, String mLocation, Date mTime, String mContact, Integer mPraise) {
         this.mId = mId;

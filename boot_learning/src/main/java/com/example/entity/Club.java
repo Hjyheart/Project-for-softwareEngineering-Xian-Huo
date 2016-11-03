@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity @Table(name = "CLUB")
 public class Club {
-    @Id  @Column(nullable = false, name = "ID")
+    @Id @Column(nullable = false, name = "ID")
     private String mId;
 
     @Column(nullable = false, name = "NAME")
@@ -43,8 +43,8 @@ public class Club {
     //data get & set ways
 
 
-    public Club() {
-    }
+
+    public Club(){}
 
     public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
         this.mName = mName;
