@@ -9,11 +9,7 @@ import java.util.Set;
 
 @Entity @Table(name = "CLUB")
 public class Club {
-<<<<<<< HEAD
-    @Id  @Column(nullable = false, name = "ID")
-=======
     @Id @Column(nullable = false, name = "ID")
->>>>>>> b442106143f961ee0da33bc742336fbfd5ac2960
     private String mId;
 
     @Column(nullable = false, name = "NAME")
@@ -47,14 +43,8 @@ public class Club {
     //data get & set ways
 
 
-<<<<<<< HEAD
-    public Club() {
-    }
-=======
+
     public Club(){}
-
-
->>>>>>> b442106143f961ee0da33bc742336fbfd5ac2960
 
     public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
         this.mName = mName;

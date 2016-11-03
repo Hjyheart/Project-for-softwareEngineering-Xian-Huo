@@ -42,9 +42,6 @@ public class ClubService {
         return clubRepository.findByMId(id);
     }
 
-<<<<<<< HEAD
-
-=======
     @Transactional
     public boolean studentQuitClub(String clubid,String stuid) throws Exception{  //AoQ申请true或者退出false
 
@@ -98,5 +95,4 @@ public class ClubService {
 
     }
 
->>>>>>> b442106143f961ee0da33bc742336fbfd5ac2960
 }

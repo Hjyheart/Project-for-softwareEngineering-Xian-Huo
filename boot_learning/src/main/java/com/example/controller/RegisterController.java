@@ -2,11 +2,7 @@ package com.example.controller;
 
 import com.example.entity.Student;
 import com.example.service.StudentService;
-<<<<<<< HEAD
-
-=======
 import com.example.service.TeacherService;
->>>>>>> b442106143f961ee0da33bc742336fbfd5ac2960
 import net.sf.json.JSONObject;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.hibernate.mapping.List;
@@ -41,12 +37,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     // 处理注册
-<<<<<<< HEAD
-    public @ResponseBody String dealRegister( HttpServletRequest request){
-
-=======
     public @ResponseBody String dealRegister(@RequestParam String value, HttpServletRequest request){
->>>>>>> b442106143f961ee0da33bc742336fbfd5ac2960
 
 /*
         String mId = request.getParameter("id").trim();
@@ -54,7 +45,6 @@ public class RegisterController {
         String name = request.getParameter("name").trim();
         String grade = request.getParameter("grade").trim();
         String major = request.getParameter("major").trim();
-<<<<<<< HEAD
         String contact = request.getParameter("contact").trim();
         String type = request.getParameter("select").trim();
 
@@ -65,7 +55,6 @@ public class RegisterController {
 
 
        //studentService.setPersonalInfo(mId,name,grade,major,contact,password);
-=======
         String contact = request.getParameter("contact").trim();*/
 
 
@@ -77,9 +66,6 @@ public class RegisterController {
         }else if(id.equals("teacher")){
         }*/
 
-
-
->>>>>>> b442106143f961ee0da33bc742336fbfd5ac2960
 
         return "redirect:/home";
     }
