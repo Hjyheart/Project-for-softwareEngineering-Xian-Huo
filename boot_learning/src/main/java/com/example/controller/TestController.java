@@ -2,8 +2,14 @@ package com.example.controller;
 
 import com.example.entity.Comment;
 import com.example.service.ActivityService;
+import com.example.service.StorageService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -11,12 +17,14 @@ import java.util.Date;
 /**
  * Created by deado on 2016/10/23.
  */
-@RestController
+@Controller
 @RequestMapping("/Test")
 public class TestController {
 
     @Autowired
-    ActivityService activityService;
+    private ActivityService activityService;
+    @Autowired
+    private StorageService storageService;
 
     @RequestMapping("/nameapply")
     public String nameApply(){
@@ -66,4 +74,22 @@ public class TestController {
             return "Fail";
         }
     }
+
+    @RequestMapping(value="/upload", method = RequestMethod.POST)
+    public String upload(HttpServletRequest request){
+       try{
+            String fileUrl = "E:/Javaspace/XianHuoSpace/README.md";
+            this.storageService.uploadWithBreak(fileUrl, "test.md");
+            return "UploadFile";
+        }catch(Exception e){
+           return "UploadFile";
+        }
+    }
+
+    @RequestMapping(value="")
+    public String upPage(ModelMap map){
+        map.addAttribute("name", "UploadView");
+        return "UploadFile";
+    }
+
 }

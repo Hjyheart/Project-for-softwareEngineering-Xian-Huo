@@ -30,7 +30,5 @@ public class ClubService {
         return clubRepository.findByMId(id);
     }
 
-    public void setPersonalInfo(String mId, String mName, String mContact){
 
-    }
 }

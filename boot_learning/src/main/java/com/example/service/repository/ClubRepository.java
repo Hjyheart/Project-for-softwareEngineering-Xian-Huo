@@ -33,7 +33,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     int setClubChairman(String NewChaiman ,String Id);
 
     @Modifying
-    @Query("update Club c set c.mMemberNumber=c.mMemberNumber+1 where c.mId=?2")
+    @Query("update Club c set c.mMemberNumber=c.mMemberNumber+1 where c.mId=?1")
     int setClubMemberNumberById(String Id);
 
     @Modifying

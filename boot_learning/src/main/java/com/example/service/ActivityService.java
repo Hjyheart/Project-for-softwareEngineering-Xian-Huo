@@ -54,7 +54,7 @@ public class ActivityService {
             Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
             Student  student = this.studentRepository.findByMId(studentId).iterator().next();
             //delete student from activity
-            Iterator<Student> actItr = activity.getStudents().iterator();
+            Iterator<Student> actItr = activity.getStudents() .iterator();
 
             while(actItr.hasNext()){
                 if(0 == actItr.next().getmId().compareTo(studentId)){
@@ -75,10 +75,6 @@ public class ActivityService {
         }catch(Exception ex){
             throw ex;
         }
-
-
-
-
     }
 
     @Transactional
@@ -95,8 +91,6 @@ public class ActivityService {
         }catch(Exception ex){
             throw ex;
         }
-
-
 
     }
 

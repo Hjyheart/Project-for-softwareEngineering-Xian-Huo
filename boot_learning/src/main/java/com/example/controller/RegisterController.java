@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.entity.Student;
 import com.example.service.StudentService;
 
+import net.sf.json.JSONObject;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class RegisterController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     // 处理注册
-    public @ResponseBody String dealRegister(@RequestParam String id, HttpServletRequest request){
+    public @ResponseBody String dealRegister( HttpServletRequest request){
 
 
         String mId = request.getParameter("id").trim();
@@ -42,13 +43,15 @@ public class RegisterController {
         String grade = request.getParameter("grade").trim();
         String major = request.getParameter("major").trim();
         String contact = request.getParameter("contact").trim();
+        String type = request.getParameter("select").trim();
 
-        System.out.print(id);
+
+        System.out.print("aaa");
         //JSONObject jsonObject = JSONObject.fromObject(value);
        // System.out.print(jsonObject);
 
 
-       studentService.setPersonalInfo(mId,name,grade,major,contact,password);
+       //studentService.setPersonalInfo(mId,name,grade,major,contact,password);
 
         return "redirect:/home";
     }
