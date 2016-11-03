@@ -30,6 +30,8 @@ public class Comment {
     @ManyToOne
     private Club club;
 
+    public Comment(){}
+
 
     public Comment() {
     }

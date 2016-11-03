@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/24.
@@ -18,5 +19,9 @@ public class CommentService {
     @Transactional
     public void save(Comment comment){
         commentRepository.save(comment);
+    }
+
+    public Set<Comment> findAllComment(String student_id){
+        return commentRepository.findByMStudentId(student_id);
     }
 }

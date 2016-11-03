@@ -36,6 +36,8 @@ public class Activity {
     @OneToMany
     private Set<Comment> comments;
 
+    public Activity(){}
+
 
     public Activity() {
     }
