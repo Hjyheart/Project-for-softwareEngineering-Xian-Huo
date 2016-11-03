@@ -30,7 +30,7 @@
 
         <div class="content">
             <div align="center">
-                <img th:src="@{/D.jpg}" style="width: 90%; height: 40%"/>
+                <img th:src="@{/D.jpg}" style="width: 90%; height: 40%" class="pb-standalone-captions"/>
             </div>
 
             <div class="content-padded" align="center">
@@ -221,6 +221,29 @@
                 $.refreshScroller();
                 $.hidePreloader();
             }, 1000);
+        });
+
+        /*=== 有标题 ===*/
+        var myPhotoBrowserCaptions = $.photoBrowser({
+            photos : [
+                {
+                    url: '//127.0.0.1:8080/D.jpg',
+                    caption: 'Caption 1 Text'
+                },
+                {
+                    url: '//img.alicdn.com/tps/i1/TB1SKhUHVXXXXb7XXXX0HY8HXXX-1024-1024.jpeg',
+                    caption: 'Second Caption Text'
+                },
+                // 这个没有标题
+                {
+                    url: '//img.alicdn.com/tps/i4/TB1AdxNHVXXXXasXpXX0HY8HXXX-1024-1024.jpeg',
+                },
+            ],
+            theme: 'dark',
+            type: 'standalone'
+        });
+        $(document).on('click','.pb-standalone-captions',function () {
+            myPhotoBrowserCaptions.open();
         });
         /*]]>*/
     </script>
