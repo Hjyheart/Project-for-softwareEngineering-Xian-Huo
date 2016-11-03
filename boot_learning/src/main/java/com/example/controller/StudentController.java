@@ -18,6 +18,7 @@ public class StudentController {
     public String basic(ModelMap map, HttpServletRequest request){
         map.addAttribute("name", "stu basic");
 
+        request.getSession().setAttribute("name","fuck");
         return "home";
     }
 

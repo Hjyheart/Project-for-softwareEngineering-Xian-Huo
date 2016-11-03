@@ -13,23 +13,22 @@
         <input type="text" name="major"/>
         <input type="text" name="contact"/>
         <input type="submit" name="submit"/>
-    </form>
-
-    <select name="select" onchange="function show_sub(value) {
+        <select name="select" onchange="function show_sub(value) {
             $.ajax(
                     {
                     type:'POST',
                     url : '/register/submit',
-                    data: 'value'+value,
+                    data: 'value='+value,
                     success:alert(value)
                     }
             );
         }
         show_sub(this.options[this.options.selectedIndex].value)">
-        <option selected="selected" value="teacher">teacher</option>
-        <option value="student">student</option>
-        <option value="club">club</option>
-    </select>
+            <option selected="selected" value="teacher">teacher</option>
+            <option value="student">student</option>
+            <option value="club">club</option>
+        </select>
+    </form>
 </body>
 <script th:src="@{/jsPackage/jquery-3.1.1.min.js}"></script>
 </html>

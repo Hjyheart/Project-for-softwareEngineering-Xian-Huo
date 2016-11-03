@@ -9,8 +9,8 @@ import java.util.Set;
 
 @Entity @Table(name = "CLUB")
 public class Club {
-    @Id @GeneratedValue @Column(nullable = false, name = "ID")
-    private long mId;
+    @Id @Column(nullable = false, name = "ID")
+    private String mId;
 
     @Column(nullable = false, name = "NAME")
     private String mName;
@@ -43,6 +43,9 @@ public class Club {
     //data get & set ways
 
 
+    public Club(){}
+
+
 
     public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
         this.mName = mName;
@@ -51,11 +54,11 @@ public class Club {
         this.mMemberNumber = mMemberNumber;
     }
 
-    public long getmId() {
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 
