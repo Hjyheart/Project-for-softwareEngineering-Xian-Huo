@@ -1,14 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>register</title>
 </head>
 <body>
-
+<form method="post" action="/register/submit">
+    <input type="text" name="id"/>
+    <input type="password" name="password"/>
+    <input type="text" name="name" />
+    <input type="text" name = "grade" />
+    <input type="text" name="major"/>
+    <input type="text" name="contact"/>
+    <select name="select" onchange="function show_sub(value) {
+            $.ajax(
+                    {
+                    type:'POST',
+                    contentType : 'application/json',
+                    url : '/message/test',
+                    cache : false,
+                    processData : false,
+                    dataType:'json',
+                    data:JSON.stringify([{'value':value}]),
+                    success:alert(value)
+                    }
+            );
+        }
+        show_sub(this.options[this.options.selectedIndex].value)">
+        <option selected="selected" value="teacher">teacher</option>
+        <option value="student">student</option>
+        <option value="club">club</option>
+        <select>
+            <input type="submit" name="submit"/>
+        </select>
+    </select>
+</form>
 <script>
-    alert("hehe");
-</script>
+    /* $(document).ready(function show_sub(value){
 
+     alert(value);
+
+
+     $.ajax({
+     type : "POST",
+     contentType : "application/json",
+     url : "/register/submit",
+     cache : false,
+     processData : false,
+     data:JSON.stringify()
+
+     })
+
+     });*/
+
+</script>
 </body>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
 </html>

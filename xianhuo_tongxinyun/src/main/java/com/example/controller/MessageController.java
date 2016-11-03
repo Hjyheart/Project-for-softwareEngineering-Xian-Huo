@@ -3,7 +3,10 @@ package com.example.controller;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 
@@ -52,6 +55,21 @@ public class MessageController {
         map.addAttribute("messages", organizesList);
 
         return "messages :: messageList";
+    }
+
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public @ResponseBody String jsonTest(@RequestBody String test){
+//        for (String str:test){
+//            System.out.println(str);
+//        }
+        System.out.println(test);
+        return "true";
+    }
+
+    @RequestMapping("/bug")
+    public String bug(){
+        return "test";
     }
 
 
