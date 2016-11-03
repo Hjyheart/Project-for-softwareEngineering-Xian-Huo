@@ -9,7 +9,7 @@ import java.util.Set;
  */
 @Entity @Table(name = "ACTIVITY")
 public class Activity {
-    @Id @Column(nullable = false, name = "ID")
+    @Id @GeneratedValue @Column(nullable = false, name = "ID")
     private String mId;
 
     @Column(nullable = false, name = "NAME")

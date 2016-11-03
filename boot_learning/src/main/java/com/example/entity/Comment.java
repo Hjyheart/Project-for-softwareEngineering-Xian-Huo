@@ -10,9 +10,8 @@ import java.util.Date;
 @Table(name = "COMMENT")
 public class Comment {
     @Id
-    @GeneratedValue
     @Column(nullable = false, name = "ID")
-    private long mId;
+    private String mId;
     @Column(nullable = false, name = "STUDENTID")
     private String mStudentId;
     @Column(nullable = false, name = "TARGETID")
@@ -44,11 +43,11 @@ public class Comment {
         this.mDate = mDate;
     }
 
-    public long getmId() {
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 
