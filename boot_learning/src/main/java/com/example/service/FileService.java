@@ -1,7 +1,8 @@
 package com.example.service;
 
-import com.example.entity.File;
+import com.example.entity.ClubFile;
 import com.example.service.repository.FileRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,9 @@ public class FileService {
     @Resource
     private FileRepository fileRepository;
     @Transactional
-    public void save(File file){
+    public void save(ClubFile file){
         fileRepository.save(file);
     }
+
+
 }

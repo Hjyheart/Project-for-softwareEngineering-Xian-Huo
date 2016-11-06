@@ -8,14 +8,17 @@ import com.example.service.ClubService;
 import com.example.service.CommentService;
 import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Date;
 
 /**
@@ -29,6 +32,7 @@ public class TestController {
     private ActivityService activityService;
     @Autowired
     private StorageService storageService;
+
 
     @RequestMapping("/nameapply")
     public String nameApply(){
@@ -104,14 +108,14 @@ public class TestController {
         }
     }
 
-    @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public String upload(HttpServletRequest request){
+    @RequestMapping(value="/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
+    public String upload(@RequestParam(value = "fileinput")MultipartFile mulFile, HttpServletRequest request){
        try{
-            String fileUrl = "E:/Javaspace/XianHuoSpace/README.md";
-            this.storageService.uploadWithBreak(fileUrl, "test.md");
-            return "UploadFile";
+           this.storageService.storeFile(mulFile, "TestClub");
+           return "redirect:/Test";
         }catch(Exception e){
-           return "UploadFile";
+           e.printStackTrace();
+           return "redirect:/Test";
         }
     }
 

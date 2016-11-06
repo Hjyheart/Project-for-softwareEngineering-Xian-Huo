@@ -5,8 +5,8 @@ import javax.persistence.*;
 /**
  * Created by deado on 2016/10/22.
  */
-@Entity @Table(name = "FILE")
-public class File {
+@Entity @Table(name = "CLUBFILE")
+public class ClubFile {
     @Id @Column(nullable = false, name = "ID")
     private String mId;//??
     @Column(nullable = false, name = "NAME")
@@ -21,10 +21,11 @@ public class File {
     private Club club;
 
 
-    public File() {
+
+    public ClubFile() {
     }
 
-    public File(String mId, String mName, String mUrl, String mClub) {
+    public ClubFile(String mId, String mName, String mUrl, String mClub) {
         this.mId = mId;
         this.mName = mName;
         this.mUrl = mUrl;
@@ -70,4 +71,6 @@ public class File {
     public void setClub(Club club) {
         this.club = club;
     }
+
+
 }
