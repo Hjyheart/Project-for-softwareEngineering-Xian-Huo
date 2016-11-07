@@ -1,6 +1,8 @@
 package com.example.service;
 
+import com.example.entity.Apply;
 import com.example.entity.Teacher;
+import com.example.service.repository.ApplyRepository;
 import com.example.service.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,13 @@ import java.util.Set;
 
 @Service
 public class TeacherService {
-    @Autowired
+
     @Resource
     private TeacherRepository teacherRepository;
+
+    @Resource
+    private ApplyRepository applyRepository;
+
 
     @Transactional
     public void save(Teacher teacher){
@@ -33,4 +39,15 @@ public class TeacherService {
         Teacher teacher = new Teacher(mId, mName, mContact);
         teacherRepository.save(teacher);
     }
+
+    @Transactional
+    public Set<Apply> getAllApplies(String teacherId) throws Exception{
+        try{
+            Teacher teacher = this.teacherRepository.findByMId(teacherId).iterator().next();
+            return teacher.getApplies();
+        }catch(Exception e){
+            throw e;
+        }
+    }
+
 }
