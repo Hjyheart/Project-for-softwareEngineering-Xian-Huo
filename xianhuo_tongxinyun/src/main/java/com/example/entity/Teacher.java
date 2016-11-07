@@ -1,7 +1,7 @@
 package com.example.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,46 +9,47 @@ import javax.persistence.Table;
  * Created by deado on 2016/10/22.
  */
 
-@Entity @Table(name = "TEACHER", schema = "test")
+@Entity @Table(name = "TEACHER")
 public class Teacher {
 
     @Id @Column(nullable = false, name = "ID")
-    private String ID;
+    private String mId;
     @Column(nullable = false, name = "NAME")
-    private String NAME;
+    private String mName;
     @Column( name = "CONTACT")
-    private String CONTACT;
+    private String mContact;
 
-    public Teacher(String ID, String NAME, String CONTACT) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.CONTACT = CONTACT;
+    public Teacher() {
     }
 
-    // data get & set ways
+    public Teacher(String mId, String mName, String mContact) {
 
-
-    public String getID() {
-        return ID;
+        this.mId = mId;
+        this.mName = mName;
+        this.mContact = mContact;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public String getmId() {
+        return mId;
     }
 
-    public String getNAME() {
-        return NAME;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public String getmName() {
+        return mName;
     }
 
-    public String getCONTACT() {
-        return CONTACT;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public void setCONTACT(String CONTACT) {
-        this.CONTACT = CONTACT;
+    public String getmContact() {
+        return mContact;
+    }
+
+    public void setmContact(String mContact) {
+        this.mContact = mContact;
     }
 }

@@ -1,91 +1,122 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/22.
  */
-@Entity @Table(name = "ACTIVITY", schema = "test")
+@Entity @Table(name = "ACTIVITY")
 public class Activity {
-    @Id @Column(nullable = false, name = "ID")
-    private String ID;
+    @Id  @Column(nullable = false, name = "ID")
+    private String mId;
 
     @Column(nullable = false, name = "NAME")
-    private String NAME;
+    private String mName;
 
     @Column(nullable = false, name = "LOCATION")
-    private String LOCATION;
+    private String mLocation;
 
     @Column(nullable = false, name = "TIME")
-    private Date   TIME;
+    private Date   mTime;
 
     @Column(nullable = false, name = "CONTACT")
-    private String CONTACT;
+    private String mContact;
 
     @Column(nullable = false, name = "PRAISE")
-    private Integer PRAISE;
+    private Integer mPraise;
 
-    public Activity(String ID, String NAME, String LOCATION, Date TIME, String CONTACT, Integer PRAISE) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.LOCATION = LOCATION;
-        this.TIME = TIME;
-        this.CONTACT = CONTACT;
-        this.PRAISE = PRAISE;
+    @ManyToMany
+    private Set<Student> students;
+
+    @ManyToMany
+    private Set<Club> clubs;
+
+    @OneToMany
+    private Set<Comment> comments;
+
+    public Activity(){}
+
+
+    public Activity(String mId, String mName, String mLocation, Date mTime, String mContact, Integer mPraise) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mLocation = mLocation;
+        this.mTime = mTime;
+        this.mContact = mContact;
+        this.mPraise = mPraise;
     }
 
-    //data get & set ways
-
-
-    public String getID() {
-        return ID;
+    public String getmId() {
+        return mId;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getmName() {
+        return mName;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public String getLOCATION() {
-        return LOCATION;
+    public String getmLocation() {
+        return mLocation;
     }
 
-    public void setLOCATION(String LOCATION) {
-        this.LOCATION = LOCATION;
+    public void setmLocation(String mLocation) {
+        this.mLocation = mLocation;
     }
 
-    public Date getTIME() {
-        return TIME;
+    public Date getmTime() {
+        return mTime;
     }
 
-    public void setTIME(Date TIME) {
-        this.TIME = TIME;
+    public void setmTime(Date mTime) {
+        this.mTime = mTime;
     }
 
-    public String getCONTACT() {
-        return CONTACT;
+    public String getmContact() {
+        return mContact;
     }
 
-    public void setCONTACT(String CONTACT) {
-        this.CONTACT = CONTACT;
+    public void setmContact(String mContact) {
+        this.mContact = mContact;
     }
 
-    public Integer getPRAISE() {
-        return PRAISE;
+    public Integer getmPraise() {
+        return mPraise;
     }
 
-    public void setPRAISE(Integer PRAISE) {
-        this.PRAISE = PRAISE;
+    public void setmPraise(Integer mPraise) {
+        this.mPraise = mPraise;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public Set<Club> getClubs() {
+        return clubs;
+    }
+
+    public void setClubs(Set<Club> clubs) {
+        this.clubs = clubs;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }

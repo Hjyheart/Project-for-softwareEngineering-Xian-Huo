@@ -1,72 +1,109 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by hongjiayong on 2016/10/17.
  */
-@Entity @Table(name = "STUDENT", schema = "test")
+@Entity @Table(name = "STUDENT")
 public class Student{
 
     @Id @Column(nullable = false, name = "ID")
-    private String ID;
+    private String mId;
+    @Column(nullable = false,name = "PASSWORD")
+    private String password;
     @Column(nullable = false, name = "NAME")
-    private String NAME;
+    private String mName;
     @Column(nullable = true, name = "GRADE")
-    private String GRADE;
+    private String mGrade;
     @Column(nullable = true, name = "MAJOR")
-    private String MAJOR;
+    private String mMajor;
     @Column(nullable = true, name = "CONTACT")
-    private String CONTACT;
+    private String mContact;
 
-    public Student(String ID, String NAME, String GRADE, String MAJOR, String CONTACT) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.GRADE = GRADE;
-        this.MAJOR = MAJOR;
-        this.CONTACT = CONTACT;
+
+    @ManyToMany
+    private Set<Club> clubs;
+
+    @ManyToMany
+    private Set<Activity> activities;
+
+    public Student(){
+        this.password = "123456";
     }
 
-    public String getGRADE() {
-        return GRADE;
+    public Student(String mId, String mName, String mGrade, String mMajor, String mContact,String password) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mGrade = mGrade;
+        this.mMajor = mMajor;
+        this.mContact = mContact;
+        this.password = password;
     }
 
-    public void setGRADE(String GRADE) {
-        this.GRADE = GRADE;
+
+    public String getmId() {
+        return mId;
     }
 
-    public String getMAJOR() {
-        return MAJOR;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public void setMAJOR(String MAJOR) {
-        this.MAJOR = MAJOR;
+    public String getmName() {
+        return mName;
     }
 
-    public String getCONTACT() {
-        return CONTACT;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public void setCONTACT(String CONTACT) {
-        this.CONTACT = CONTACT;
+    public String getmGrade() {
+        return mGrade;
     }
 
-    public String getNAME() {
-        return NAME;
+    public void setmGrade(String mGrade) {
+        this.mGrade = mGrade;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public String getmMajor() {
+        return mMajor;
     }
 
-    public String getID() {
-        return ID;
+    public void setmMajor(String mMajor) {
+        this.mMajor = mMajor;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public String getmContact() {
+        return mContact;
+    }
+
+    public void setmContact(String mContact) {
+        this.mContact = mContact;
+    }
+
+    public Set<Club> getClubs() {
+        return clubs;
+    }
+
+    public void setClubs(Set<Club> clubs) {
+        this.clubs = clubs;
+    }
+
+    public Set<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
