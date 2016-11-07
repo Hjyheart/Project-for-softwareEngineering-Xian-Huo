@@ -42,16 +42,14 @@ public class StorageService {
     private String ACCESSKEY = "humAJtiHyVdoHfrjczH4lpOGKKDfbLdQ7vPIGT7z";
     private String SECRETKEY = "wvYG7d2LKYjPdtdMPtrrBZgGQIjhXNiEEK9olDGq";
     private String BUCKETNAME = "spring";
-    private String LOCALFILEREPO = "FileRepo/";
+    private String LOCALFILEREPO = "filerepo/";
     private Auth   AUTH      = Auth.create(ACCESSKEY, SECRETKEY);
 
 
-
+    //private method
     private String getUpToken(){
         return AUTH.uploadToken(BUCKETNAME);
     }
-
-
 
     private void uploadWithBreak(String fileUrl, String targetFileName) throws IOException{
 
@@ -77,7 +75,6 @@ public class StorageService {
         }
     }
 
-
     private void getFileFromClient(MultipartFile mulFile, String fileName) throws Exception{
         try{
             //define local file iostream
@@ -94,6 +91,7 @@ public class StorageService {
     }
 
 
+    //public
     //encapsulate the all processes and make a sample method for foreign invoke
     public void storeFile(MultipartFile mulFile, String ClubId) throws Exception{
         try{
