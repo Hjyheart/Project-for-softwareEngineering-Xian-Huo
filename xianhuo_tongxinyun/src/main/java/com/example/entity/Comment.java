@@ -7,79 +7,103 @@ import java.util.Date;
  * Created by deado on 2016/10/24.
  */
 @Entity
-@Table(name = "COMMENT", schema = "test")
+@Table(name = "COMMENT")
 public class Comment {
     @Id
-    @GeneratedValue
     @Column(nullable = false, name = "ID")
-    private long ID;
+    private String mId;
     @Column(nullable = false, name = "STUDENTID")
-    private String STUDENTID;
+    private String mStudentId;
     @Column(nullable = false, name = "TARGETID")
-    private String TARGETID;
+    private String mTargetId;
     @Column(nullable = false, name = "TARGETTYPE")
-    private Integer TARGETTYPE; // 0 -- club, 1 -- activity
+    private Integer mTargetType; // 0 -- club, 1 -- activity
     @Column(nullable = false, name = "CONTENT")
-    private String  CONTENT;
+    private String  mContent;
     @Column(nullable = false, name = "DATE")
-    private Date   DATE;
+    private Date   mDate;
 
-    public Comment(String STUDENTID, String TARGETID, Integer TARGETTYPE, String CONTENT, Date DATE) {
-        this.STUDENTID = STUDENTID;
-        this.TARGETID = TARGETID;
-        this.TARGETTYPE = TARGETTYPE;
-        this.CONTENT = CONTENT;
-        this.DATE = DATE;
+
+    @ManyToOne
+    private Activity activity;
+
+    @ManyToOne
+    private Club club;
+
+    public Comment(){}
+
+
+
+    public Comment(String mStudentId, String mTargetId, Integer mTargetType, String mContent, Date mDate) {
+
+        this.mStudentId = mStudentId;
+        this.mTargetId = mTargetId;
+        this.mTargetType = mTargetType;
+        this.mContent = mContent;
+        this.mDate = mDate;
     }
 
-    // data get & set ways
-
-
-    public long getID() {
-        return ID;
+    public String getmId() {
+        return mId;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public String getSTUDENTID() {
-        return STUDENTID;
+    public String getmStudentId() {
+        return mStudentId;
     }
 
-    public void setSTUDENTID(String STUDENTID) {
-        this.STUDENTID = STUDENTID;
+    public void setmStudentId(String mStudentId) {
+        this.mStudentId = mStudentId;
     }
 
-    public String getTARGETID() {
-        return TARGETID;
+    public String getmTargetId() {
+        return mTargetId;
     }
 
-    public void setTARGETID(String TARGETID) {
-        this.TARGETID = TARGETID;
+    public void setmTargetId(String mTargetId) {
+        this.mTargetId = mTargetId;
     }
 
-    public Integer getTARGETTYPE() {
-        return TARGETTYPE;
+    public Integer getmTargetType() {
+        return mTargetType;
     }
 
-    public void setTARGETTYPE(Integer TARGETTYPE) {
-        this.TARGETTYPE = TARGETTYPE;
+    public void setmTargetType(Integer mTargetType) {
+        this.mTargetType = mTargetType;
     }
 
-    public String getCONTENT() {
-        return CONTENT;
+    public String getmContent() {
+        return mContent;
     }
 
-    public void setCONTENT(String CONTENT) {
-        this.CONTENT = CONTENT;
+    public void setmContent(String mContent) {
+        this.mContent = mContent;
     }
 
-    public Date getDATE() {
-        return DATE;
+    public Date getmDate() {
+        return mDate;
     }
 
-    public void setDATE(Date DATE) {
-        this.DATE = DATE;
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 }

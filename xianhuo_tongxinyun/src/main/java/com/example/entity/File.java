@@ -1,62 +1,73 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by deado on 2016/10/22.
  */
-@Entity @Table(name = "FILE", schema = "test")
+@Entity @Table(name = "FILE")
 public class File {
     @Id @Column(nullable = false, name = "ID")
-    private String ID;//??
+    private String mId;//??
     @Column(nullable = false, name = "NAME")
-    private String NAME;
+    private String mName;
     @Column(nullable = false, name = "URL")
-    private String URL;
+    private String mUrl;
     @Column(nullable = false, name = "CLUB")
-    private String CLUB;
+    private String mClub;
 
-    public File(String ID, String NAME, String URL, String CLUB) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.URL = URL;
-        this.CLUB = CLUB;
+
+    @ManyToOne
+    private Club club;
+
+
+    public File() {
     }
 
-    // data get & set way
-
-    public String getID() {
-        return ID;
+    public File(String mId, String mName, String mUrl, String mClub) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mUrl = mUrl;
+        this.mClub = mClub;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public String getmId() {
+        return mId;
     }
 
-    public String getNAME() {
-        return NAME;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public String getmName() {
+        return mName;
     }
 
-    public String getURL() {
-        return URL;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public String getmUrl() {
+        return mUrl;
     }
 
-    public String getCLUB() {
-        return CLUB;
+    public void setmUrl(String mUrl) {
+        this.mUrl = mUrl;
     }
 
-    public void setCLUB(String CLUB) {
-        this.CLUB = CLUB;
+    public String getmClub() {
+        return mClub;
+    }
+
+    public void setmClub(String mClub) {
+        this.mClub = mClub;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 }
