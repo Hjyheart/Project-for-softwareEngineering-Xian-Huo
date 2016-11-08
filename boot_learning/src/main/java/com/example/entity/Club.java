@@ -35,7 +35,7 @@ public class Club {
     private Set<Activity> activities;
 
     @OneToMany
-    private Set<File> files;
+    private Set<ClubFile> clubfiles;
 
     @OneToMany
     private Set<Comment> comments;
@@ -109,10 +109,12 @@ public class Club {
         this.activities = activities;
     }
 
+    public Set<ClubFile> getClubfiles() {
+        return clubfiles;
+    }
 
-
-    public void setFiles(Set<File> files) {
-        this.files = files;
+    public void setClubfiles(Set<ClubFile> clubfiles) {
+        this.clubfiles = clubfiles;
     }
 
     public Set<Comment> getComments() {

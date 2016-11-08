@@ -29,6 +29,17 @@ public class Student{
     @ManyToMany
     private Set<Activity> activities;
 
+    @ManyToMany
+    private Set<Activity> favouriteactivities;
+
+    @OneToMany
+    private Set<Apply> sendApplies;
+
+    @OneToMany
+    private Set<Apply> receiveApplies;
+
+
+
     public Student(){
         this.password = "123456";
     }
@@ -105,5 +116,29 @@ public class Student{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Apply> getSendApplies() {
+        return sendApplies;
+    }
+
+    public void setSendApplies(Set<Apply> sendApplies) {
+        this.sendApplies = sendApplies;
+    }
+
+    public Set<Apply> getReceiveApplies() {
+        return receiveApplies;
+    }
+
+    public void setReceiveApplies(Set<Apply> receiveApplies) {
+        this.receiveApplies = receiveApplies;
+    }
+
+    public Set<Activity> getFavouriteactivities() {
+        return favouriteactivities;
+    }
+
+    public void setFavouriteactivities(Set<Activity> favouriteactivities) {
+        this.favouriteactivities = favouriteactivities;
     }
 }

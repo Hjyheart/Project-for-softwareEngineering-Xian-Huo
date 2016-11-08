@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/23.
@@ -106,6 +107,27 @@ public class ActivityService {
         }
 
 
+<<<<<<< HEAD
+=======
     }
+
+
+    @Transactional
+    public Set<Activity> findActivityById(String activityId) throws Exception {
+        try{
+            return this.activityRepository.findByMId(activityId);
+        }catch(Exception e){
+            throw e;
+        }
+>>>>>>> Hjyheart
+    }
+
+
+    //temple
+    @Transactional
+    public Set<Activity> findByName(String name){ return this.activityRepository.findByMName(name);}
+
+
+
 
 }
