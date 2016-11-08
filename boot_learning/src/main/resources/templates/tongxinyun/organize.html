@@ -12,8 +12,8 @@
     <link rel="stylesheet" th:href="@{/tongxinyun/css/sm-extend.min.css}"/>
 
     <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-    <script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
-    <script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/tongxinyun/js/sm.js}' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/tongxinyun/js/sm-extend.js}' charset='utf-8'></script>
 
 </head>
 <body>
@@ -25,7 +25,7 @@
                 <span class="icon icon-left"></span>
                 返回
             </a>
-            <h1 class="title" th:text="${name}">社团详情</h1>
+            <h1 class="title" th:text="${organize.mName}">社团详情</h1>
         </header>
 
         <div class="content">
@@ -34,10 +34,11 @@
             </div>
 
             <div class="content-padded" align="center">
-                <h1>标题</h1>
+                <h1 th:text="${organize.mName}">标题</h1>
+                <h3 th:text="'指导老师:' + ${organize.mTeacher}"></h3>
             </div>
             <div class="content-padded">
-                <p>社团详情</p>
+                <p th:text="${organize.mDescription}">社团详情</p>
             </div>
 
             <div class="content-block">
@@ -82,6 +83,13 @@
             <div class="infinite-scroll infinite-scroll-bottom" data-distance="100">
                 <div class="list-block">
                     <ul class="list-container">
+                        <div class="card" th:each="comment:${comments}">
+                            <div class="card-header" th:text="${comment.mStudentId}"></div>
+                            <div class="card-content">
+                                <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                            </div>
+                            <div class="card-footer" th:text="${comment.mDate}"></div>
+                        </div>
                     </ul>
                 </div>
                 <div class="content-block">
@@ -173,12 +181,10 @@
         // 每次加载添加多少条目
         var itemsPerLoad = 20;
 
-        function addItems(number, lastIndex, obj) {
+        function addItems(obj) {
             // 生成新条目的HTML
             var html = '';
-            for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
-                html += '<div class="card"><div class="card-header">' + obj.name +'</div><div class="card-content"><div class="card-content-inner">' + obj.desc +'</div> </div> <div class="card-footer">' + obj.data + '</div> </div>';
-            }
+            html += '<div class="card"><div class="card-header">' + obj.mStudentId +'</div><div class="card-content"><div class="card-content-inner">' + obj.mContent +'</div> </div> <div class="card-footer">' + obj.mDate + '</div> </div>';
             // 添加新条目
             $('.infinite-scroll-bottom .list-container').append(html);
 
@@ -207,14 +213,16 @@
                     return;
                 }
 
-                $.get('/t_organize/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=2', {Action: 'get', Name: 'refreshComment'}, function(data){
+                $.get('/t_organize/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=1', {Action: 'get', Name: 'refreshComment'}, function(data){
                     // 添加新条目
-                    for (var i = 0; i < data.length; i++) {
-                        addItems(2, lastIndex, data[i]);
-                    }
+//                    for (var i = 0; i < data.length; i++) {
+//                        lastIndex = lastIndex + 1;
+//                        addItems(data);
+//                    }
+                    alert(data);
                 });
 
-                lastIndex += 2;
+                lastIndex += 10;
                 // 更新最后加载的序号
                 lastIndex = $('.list-container li').length;
                 //容器发生改变,如果是js滚动，需要刷新滚动

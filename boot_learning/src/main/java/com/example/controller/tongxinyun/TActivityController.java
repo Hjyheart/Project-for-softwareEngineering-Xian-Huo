@@ -107,9 +107,9 @@ public class TActivityController {
         List<Comment> commentList = commentService.findAllComment("1452822");
 
         if (start + number <= commentList.size()){
-            return commentList.subList(start, number + start);
+            return commentList.subList(start - 1, number + start);
         }else{
-            return commentList.subList(start, commentList.size() - 1);
+            return commentList.subList(start - 1, commentList.size() - 1);
         }
     }
 

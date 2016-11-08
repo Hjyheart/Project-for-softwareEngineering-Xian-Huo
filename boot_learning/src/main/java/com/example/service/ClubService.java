@@ -1,22 +1,16 @@
 package com.example.service;
 
-import com.example.entity.Activity;
 import com.example.entity.Club;
 import com.example.entity.Comment;
 import com.example.entity.Student;
 import com.example.service.repository.ClubRepository;
 import com.example.service.repository.StudentRepository;
-import org.hibernate.boot.spi.InFlightMetadataCollector;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
-import java.util.List;
 import java.util.List;
 
 /**
@@ -42,6 +36,8 @@ public class ClubService {
     public List<Club> findByMId(String id){
         return clubRepository.findByMId(id);
     }
+
+    public List<Club> findByMName(String name){ return clubRepository.findByMName(name);}
 
     @Transactional
     public boolean studentQuitClub(String clubid,String stuid) throws Exception{  //AoQ申请true或者退出false
