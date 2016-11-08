@@ -5,15 +5,23 @@ import com.example.entity.Comment;
 import com.example.service.ActivityService;
 import com.example.service.StorageService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -122,7 +130,7 @@ public class TestController {
 
     @RequestMapping(value="/FindByNameTest")
     public String byNameTest(){
-        Set<Activity> res = this.activityService.findByName("谷歌编程一小时");
+        List<Activity> res = this.activityService.findByName("谷歌编程一小时");
         return "fuck";
     }
 

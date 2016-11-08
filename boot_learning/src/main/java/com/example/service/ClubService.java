@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
+import java.util.List;
 
 /**
  * Created by stanforxc on 2016/11/2.
@@ -38,7 +39,7 @@ public class ClubService {
         clubRepository.save(club);
     }
 
-    public Set<Club> findByMId(String id){
+    public List<Club> findByMId(String id){
         return clubRepository.findByMId(id);
     }
 
@@ -71,8 +72,8 @@ public class ClubService {
 
     @Transactional
     public boolean studentApplyClub(String clubid,String stuid){
-        Set<Club> clubs = clubRepository.findByMId(clubid);
-        Set<Student> students = studentRepository.findByMId(stuid);
+        List<Club> clubs = clubRepository.findByMId(clubid);
+        List<Student> students = studentRepository.findByMId(stuid);
         Iterator<Club> iterClub= clubs.iterator();
         Iterator<Student> iterStudent = students.iterator();
         if(!iterStudent.hasNext() && !iterClub.hasNext()){
@@ -89,10 +90,19 @@ public class ClubService {
     }
 
     @Transactional
-    public Set<Comment> getClubComment(String clubid){
+    public List<Comment> getClubComment(String clubid){
         Club club = clubRepository.findByMId(clubid).iterator().next();
-       return club.getComments();
+        return club.getComments();
 
+    }
+
+    @Transactional
+    public List<Club> findAll() throws Exception{
+        try{
+            return this.clubRepository.findAll();
+        }catch(Exception e){
+            throw e;
+        }
     }
 
 }

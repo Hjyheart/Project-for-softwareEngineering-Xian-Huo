@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -25,7 +26,7 @@ public class ChairmanService
     private StudentRepository studentRepository;
 
 
-    public Set<Club>  getAllClubsOfOneStudent(String studentId) throws Exception {
+    public List<Club> getAllClubsOfOneStudent(String studentId) throws Exception {
         Student student = this.studentRepository.findByMId(studentId).iterator().next();
 
         //not found

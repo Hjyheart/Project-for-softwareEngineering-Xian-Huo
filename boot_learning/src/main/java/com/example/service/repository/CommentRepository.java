@@ -7,18 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by deado on 2016/10/24.
  */
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface CommentRepository extends JpaRepository<Comment, String> {
 
     //find ways
-    Set<Comment>  findByMStudentId(String Id);
-    Set<Comment>  findByMTargetId(String Id);
-    Set<Comment>  findByMDate(Date date);
-    Set<Comment>  findByMId(String Id);
+    List<Comment> findByMStudentId(String Id);
+    List<Comment>  findByMTargetId(String Id);
+    List<Comment>  findByMDate(Date date);
+    List<Comment>  findByMId(String Id);
 
     //modifying
     @Modifying

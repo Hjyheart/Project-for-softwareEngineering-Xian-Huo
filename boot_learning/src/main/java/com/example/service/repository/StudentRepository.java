@@ -24,11 +24,11 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public interface StudentRepository extends JpaRepository<Student, String> {
     //query
-    Set<Student> findByMName(String name);
+    List<Student> findByMName(String name);
 
-    Set<Student> findByMId(String id);
+    List<Student> findByMId(String id);
 
-    Set<Student> findDistinctStudentByMMajor(String Major);
+    List<Student> findDistinctStudentByMMajor(String Major);
 
 
 

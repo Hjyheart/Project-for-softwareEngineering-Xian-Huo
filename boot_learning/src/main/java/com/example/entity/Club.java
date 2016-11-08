@@ -1,7 +1,7 @@
 package com.example.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by deado on 2016/10/22.
@@ -27,18 +27,21 @@ public class Club {
     @Column(nullable = true, name = "MEMBER_NUMBER")
     private Integer mMemberNumber;
 
+    @Column(nullable = true, name = "DESCRIPTION")
+    private String mDescription;
+
 
     @ManyToMany
-    private Set<Student> students;
+    private List<Student> students;
 
     @ManyToMany
-    private Set<Activity> activities;
+    private List<Activity> activities;
 
     @OneToMany
-    private Set<ClubFile> clubfiles;
+    private List<ClubFile> clubfiles;
 
     @OneToMany
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     //data get & set ways
 
@@ -46,11 +49,13 @@ public class Club {
 
     public Club(){}
 
-    public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
+    public Club(String mId ,String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription) {
+        this.mId = mId;
         this.mName = mName;
         this.mTeacher = mTeacher;
         this.mChairmanId = mChairmanId;
         this.mMemberNumber = mMemberNumber;
+        this.mDescription = mDescription;
     }
 
     public String getmId() {
@@ -93,35 +98,43 @@ public class Club {
         this.mMemberNumber = mMemberNumber;
     }
 
-    public Set<Student> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
-    public Set<Activity> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(Set<Activity> activities) {
+    public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
 
-    public Set<ClubFile> getClubfiles() {
+    public List<ClubFile> getClubfiles() {
         return clubfiles;
     }
 
-    public void setClubfiles(Set<ClubFile> clubfiles) {
+    public void setClubfiles(List<ClubFile> clubfiles) {
         this.clubfiles = clubfiles;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getmDescription() {
+        return mDescription;
+    }
+
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
     }
 }

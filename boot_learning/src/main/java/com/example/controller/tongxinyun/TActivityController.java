@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,8 +33,8 @@ public class TActivityController {
     @RequestMapping("")
     // 活动合集首页
     public String activities(ModelMap map){
-        Set<Club> clubSet = clubService.findByMId("1");
-        Set<Activity> activitySet = clubSet.iterator().next().getActivities();
+        List<Club> clubSet = clubService.findByMId("1");
+        List<Activity> activitySet = clubSet.iterator().next().getActivities();
 
         map.addAttribute("activities", activitySet);
 
@@ -58,7 +59,7 @@ public class TActivityController {
         System.out.println(name);
 //        Charset.forName("UTF-8").encode(name);
         try {
-            Set<Activity> activitySet = this.activityService.findByName(name);
+            List<Activity> activitySet = this.activityService.findByName(name);
             map.addAttribute("activity", activitySet.iterator().next());
 
             return "tongxinyun/activity";

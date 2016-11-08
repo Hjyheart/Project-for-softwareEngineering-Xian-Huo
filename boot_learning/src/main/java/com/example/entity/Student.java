@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,19 +25,19 @@ public class Student{
 
 
     @ManyToMany
-    private Set<Club> clubs;
+    private List<Club> clubs;
 
     @ManyToMany
-    private Set<Activity> activities;
+    private List<Activity> activities;
 
     @ManyToMany
-    private Set<Activity> favouriteactivities;
+    private List<Activity> favouriteactivities;
 
     @OneToMany
-    private Set<Apply> sendApplies;
+    private List<Apply> sendApplies;
 
     @OneToMany
-    private Set<Apply> receiveApplies;
+    private List<Apply> receiveApplies;
 
 
 
@@ -44,15 +45,14 @@ public class Student{
         this.password = "123456";
     }
 
-    public Student(String mId, String mName, String mGrade, String mMajor, String mContact,String password) {
+    public Student(String mId, String password, String mName, String mGrade, String mMajor, String mContact) {
         this.mId = mId;
+        this.password = password;
         this.mName = mName;
         this.mGrade = mGrade;
         this.mMajor = mMajor;
         this.mContact = mContact;
-        this.password = password;
     }
-
 
     public String getmId() {
         return mId;
@@ -60,6 +60,14 @@ public class Student{
 
     public void setmId(String mId) {
         this.mId = mId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getmName() {
@@ -94,51 +102,43 @@ public class Student{
         this.mContact = mContact;
     }
 
-    public Set<Club> getClubs() {
+    public List<Club> getClubs() {
         return clubs;
     }
 
-    public void setClubs(Set<Club> clubs) {
+    public void setClubs(List<Club> clubs) {
         this.clubs = clubs;
     }
 
-    public Set<Activity> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(Set<Activity> activities) {
+    public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Apply> getSendApplies() {
-        return sendApplies;
-    }
-
-    public void setSendApplies(Set<Apply> sendApplies) {
-        this.sendApplies = sendApplies;
-    }
-
-    public Set<Apply> getReceiveApplies() {
-        return receiveApplies;
-    }
-
-    public void setReceiveApplies(Set<Apply> receiveApplies) {
-        this.receiveApplies = receiveApplies;
-    }
-
-    public Set<Activity> getFavouriteactivities() {
+    public List<Activity> getFavouriteactivities() {
         return favouriteactivities;
     }
 
-    public void setFavouriteactivities(Set<Activity> favouriteactivities) {
+    public void setFavouriteactivities(List<Activity> favouriteactivities) {
         this.favouriteactivities = favouriteactivities;
+    }
+
+    public List<Apply> getSendApplies() {
+        return sendApplies;
+    }
+
+    public void setSendApplies(List<Apply> sendApplies) {
+        this.sendApplies = sendApplies;
+    }
+
+    public List<Apply> getReceiveApplies() {
+        return receiveApplies;
+    }
+
+    public void setReceiveApplies(List<Apply> receiveApplies) {
+        this.receiveApplies = receiveApplies;
     }
 }
