@@ -107,8 +107,6 @@ public class ActivityService {
         }
 
 
-<<<<<<< HEAD
-=======
     }
 
 
@@ -119,7 +117,6 @@ public class ActivityService {
         }catch(Exception e){
             throw e;
         }
->>>>>>> Hjyheart
     }
 
 

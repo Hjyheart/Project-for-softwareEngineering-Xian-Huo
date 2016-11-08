@@ -19,11 +19,7 @@ public class StudentController {
         map.addAttribute("name", "stu basic");
 
         request.getSession().setAttribute("name","fuck");
-<<<<<<< HEAD:boot_learning/src/main/java/com/example/controller/StudentController.java
-        return "home";
-=======
         return "web/home";
->>>>>>> Hjyheart:boot_learning/src/main/java/com/example/controller/web/StudentController.java
     }
 
     @RequestMapping("/mycomments")

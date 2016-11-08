@@ -5,12 +5,6 @@ package com.example.service;
  */
 
 
-<<<<<<< HEAD
-import java.io.IOException;
-
-import com.qiniu.common.QiniuException;
-import com.qiniu.http.Response;
-=======
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,23 +17,16 @@ import com.example.service.repository.FileRepository;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
->>>>>>> Hjyheart
 import com.qiniu.storage.Recorder;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.persistent.FileRecorder;
 import com.qiniu.util.Auth;
-<<<<<<< HEAD
-import com.qiniu.util.StringMap;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-=======
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
->>>>>>> Hjyheart
 
 
 @Service
@@ -47,26 +34,6 @@ import javax.annotation.Resource;
 public class StorageService {
 
 
-<<<<<<< HEAD
-    private String ACCESSKEY = "humAJtiHyVdoHfrjczH4lpOGKKDfbLdQ7vPIGT7z";
-    private String SECRETKEY = "wvYG7d2LKYjPdtdMPtrrBZgGQIjhXNiEEK9olDGq";
-    private String BUCKETNAME = "spring";
-    private Auth   AUTH      = Auth.create(ACCESSKEY, SECRETKEY);
-
-
-    public String getUpToken(){
-        return AUTH.uploadToken(BUCKETNAME);
-    }
-
-
-
-    public void uploadWithBreak(String fileUrl, String targetFileName) throws IOException{
-        //set recorder
-        Recorder fileRecorder = new FileRecorder(fileUrl);
-        UploadManager uploadManager = new UploadManager(fileRecorder);
-
-        try{
-=======
     @Resource
     private FileRepository fileRepository;
     @Resource
@@ -92,7 +59,6 @@ public class StorageService {
             Recorder fileRecorder = new FileRecorder("../../../../../../" + fileUrl);
             UploadManager uploadManager = new UploadManager(fileRecorder);
 
->>>>>>> Hjyheart
             //Response
             Response res = uploadManager.put(fileUrl, targetFileName, getUpToken());
             System.out.println(res.bodyString());
@@ -108,8 +74,6 @@ public class StorageService {
             }
         }
     }
-<<<<<<< HEAD
-=======
 
     private void getFileFromClient(MultipartFile mulFile, String fileName) throws Exception{
         try{
@@ -202,5 +166,4 @@ public class StorageService {
         }
 
     }
->>>>>>> Hjyheart
 }

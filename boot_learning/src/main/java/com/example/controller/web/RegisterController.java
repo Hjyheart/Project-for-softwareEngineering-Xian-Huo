@@ -1,28 +1,15 @@
 package com.example.controller.web;
 
-import com.example.entity.Student;
 import com.example.service.StudentService;
 import com.example.service.TeacherService;
-<<<<<<< HEAD:boot_learning/src/main/java/com/example/controller/RegisterController.java
-import net.sf.json.JSONObject;
-=======
->>>>>>> Hjyheart:boot_learning/src/main/java/com/example/controller/web/RegisterController.java
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-<<<<<<< HEAD:boot_learning/src/main/java/com/example/controller/RegisterController.java
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.socket.sockjs.transport.handler.JsonpPollingTransportHandler;
-
-import static org.springframework.data.repository.init.ResourceReader.Type.JSON;
-=======
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
->>>>>>> Hjyheart:boot_learning/src/main/java/com/example/controller/web/RegisterController.java
 
 /**
  * Created by hongjiayong on 2016/10/21.
