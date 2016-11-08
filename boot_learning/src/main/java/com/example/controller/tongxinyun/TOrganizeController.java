@@ -31,9 +31,9 @@ public class TOrganizeController {
 
     @RequestMapping("")
     // 返回社团合集
-    public String organize(ModelMap map, HttpServletRequest request){
+    public String organize(ModelMap map, HttpServletRequest request) throws Exception {
 
-        List<Club> clubSet = clubService.findByMId("1");
+        List<Club> clubSet = clubService.findAll();
 
         map.addAttribute("organizes", clubSet);
 

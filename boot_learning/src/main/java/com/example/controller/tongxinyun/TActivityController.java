@@ -1,9 +1,9 @@
 package com.example.controller.tongxinyun;
 
 import com.example.entity.Activity;
-import com.example.entity.Club;
+import com.example.entity.Comment;
 import com.example.service.ActivityService;
-import com.example.service.ClubService;
+import com.example.service.CommentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by hongjiayong on 2016/10/25.
@@ -28,25 +26,21 @@ public class TActivityController {
     private ActivityService activityService;
 
     @Autowired
-    private ClubService clubService;
+    private CommentService commentService;
 
     @RequestMapping("")
     // 活动合集首页
-    public String activities(ModelMap map){
-        List<Club> clubSet = clubService.findByMId("1");
-        List<Activity> activitySet = clubSet.iterator().next().getActivities();
+    public String activities(ModelMap map) throws Exception {
+        List<Activity> activityList = activityService.findAllActivities();
 
-        map.addAttribute("activities", activitySet);
+        map.addAttribute("activities", activityList);
 
         return "tongxinyun/activities";
     }
 
     @RequestMapping("/refresh")
-    public String refresh(ModelMap map){
-        ArrayList<activity> activityList = new ArrayList<>();
-
-        activityList.add(new activity("liyang", "wudi", "lala"));
-        activityList.add(new activity("liyang", "lala", "lala"));
+    public String refresh(ModelMap map) throws Exception {
+        List<Activity> activityList = activityService.findAllActivities();
 
         map.addAttribute("activities", activityList);
 
@@ -57,9 +51,16 @@ public class TActivityController {
     // 根据活动名称展现活动
     public String showActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
         System.out.println(name);
-//        Charset.forName("UTF-8").encode(name);
         try {
             List<Activity> activitySet = this.activityService.findByName(name);
+            List<Comment> commentList = commentService.findAllComment("1452822");
+
+            if (commentList.size() >= 10){
+                map.addAttribute("comments", commentList.subList(0, 9));
+            }else{
+                map.addAttribute("comments", commentList);
+            }
+
             map.addAttribute("activity", activitySet.iterator().next());
 
             return "tongxinyun/activity";
@@ -91,13 +92,6 @@ public class TActivityController {
 
     }
 
-    @RequestMapping(value = "/{name}/comments")
-    // 查看活动对应的评论
-    public String commentsForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " comments");
-
-        return "tongxinyun/home";
-    }
 
     @RequestMapping(value = "/{name}/comment", method = RequestMethod.GET)
     // 进行评论
@@ -109,13 +103,14 @@ public class TActivityController {
 
     @RequestMapping(value = "/{name}/comment/refresh", method = RequestMethod.GET)
     // 异步加载评论
-    public @ResponseBody ArrayList<activity> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
-        ArrayList<activity> activityList = new ArrayList<>();
+    public @ResponseBody List<Comment> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
+        List<Comment> commentList = commentService.findAllComment("1452822");
 
-        activityList.add(new activity("liyang", "wudi", "lala"));
-        activityList.add(new activity("liyang", "lala", "lala"));
-
-        return activityList;
+        if (start + number <= commentList.size()){
+            return commentList.subList(start, number + start);
+        }else{
+            return commentList.subList(start, commentList.size() - 1);
+        }
     }
 
     @RequestMapping(value = "/{name}/good")
