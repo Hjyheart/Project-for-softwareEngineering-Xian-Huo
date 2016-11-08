@@ -4,6 +4,7 @@ import com.example.entity.Apply;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Set;
 public interface ApplyRepository extends JpaRepository<Apply, Long>{
 
     //find ways
-    Set<Apply>  findByMId(String id);
-    Set<Apply>  findByMFromId(String fromId);
-    Set<Apply>  findByMToId(String toId);
+    List<Apply> findByMId(String id);
+    List<Apply>  findByMFromId(String fromId);
+    List<Apply>  findByMToId(String toId);
 }

@@ -9,8 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Set;
-
+import java.util.List;
 import com.example.entity.ClubFile;
 import com.example.service.repository.ClubRepository;
 import com.example.service.repository.FileRepository;
@@ -25,7 +24,6 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Resource;
 
 
@@ -33,11 +31,10 @@ import javax.annotation.Resource;
 @Transactional
 public class StorageService {
 
-
-    @Resource
-    private FileRepository fileRepository;
     @Resource
     private ClubRepository clubRepository;
+    @Resource
+    private FileRepository fileRepository;
 
     private String ACCESSKEY = "humAJtiHyVdoHfrjczH4lpOGKKDfbLdQ7vPIGT7z";
     private String SECRETKEY = "wvYG7d2LKYjPdtdMPtrrBZgGQIjhXNiEEK9olDGq";
@@ -123,7 +120,7 @@ public class StorageService {
     public String downloadFileUrl(String clubId, String fileName) throws Exception{
 
         try{
-            Set<ClubFile> files = this.clubRepository.findByMId(clubId).iterator().next().getClubfiles();
+            List<ClubFile> files = this.clubRepository.findByMId(clubId).iterator().next().getClubfiles();
             boolean existFlag = false;
 
             //check if the file exit
@@ -165,5 +162,10 @@ public class StorageService {
             }
         }
 
+    }
+
+    @Transactional
+    public void save(ClubFile file){
+        fileRepository.save(file);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,10 +19,10 @@ import java.util.Set;
 public interface ClubRepository extends JpaRepository<Club, Long> {
 
     //find data ways
-    Set<Club> findByMId(String Id);
-    Set<Club> findByMName(String Name);
-    Set<Club> findByMTeacher(String TeacherId);
-    Set<Club> findByMChairmanId(String ChairmanId);
+    List<Club> findByMId(String Id);
+    List<Club> findByMName(String Name);
+    List<Club> findByMTeacher(String TeacherId);
+    List<Club> findByMChairmanId(String ChairmanId);
 
 
 

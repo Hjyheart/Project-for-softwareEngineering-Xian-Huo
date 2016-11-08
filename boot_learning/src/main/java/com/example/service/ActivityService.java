@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -111,7 +112,7 @@ public class ActivityService {
 
 
     @Transactional
-    public Set<Activity> findActivityById(String activityId) throws Exception {
+    public List<Activity> findActivityById(String activityId) throws Exception {
         try{
             return this.activityRepository.findByMId(activityId);
         }catch(Exception e){
@@ -122,9 +123,16 @@ public class ActivityService {
 
     //temple
     @Transactional
-    public Set<Activity> findByName(String name){ return this.activityRepository.findByMName(name);}
+    public List<Activity> findByName(String name){ return this.activityRepository.findByMName(name);}
 
 
-
+    @Transactional
+    public List<Activity> findAllActivities() throws Exception{
+        try{
+            return this.activityRepository.findAll();
+        }catch(Exception e){
+            throw e;
+        }
+    }
 
 }

@@ -2,6 +2,7 @@ package com.example.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,25 +28,34 @@ public class Activity {
     @Column(nullable = false, name = "PRAISE")
     private Integer mPraise;
 
-    @ManyToMany
-    private Set<Student> students;
+    @Column(nullable = true, name = "IMGURL")
+    private String mImgUrl;
+
+    @Column(nullable = true, name = "DESCRIPTION")
+    private String mDescription;
 
     @ManyToMany
-    private Set<Club> clubs;
+    private List<Student> students;
+
+    @ManyToMany
+    private List<Club> clubs;
 
     @OneToMany
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     public Activity(){}
 
 
-    public Activity(String mId, String mName, String mLocation, Date mTime, String mContact, Integer mPraise) {
+    public Activity(String mId, String mName, String mLocation, Date mTime, String mContact,
+                    Integer mPraise, String mImgUrl, String mDescription) {
         this.mId = mId;
         this.mName = mName;
         this.mLocation = mLocation;
         this.mTime = mTime;
         this.mContact = mContact;
         this.mPraise = mPraise;
+        this.mImgUrl = mImgUrl;
+        this.mDescription = mDescription;
     }
 
     public String getmId() {
@@ -96,27 +106,43 @@ public class Activity {
         this.mPraise = mPraise;
     }
 
-    public Set<Student> getStudents() {
+    public String getmImgUrl() {
+        return mImgUrl;
+    }
+
+    public void setmImgUrl(String mImgUrl) {
+        this.mImgUrl = mImgUrl;
+    }
+
+    public String getmDescription() {
+        return mDescription;
+    }
+
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
+    }
+
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
-    public Set<Club> getClubs() {
+    public List<Club> getClubs() {
         return clubs;
     }
 
-    public void setClubs(Set<Club> clubs) {
+    public void setClubs(List<Club> clubs) {
         this.clubs = clubs;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 }

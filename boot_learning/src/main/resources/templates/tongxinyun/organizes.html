@@ -68,12 +68,12 @@
                 <div class="card facebook-card" th:each="organize:${organizes}">
                     <div class="card-header no-border">
                         <div class="facebook-avatar"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="34" height="34"/></div>
-                        <div class="facebook-name" th:text="${organize.name}">夜萧</div>
-                        <div class="facebook-date" th:text="${organize.data}">星期一 3:47pm</div>
+                        <div class="facebook-name" th:text="${organize.mName}">夜萧</div>
+                        <div class="facebook-date" th:text="${organize.mTeacher}">星期一 3:47pm</div>
                     </div>
                     <div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"/></div>
                     <div class="card-footer no-border">
-                        <a th:href="@{/t_organize/{name}/(name=${organize.name})}" class="link open-organize">详情</a>
+                        <a th:href="@{/t_organize/{name}/(name=${organize.mName})}" class="link open-organize">详情</a>
                     </div>
                 </div>
             </div>

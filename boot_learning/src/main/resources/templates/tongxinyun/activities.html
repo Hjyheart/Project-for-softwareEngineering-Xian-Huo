@@ -89,7 +89,7 @@
                     </div>
                     <div class="card-footer">
                         <span th:text="${activity.mTime}">2015/01/15</span>
-                        <span th:text="${#sets.size(activity.comments)} + ' 评论'">5</span>
+                        <span th:text="${#lists.size(activity.comments)} + ' 评论'">5</span>
                     </div>
                 </div>
             </div>

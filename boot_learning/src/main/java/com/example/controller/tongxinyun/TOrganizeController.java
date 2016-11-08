@@ -2,6 +2,7 @@ package com.example.controller.tongxinyun;
 
 import com.example.entity.Club;
 import com.example.service.ClubService;
+import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by hongjiayong on 2016/10/29.
@@ -25,17 +26,16 @@ public class TOrganizeController {
     @Autowired
     private ClubService clubService;
 
+    @Autowired
+    private StudentService studentService;
+
     @RequestMapping("")
     // 返回社团合集
     public String organize(ModelMap map, HttpServletRequest request){
-        ArrayList<TActivityController.activity> activityList = new ArrayList<>();
 
-        activityList.add(new TActivityController.activity("c4", "wudi", "lala"));
-        activityList.add(new TActivityController.activity("c4", "wudi", "lala"));
+        List<Club> clubSet = clubService.findByMId("1");
 
-        map.addAttribute("organizes", activityList);
-
-        Set<Club> clubSet = clubService.findByMId("1");
+        map.addAttribute("organizes", clubSet);
 
         return "tongxinyun/organizes";
     }
