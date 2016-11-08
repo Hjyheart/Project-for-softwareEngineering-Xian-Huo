@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/23.
@@ -32,82 +33,98 @@ public class ActivityService {
 
     @Transactional
     public void addStudentToActivity(String studentId, String activityId) throws Exception{
-        Student student = this.studentRepository.findByMId(studentId).iterator().next();
-        Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
 
-        // not found
-        if(null == student || null == activity){
-            Exception ex = new Exception();
-            throw ex;
+        try{
+            Student student = this.studentRepository.findByMId(studentId).iterator().next();
+            Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
+
+            //add
+            activity.getStudents().add(student);
+            student.getActivities().add(activity);
+        }catch(Exception ex){
+            Exception ex_nf = new Exception("Not found");
+            throw ex_nf;
         }
 
-        //add
-        activity.getStudents().add(student);
-        student.getActivities().add(activity);
     }
 
     @Transactional
     public void deleteStudentFromActivity(String studentId, String activityId) throws Exception{
-        Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
-        Student  student = this.studentRepository.findByMId(studentId).iterator().next();
 
-        //not found
-        if(null == activity || null == studentId){
-            Exception ex = new Exception();
+        try{
+            Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
+            Student  student = this.studentRepository.findByMId(studentId).iterator().next();
+            //delete student from activity
+            Iterator<Student> actItr = activity.getStudents() .iterator();
+
+            while(actItr.hasNext()){
+                if(0 == actItr.next().getmId().compareTo(studentId)){
+                    actItr.remove();
+                    break;
+                }
+            }
+
+            //delete activity from student
+            Iterator<Activity> stuItr = student.getActivities().iterator();
+
+            while(stuItr.hasNext()){
+                if(0 == stuItr.next().getmId().compareTo(activityId)){
+                    stuItr.remove();
+                    break;
+                }
+            }
+        }catch(Exception ex){
             throw ex;
-        }
-
-        //delete student from activity
-        Iterator<Student> actItr = activity.getStudents().iterator();
-
-        while(actItr.hasNext()){
-            if(0 == actItr.next().getmId().compareTo(studentId)){
-                actItr.remove();
-                break;
-            }
-        }
-
-        //delete activity from student
-        Iterator<Activity> stuItr = student.getActivities().iterator();
-
-        while(stuItr.hasNext()){
-            if(0 == stuItr.next().getmId().compareTo(activityId)){
-                stuItr.remove();
-                break;
-            }
         }
     }
 
     @Transactional
     public void addCommentToActivity(Comment comment, String activityId) throws Exception{
-        Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
 
-        //not found
-        if(null == activity || comment.getmTargetId() != activityId || comment.getmTargetType() != 1){
-            Exception ex = new Exception();
+        try{
+            Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
+
+            //save comment
+            this.commentRepository.save(comment);
+
+            //add
+            activity.getComments().add(comment);
+        }catch(Exception ex){
             throw ex;
         }
-
-        //save comment
-        this.commentRepository.save(comment);
-
-        //add
-        activity.getComments().add(comment);
 
     }
 
     @Transactional
     public void addPraise(String activityId) throws Exception{
-        Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
 
-        //not found
-        if(null == activity){
-            Exception ex = new Exception();
+        try{
+            Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
+            //add one
+            activity.setmPraise(activity.getmPraise() + 1);
+        }catch(Exception ex){
             throw ex;
         }
 
-        //add one
-        activity.setmPraise(activity.getmPraise() + 1);
+
     }
+
+
+    @Transactional
+    public Set<Activity> findActivityById(String activityId) throws Exception {
+        try{
+            return this.activityRepository.findByMId(activityId);
+        }catch(Exception e){
+            throw e;
+        }
+    }
+
+
+    //temple
+    @Transactional
+    public Set<Activity> findByName(String name){ return this.activityRepository.findByMName(name);}
+
+
+
 
 }

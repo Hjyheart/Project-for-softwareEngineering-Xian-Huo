@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>鲜活</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" th:href="@{/tongxinyun/css/sm.min.css}"/>
+    <link rel="stylesheet" th:href="@{/tongxinyun/css/sm-extend.min.css}"/>
+
+</head>
+<body>
+
+<div class="page-group">
+    <!-- 你的html代码 -->
+    <div class="page page-current" id="">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left" href="/t_home">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">我的社团</h1>
+        </header>
+
+        <div class="content">
+            <div class="card facebook-card" th:each="organize:${organizes}">
+                <div class="card-header no-border">
+                    <div class="facebook-avatar"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="34" height="34"/></div>
+                    <div class="facebook-name" th:text="${organize.name}">夜萧</div>
+                    <div class="facebook-date" th:text="${organize.data}">星期一 3:47pm</div>
+                </div>
+                <div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"/></div>
+                <div class="card-footer no-border">
+                    <a th:href="@{/organize/{name}(name=${organize.name})}" class="link">详情</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm.js}' charset='utf-8'></script>
+<script type='text/javascript' th:src='@{/js/sm-extend.js}' charset='utf-8'></script>
+
+<script>
+    $.init();
+</script>
+</body>
+</html>

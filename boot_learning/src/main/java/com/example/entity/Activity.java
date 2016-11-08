@@ -9,7 +9,7 @@ import java.util.Set;
  */
 @Entity @Table(name = "ACTIVITY")
 public class Activity {
-    @Id @Column(nullable = false, name = "ID")
+    @Id  @Column(nullable = false, name = "ID")
     private String mId;
 
     @Column(nullable = false, name = "NAME")
@@ -36,9 +36,8 @@ public class Activity {
     @OneToMany
     private Set<Comment> comments;
 
+    public Activity(){}
 
-    public Activity() {
-    }
 
     public Activity(String mId, String mName, String mLocation, Date mTime, String mContact, Integer mPraise) {
         this.mId = mId;

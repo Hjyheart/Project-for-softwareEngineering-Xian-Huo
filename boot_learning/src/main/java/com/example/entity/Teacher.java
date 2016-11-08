@@ -1,9 +1,7 @@
 package com.example.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/22.
@@ -18,6 +16,9 @@ public class Teacher {
     private String mName;
     @Column( name = "CONTACT")
     private String mContact;
+
+    @OneToMany
+    private Set<Apply> applies;
 
     public Teacher() {
     }
@@ -51,5 +52,13 @@ public class Teacher {
 
     public void setmContact(String mContact) {
         this.mContact = mContact;
+    }
+
+    public Set<Apply> getApplies() {
+        return applies;
+    }
+
+    public void setApplies(Set<Apply> applies) {
+        this.applies = applies;
     }
 }

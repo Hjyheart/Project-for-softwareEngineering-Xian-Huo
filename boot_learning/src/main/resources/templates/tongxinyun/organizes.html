@@ -1,0 +1,102 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>鲜活</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" th:href="@{/tongxinyun/css/sm.min.css}"/>
+    <link rel="stylesheet" th:href="@{/tongxinyun/css/sm-extend.min.css}"/>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/tongxinyun/js/sm.js}' charset='utf-8'></script>
+    <script type='text/javascript' th:src='@{/tongxinyun/js/sm-extend.js}' charset='utf-8'></script>
+
+</head>
+<body>
+
+<div class="page-group">
+    <!-- 你的html代码 -->
+    <div class="page page-current" id="">
+        <header class="bar bar-nav">
+            <h1 class="title">社团中心</h1>
+        </header>
+        <nav class="bar bar-tab">
+            <a class="tab-item external" href="/t_home">
+                <span class="icon icon-me"></span>
+                <span class="tab-label">我</span>
+            </a>
+            <a class="tab-item external" href="/t_activity">
+                <span class="icon icon-app"></span>
+                <span class="tab-label">活动</span>
+            </a>
+            <a class="tab-item external active" href="/t_organize">
+                <span class="icon icon-emoji"></span>
+                <span class="tab-label">社团</span>
+            </a>
+            <a class="tab-item external" href="/t_message">
+                <span class="icon icon-message"></span>
+                <span class="tab-label">信息中心</span>
+            </a>
+        </nav>
+
+        <div class="bar bar-header-secondary">
+            <div class="searchbar">
+                <a class="searchbar-cancel">取消</a>
+                <div class="search-input">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search" id='search' placeholder='输入关键字...'/>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <div class="content pull-to-refresh-content" data-ptr-distance="55">
+            <!-- 默认的下拉刷新层 -->
+            <div class="pull-to-refresh-layer">
+                <div class="preloader"></div>
+                <div class="pull-to-refresh-arrow"></div>
+            </div>
+
+            <div align="center">
+                <img th:src="@{/tongxinyun/D.jpg}" style="width: 92%; height: 40%;"/>
+            </div>
+            <hr/>
+            <div class="card-container" th:fragment="organizeList">
+                <div class="card facebook-card" th:each="organize:${organizes}">
+                    <div class="card-header no-border">
+                        <div class="facebook-avatar"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="34" height="34"/></div>
+                        <div class="facebook-name" th:text="${organize.name}">夜萧</div>
+                        <div class="facebook-date" th:text="${organize.data}">星期一 3:47pm</div>
+                    </div>
+                    <div class="card-content"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="100%"/></div>
+                    <div class="card-footer no-border">
+                        <a th:href="@{/t_organize/{name}/(name=${organize.name})}" class="link open-organize">详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $.init();
+
+        $(document).on('refresh', '.pull-to-refresh-content',function(e) {
+            // 模拟2s的加载过程
+            setTimeout(function() {
+                $.get("/t_organize/refresh", {Action: "get", Name: "organize"}, function(data, textStatus){
+                    $(".card-container").replaceWith(data);
+                });
+
+                // 加载完毕需要重置
+                $.pullToRefreshDone('.pull-to-refresh-content');
+            }, 2000);
+        });
+
+    </script>
+</div>
+
+</body>
+</html>

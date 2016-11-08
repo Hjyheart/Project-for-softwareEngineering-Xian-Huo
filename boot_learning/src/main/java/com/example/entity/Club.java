@@ -9,8 +9,8 @@ import java.util.Set;
 
 @Entity @Table(name = "CLUB")
 public class Club {
-    @Id @GeneratedValue @Column(nullable = false, name = "ID")
-    private long mId;
+    @Id @Column(nullable = false, name = "ID")
+    private String mId;
 
     @Column(nullable = false, name = "NAME")
     private String mName;
@@ -35,7 +35,7 @@ public class Club {
     private Set<Activity> activities;
 
     @OneToMany
-    private Set<File> files;
+    private Set<ClubFile> clubfiles;
 
     @OneToMany
     private Set<Comment> comments;
@@ -43,8 +43,8 @@ public class Club {
     //data get & set ways
 
 
-    public Club() {
-    }
+
+    public Club(){}
 
     public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber) {
         this.mName = mName;
@@ -53,11 +53,11 @@ public class Club {
         this.mMemberNumber = mMemberNumber;
     }
 
-    public long getmId() {
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 
@@ -109,10 +109,12 @@ public class Club {
         this.activities = activities;
     }
 
+    public Set<ClubFile> getClubfiles() {
+        return clubfiles;
+    }
 
-
-    public void setFiles(Set<File> files) {
-        this.files = files;
+    public void setClubfiles(Set<ClubFile> clubfiles) {
+        this.clubfiles = clubfiles;
     }
 
     public Set<Comment> getComments() {
