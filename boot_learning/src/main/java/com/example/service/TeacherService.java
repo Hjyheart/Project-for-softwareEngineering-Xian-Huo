@@ -4,13 +4,10 @@ import com.example.entity.Apply;
 import com.example.entity.Teacher;
 import com.example.service.repository.ApplyRepository;
 import com.example.service.repository.TeacherRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
-import javax.persistence.SqlResultSetMapping;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by stanforxc on 2016/11/1.
@@ -31,7 +28,7 @@ public class TeacherService {
         teacherRepository.save(teacher);
     }
 
-    public Set<Teacher> findByMId(String id){
+    public List<Teacher> findByMId(String id){
         return teacherRepository.findByMId(id);
     }
 
@@ -41,7 +38,7 @@ public class TeacherService {
     }
 
     @Transactional
-    public Set<Apply> getAllApplies(String teacherId) throws Exception{
+    public List<Apply> getAllApplies(String teacherId) throws Exception{
         try{
             Teacher teacher = this.teacherRepository.findByMId(teacherId).iterator().next();
             return teacher.getApplies();

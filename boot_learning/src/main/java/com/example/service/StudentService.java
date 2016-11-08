@@ -7,13 +7,8 @@ import com.example.service.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
-
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * Created by deado on 2016/10/23.
@@ -38,7 +33,7 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public Set<Student> findByMId(String id){
+    public List<Student> findByMId(String id){
         return studentRepository.findByMId(id);
     }  //获取学生基本信息
 
@@ -58,7 +53,7 @@ public class StudentService {
 
 
     //
-    public Set<Apply> getAllSendApplies(String studentId) throws Exception{
+    public List<Apply> getAllSendApplies(String studentId) throws Exception{
         try{
             Student student = this.studentRepository.findByMId(studentId).iterator().next();
             return student.getSendApplies();
@@ -86,7 +81,7 @@ public class StudentService {
     }
 
 
-    public Set<Apply> getAllReceiveApplies(String studentId) throws Exception{
+    public List<Apply> getAllReceiveApplies(String studentId) throws Exception{
         try{
             Student student = this.studentRepository.findByMId(studentId).iterator().next();
             return student.getReceiveApplies();
@@ -96,7 +91,7 @@ public class StudentService {
     }
 
 
-    public Set<Activity> getAllFavouriteActivities(String studentId) throws Exception{
+    public List<Activity> getAllFavouriteActivities(String studentId) throws Exception{
         try{
             Student student = this.studentRepository.findByMId(studentId).iterator().next();
             return student.getFavouriteactivities();

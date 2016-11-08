@@ -18,10 +18,10 @@ import java.util.Set;
 public interface ActivityRepository extends JpaRepository<Activity, String> {
     
     //find
-    Set<Activity> findByMName(String Name);
-    Set<Activity> findByMId(String Id);
-    Set<Activity> findByMLocation(String Location);
-    Set<Activity> findByMTime(Date Time);
+    List<Activity> findByMName(String Name);
+    List<Activity> findByMId(String Id);
+    List<Activity> findByMLocation(String Location);
+    List<Activity> findByMTime(Date Time);
 
 
 
@@ -46,6 +46,8 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
     @Modifying
     @Query("update Activity a set a.mPraise = a.mPraise + 1 where a.mId=?1")
     int addOneActivityPraiseById(String Id);
+
+
 
 
 }

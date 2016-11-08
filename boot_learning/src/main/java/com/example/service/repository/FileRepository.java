@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,10 +18,10 @@ import java.util.Set;
 public interface FileRepository extends JpaRepository<ClubFile, String> {
 
     //find ways
-    Set<ClubFile> findByMId(String Id);
-    Set<ClubFile> findByMName(String Name);
-    Set<ClubFile> findByMClub(String CLUBID);
-    Set<ClubFile> findByMUrl(String Url);
+    List<ClubFile> findByMId(String Id);
+    List<ClubFile> findByMName(String Name);
+    List<ClubFile> findByMClub(String CLUBID);
+    List<ClubFile> findByMUrl(String Url);
 
     //delete
     @Query("delete from ClubFile f where f.mId=?1")

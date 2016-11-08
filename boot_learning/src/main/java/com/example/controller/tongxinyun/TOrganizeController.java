@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,7 +36,7 @@ public class TOrganizeController {
 
         map.addAttribute("organizes", activityList);
 
-        Set<Club> clubSet = clubService.findByMId("1");
+        List<Club> clubSet = clubService.findByMId("1");
 
         return "tongxinyun/organizes";
     }

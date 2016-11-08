@@ -1,7 +1,7 @@
 package com.example.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by deado on 2016/10/22.
@@ -18,7 +18,7 @@ public class Teacher {
     private String mContact;
 
     @OneToMany
-    private Set<Apply> applies;
+    private List<Apply> applies;
 
     public Teacher() {
     }
@@ -54,11 +54,11 @@ public class Teacher {
         this.mContact = mContact;
     }
 
-    public Set<Apply> getApplies() {
+    public List<Apply> getApplies() {
         return applies;
     }
 
-    public void setApplies(Set<Apply> applies) {
+    public void setApplies(List<Apply> applies) {
         this.applies = applies;
     }
 }

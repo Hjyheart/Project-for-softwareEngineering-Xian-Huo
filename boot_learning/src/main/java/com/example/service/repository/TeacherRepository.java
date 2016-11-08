@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,8 +16,8 @@ import java.util.Set;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
     //find ways
-    Set<Teacher>  findByMId(String Id);
-    Set<Teacher>  findByMName(String Name);
+    List<Teacher> findByMId(String Id);
+    List<Teacher>  findByMName(String Name);
 
     //modifying
     @Modifying

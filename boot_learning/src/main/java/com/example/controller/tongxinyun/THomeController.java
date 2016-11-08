@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Set;
 
 import static com.example.controller.tongxinyun.SessionController.getUsername;
@@ -36,7 +37,7 @@ public class THomeController {
             username = getUsername(request);
         }
 
-        Set<Student> studentSet = studentService.findByMId(username);
+        List<Student> studentSet = studentService.findByMId(username);
         student = studentSet.iterator().next();
         map.addAttribute("username", student.getmName());
         map.addAttribute("studentId", student.getmId());

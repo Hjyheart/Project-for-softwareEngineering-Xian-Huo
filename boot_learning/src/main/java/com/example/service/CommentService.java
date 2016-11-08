@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,7 +22,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public Set<Comment> findAllComment(String student_id){
+    public List<Comment> findAllComment(String student_id){
         return commentRepository.findByMStudentId(student_id);
     }
 }
