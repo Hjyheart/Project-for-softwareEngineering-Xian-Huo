@@ -11,14 +11,15 @@ import java.util.Set;
 @Entity
 @Table(name="APPLY")
 public class Apply {
-    @Id @Column(nullable = false, name = "ID")
+    @Id
+    @Column(nullable = false, name = "ID")
     @GeneratedValue
     private Long mId;
 
-    @Column(nullable = false, name = "FROM")
+    @Column(nullable = false, name = "FROMAN")
     private String mFromId;
 
-    @Column(nullable =false, name = "TO")
+    @Column(nullable = false, name = "TOMAN")
     private String mToId;
 
     @Column(nullable = false, name = "TYPE")
@@ -31,17 +32,18 @@ public class Apply {
     private Boolean mAccept;
 
 
-
     //public
 
-    public Apply() {}
+
+    public Apply() {
+    }
 
     public Apply(String mFromId, String mToId, Integer mType, String mDescription) {
         this.mFromId = mFromId;
         this.mToId = mToId;
         this.mType = mType;
         this.mDescription = mDescription;
-        this.mAccept = false; //初始化都是false
+        this.mAccept = mAccept;
     }
 
     public Long getmId() {

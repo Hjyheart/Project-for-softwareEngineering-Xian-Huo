@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.entity.Activity;
 import com.example.entity.Comment;
 import com.example.service.ActivityService;
 import com.example.service.StorageService;
@@ -11,6 +12,7 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by deado on 2016/10/23.
@@ -124,4 +127,11 @@ public class TestController {
         map.addAttribute("name", "UploadView");
         return "UploadFile";
     }
+
+    @RequestMapping(value="/FindByNameTest")
+    public String byNameTest(){
+        Set<Activity> res = this.activityService.findByName("谷歌编程一小时");
+        return "fuck";
+    }
+
 }
