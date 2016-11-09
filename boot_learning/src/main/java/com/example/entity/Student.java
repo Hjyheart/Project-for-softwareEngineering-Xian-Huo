@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.example.service.EncryptionService;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +15,7 @@ public class Student{
     @Id @Column(nullable = false, name = "ID")
     private String mId;
     @Column(nullable = false,name = "PASSWORD")
-    private String password;
+    private String mPassword;
     @Column(nullable = false, name = "NAME")
     private String mName;
     @Column(nullable = true, name = "GRADE")
@@ -42,16 +44,25 @@ public class Student{
 
 
     public Student(){
-        this.password = "123456";
+
     }
 
-    public Student(String mId, String password, String mName, String mGrade, String mMajor, String mContact) {
+    public Student(String mId, String mPassword, String mName,
+                   String mGrade, String mMajor, String mContact) throws Exception {
         this.mId = mId;
-        this.password = password;
+        //this.password = password;
         this.mName = mName;
         this.mGrade = mGrade;
         this.mMajor = mMajor;
         this.mContact = mContact;
+
+        try{
+            EncryptionService encryptionService = new EncryptionService();
+            this.mPassword = encryptionService.encipher(mPassword) + encryptionService.encipher(this.mId);
+        }catch(Exception e){
+            throw e;
+        }
+
     }
 
     public String getmId() {
@@ -62,12 +73,17 @@ public class Student{
         this.mId = mId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getmPassword() {
+        return mPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setmPassword(String mPassword) throws Exception{
+        try{
+            EncryptionService encryptionService = new EncryptionService();
+            this.mPassword = encryptionService.encipher(mPassword) + encryptionService.encipher(this.mId);
+        }catch(Exception e){
+            throw e;
+        }
     }
 
     public String getmName() {

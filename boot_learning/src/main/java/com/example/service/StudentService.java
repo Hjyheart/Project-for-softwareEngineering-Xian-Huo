@@ -27,6 +27,8 @@ public class StudentService {
     @Resource
     private TeacherRepository teacherRepository;
 
+    @Resource
+    private EncryptionService encryptionService;
 
     @Transactional
     public void save(Student student){
@@ -38,9 +40,21 @@ public class StudentService {
     }  //获取学生基本信息
 
 
-    public void setPersonalInfo(String mId, String mName, String mGrade, String mMajor, String mCcontact,String password){
-        Student student= new Student(mId,mName,mGrade,mMajor,mCcontact,password);
-        studentRepository.save(student);
+    public void addStudent(String Id, String Name, String Grade, String Major,
+                                String Contact,String Password) throws Exception {
+        //TODO:encrypt passwords
+
+
+        try{
+            Student student= new Student(Id, Password, Name,Grade,Major,Contact);
+            studentRepository.save(student);
+        }catch(Exception e){
+            throw e;
+        }
+
+
+
+
     }
 
     public List<Club> getStudentClub(String id){
@@ -89,6 +103,7 @@ public class StudentService {
             throw e;
         }
     }
+
 
 
     public List<Activity> getAllFavouriteActivities(String studentId) throws Exception{
