@@ -29,7 +29,7 @@
 
         <div class="content">
             <div align="center">
-                <img th:src="@{/tongxinyun/D.jpg}" style="width: 90%; height: 40%"/>
+                <img th:src="${activity.mImgUrl}" style="width: 90%; height: 40%"/>
             </div>
 
             <div class="content-padded" align="center">
@@ -39,7 +39,7 @@
                 <h4 th:text="${activity.mTime}">时间</h4>
             </div>
             <div class="content-padded">
-                <p>活动内容</p>
+                <p th:text="${activity.mDescription}">活动内容</p>
             </div>
 
             <div class="content-block">
@@ -84,6 +84,13 @@
             <div class="infinite-scroll infinite-scroll-bottom" data-distance="100">
                 <div class="list-block">
                     <ul class="list-container">
+                        <div class="card" th:each="comment:${comments}">
+                            <div class="card-header" th:text="${comment.mStudentId}"></div>
+                            <div class="card-content">
+                                <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                            </div>
+                            <div class="card-footer" th:text="${comment.mDate}"></div>
+                        </div>
                     </ul>
                 </div>
                 <div class="content-block">
@@ -192,7 +199,7 @@
             // 生成新条目的HTML
             var html = '';
             for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
-                html += '<div class="card"><div class="card-header">' + obj.name +'</div><div class="card-content"><div class="card-content-inner">' + obj.desc +'</div> </div> <div class="card-footer">' + obj.data + '</div> </div>';
+                html += '<div class="card"><div class="card-header">' + obj.mStudentId +'</div><div class="card-content"><div class="card-content-inner">' + obj.mContent +'</div> </div> <div class="card-footer">' + obj.mDate + '</div> </div>';
             }
             // 添加新条目
             $('.infinite-scroll-bottom .list-container').append(html);
@@ -222,14 +229,14 @@
                     return;
                 }
 
-                $.get('/t_activity/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=2', {Action: 'get', Name: 'refreshComment'}, function(data){
+                $.get('/t_activity/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=10', {Action: 'get', Name: 'refreshComment'}, function(data){
                     // 添加新条目
                     for (var i = 0; i < data.length; i++) {
-                        addItems(2, lastIndex, data[i]);
+                        addItems(10, lastIndex, data[i]);
                     }
                 });
 
-                lastIndex += 2;
+                lastIndex += 10;
                 // 更新最后加载的序号
                 lastIndex = $('.list-container li').length;
                 //容器发生改变,如果是js滚动，需要刷新滚动

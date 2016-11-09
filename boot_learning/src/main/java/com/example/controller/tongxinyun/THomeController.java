@@ -53,7 +53,7 @@ public class THomeController {
 
     @RequestMapping("/add")
     public String test(HttpServletRequest request){
-        setMySession(request, "1");
+        setMySession(request, "2");
         System.out.println("登录");
 
         return "error";
