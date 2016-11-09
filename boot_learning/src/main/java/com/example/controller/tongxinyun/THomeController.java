@@ -1,6 +1,8 @@
 package com.example.controller.tongxinyun;
 
 import com.example.entity.Student;
+import com.example.service.ActivityService;
+import com.example.service.ClubService;
 import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Set;
 
-import static com.example.controller.tongxinyun.SessionController.getUsername;
-import static com.example.controller.tongxinyun.SessionController.setMySession;
-import static com.example.controller.tongxinyun.SessionController.vertifySession;
+import static com.example.controller.tongxinyun.SessionController.*;
 
 
 /**
@@ -28,6 +27,12 @@ public class THomeController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private ActivityService activityService;
+
+    @Autowired
+    private ClubService clubService;
 
     @RequestMapping("")
     public String home(ModelMap map, HttpServletRequest request){
@@ -48,8 +53,9 @@ public class THomeController {
 
     @RequestMapping("/add")
     public String test(HttpServletRequest request){
-        setMySession(request, "1454093");
+        setMySession(request, "2");
         System.out.println("登录");
+
         return "error";
     }
 

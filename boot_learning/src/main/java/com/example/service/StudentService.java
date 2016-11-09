@@ -105,7 +105,6 @@ public class StudentService {
     }
 
 
-
     public List<Activity> getAllFavouriteActivities(String studentId) throws Exception{
         try{
             Student student = this.studentRepository.findByMId(studentId).iterator().next();

@@ -1,7 +1,10 @@
 package com.example.controller.tongxinyun;
 
 import com.example.entity.Club;
+import com.example.entity.Comment;
 import com.example.service.ClubService;
+import com.example.service.CommentService;
+import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by hongjiayong on 2016/10/29.
@@ -26,36 +26,45 @@ public class TOrganizeController {
     @Autowired
     private ClubService clubService;
 
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private CommentService commentService;
+
     @RequestMapping("")
     // 返回社团合集
-    public String organize(ModelMap map, HttpServletRequest request){
-        ArrayList<TActivityController.activity> activityList = new ArrayList<>();
+    public String organize(ModelMap map, HttpServletRequest request) throws Exception {
 
-        activityList.add(new TActivityController.activity("c4", "wudi", "lala"));
-        activityList.add(new TActivityController.activity("c4", "wudi", "lala"));
+        List<Club> clubList = clubService.findAll();
 
-        map.addAttribute("organizes", activityList);
-
-        List<Club> clubSet = clubService.findByMId("1");
+        map.addAttribute("organizes", clubList);
 
         return "tongxinyun/organizes";
     }
 
     @RequestMapping("/refresh")
-    public String refresh(ModelMap map){
-        ArrayList<TActivityController.activity> activityList = new ArrayList<>();
+    public String refresh(ModelMap map) throws Exception {
 
-        activityList.add(new TActivityController.activity("liyang", "wudi", "lala"));
-        activityList.add(new TActivityController.activity("liyang", "lala", "lala"));
+        List<Club> clubList = clubService.findAll();
 
-        map.addAttribute("organizes", activityList);
+        map.addAttribute("organizes", clubList);
 
         return "organizes :: organizeList";
     }
 
     @RequestMapping(value = "/{name}")
     public String showOrganize(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name);
+
+        List<Club> club = clubService.findByMName(name);
+        List<Comment> commentList = commentService.findAllComment("1452822");
+
+        if (commentList.size() >= 10){
+            map.addAttribute("comments", commentList.subList(0, 9));
+        }else{
+            map.addAttribute("comments", commentList);
+        }
+        map.addAttribute("organize", club.iterator().next());
 
         return "tongxinyun/organize";
     }
@@ -86,12 +95,14 @@ public class TOrganizeController {
 
     @RequestMapping(value = "/{name}/comment/refresh", method = RequestMethod.GET)
     // 异步加载评论
-    public @ResponseBody ArrayList<TActivityController.activity> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
-        ArrayList<TActivityController.activity> activityList = new ArrayList<>();
-        activityList.add(new TActivityController.activity("liyang", "wudi", "lala"));
-        activityList.add(new TActivityController.activity("liyang", "lala", "lala"));
+    public @ResponseBody List<Comment> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
+        List<Comment> commentList = commentService.findAllComment("1452822");
 
-        return activityList;
+        if (start + number <= commentList.size()){
+            return commentList.subList(start - 1, number + start);
+        }else{
+            return commentList.subList(start - 1, commentList.size() - 1);
+        }
     }
 
     @RequestMapping(value = "/{name}/good")

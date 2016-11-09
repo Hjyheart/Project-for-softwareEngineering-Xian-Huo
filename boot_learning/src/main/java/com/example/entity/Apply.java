@@ -1,9 +1,7 @@
 package com.example.entity;
 
-import com.sun.istack.internal.Nullable;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by deado on 2016/11/2.
