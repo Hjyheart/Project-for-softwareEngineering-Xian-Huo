@@ -2,8 +2,11 @@ package com.example.controller.web;
 
 import com.example.entity.Activity;
 import com.example.entity.Comment;
+import com.example.entity.Student;
 import com.example.service.ActivityService;
+import com.example.service.EncryptionService;
 import com.example.service.StorageService;
+import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +25,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by deado on 2016/10/23.
  */
-@Controller
+@RestController
 @RequestMapping("/Test")
 public class TestController {
 
@@ -35,6 +37,10 @@ public class TestController {
     private ActivityService activityService;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private EncryptionService encryptionService;
+    @Autowired
+    private StudentService studentService;
 
 
     @RequestMapping("/nameapply")
@@ -132,6 +138,17 @@ public class TestController {
     public String byNameTest(){
         List<Activity> res = this.activityService.findByName("谷歌编程一小时");
         return "fuck";
+    }
+
+    @RequestMapping(value="/MD5")
+    public boolean encryptionTest(){
+        try{
+            //this.studentService.addStudent("1452716","张尹嘉","2014","软件学院", "1222", "123456");
+            return this.encryptionService.comparePW("1452716","123456");
+
+        }catch(Exception e){
+            return false;
+        }
     }
 
 }

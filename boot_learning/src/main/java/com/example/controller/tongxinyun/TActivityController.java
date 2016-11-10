@@ -57,8 +57,10 @@ public class TActivityController {
 
             if (commentList.size() >= 10){
                 map.addAttribute("comments", commentList.subList(0, 9));
+                map.addAttribute("lastIndex", 10);
             }else{
                 map.addAttribute("comments", commentList);
+                map.addAttribute("lastIndex", commentList.size());
             }
 
             map.addAttribute("activity", activitySet.iterator().next());
@@ -103,14 +105,16 @@ public class TActivityController {
 
     @RequestMapping(value = "/{name}/comment/refresh", method = RequestMethod.GET)
     // 异步加载评论
-    public @ResponseBody List<Comment> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
+    public String commentRefresh(@PathVariable String name, int start, int number, ModelMap map){
         List<Comment> commentList = commentService.findAllComment("1452822");
 
         if (start + number <= commentList.size()){
-            return commentList.subList(start - 1, number + start);
-        }else{
-            return commentList.subList(start - 1, commentList.size() - 1);
+            map.addAttribute("comments", commentList.subList(start - 1, number + start));
+        }else if(start < commentList.size()) {
+            map.addAttribute("comments", commentList.subList(start - 1, commentList.size() - 1));
         }
+
+        return "tongxinyun/fragments :: commentList";
     }
 
     @RequestMapping(value = "/{name}/good")

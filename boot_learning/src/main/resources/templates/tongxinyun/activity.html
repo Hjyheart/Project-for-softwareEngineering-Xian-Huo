@@ -84,13 +84,15 @@
             <div class="infinite-scroll infinite-scroll-bottom" data-distance="100">
                 <div class="list-block">
                     <ul class="list-container">
-                        <div class="card" th:each="comment:${comments}">
-                            <div class="card-header" th:text="${comment.mStudentId}"></div>
-                            <div class="card-content">
-                                <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                        <li th:each="comment:${comments}" th:fragment="commentList">
+                            <div class="card">
+                                <div class="card-header" th:text="${comment.mStudentId}"></div>
+                                <div class="card-content">
+                                    <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                                </div>
+                                <div class="card-footer" th:text="${comment.mDate}"></div>
                             </div>
-                            <div class="card-footer" th:text="${comment.mDate}"></div>
-                        </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="content-block">
@@ -99,6 +101,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         $.init();
@@ -189,26 +195,10 @@
         });
 
         var loading = false;
-        // 最多可加载的条目
-        var maxItems = 100;
 
-        // 每次加载添加多少条目
-        var itemsPerLoad = 20;
-
-        function addItems(number, lastIndex, obj) {
-            // 生成新条目的HTML
-            var html = '';
-            for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
-                html += '<div class="card"><div class="card-header">' + obj.mStudentId +'</div><div class="card-content"><div class="card-content-inner">' + obj.mContent +'</div> </div> <div class="card-footer">' + obj.mDate + '</div> </div>';
-            }
-            // 添加新条目
-            $('.infinite-scroll-bottom .list-container').append(html);
-
-        }
 
         // 上次加载的序号
-
-        var lastIndex = 1;
+        var lastIndex = [[${lastIndex}]];
 
         // 注册'infinite'事件处理函数
         $(document).on('click', '.more', function() {
@@ -225,21 +215,15 @@
                 // 重置加载flag
                 loading = false;
 
-                if (lastIndex >= maxItems) {
-                    return;
-                }
-
                 $.get('/t_activity/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=10', {Action: 'get', Name: 'refreshComment'}, function(data){
                     // 添加新条目
-                    for (var i = 0; i < data.length; i++) {
-                        addItems(10, lastIndex, data[i]);
+                    $('.infinite-scroll-bottom .list-container').append(data);
+                    if (lastIndex == $('.list-container li').length){
+                        $.alert("无更多评论!");
+                    }else{
+                        lastIndex = $('.list-container li').length;
                     }
                 });
-
-                lastIndex += 10;
-                // 更新最后加载的序号
-                lastIndex = $('.list-container li').length;
-                //容器发生改变,如果是js滚动，需要刷新滚动
                 $.refreshScroller();
                 $.hidePreloader();
             }, 1000);
