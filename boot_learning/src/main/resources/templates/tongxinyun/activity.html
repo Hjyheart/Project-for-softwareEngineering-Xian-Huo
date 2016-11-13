@@ -148,21 +148,29 @@
                         $.get("/t_activity/" + [[${name}]] + "/good", {Action: "get", Name: "activitygood"}, function(data, textStatus){
                             if (data == "true"){
                                 $.alert("赞!");
-                            }else{
+                            }else if(data == "false"){
                                 $.confirm('已经赞,是否取消赞',
-                                        function () {
-                                            $.get("/activity/" + [[${name}]] + "/ungood", {Action: "get", Name: "activityungood"}, function(data, textStatus){
-                                                if (data == "true"){
-                                                    $.alert("成功取消赞!");
-                                                }else{
-                                                    $.alert("取消失败");
-                                                }
-                                            })
-                                        },
-                                        function () {
+                                    function () {
+                                        $.get("/activity/" + [[${name}]] + "/ungood", {Action: "get", Name: "activityungood"}, function(data, textStatus){
+                                            if (data == "true"){
+                                                $.alert("成功取消赞!");
+                                            }else{
+                                                $.alert("取消失败");
+                                            }
+                                        })
+                                    },
+                                    function () {
 
-                                        }
+                                    }
                                 );
+                            }else if(data == "login"){
+                                $.confirm("该操作需要先登录,是否登录",
+                                function (){
+                                    $.alert("跳转去登录页");
+                                },
+                                function (){
+
+                                });
                             }
                         });
                     }

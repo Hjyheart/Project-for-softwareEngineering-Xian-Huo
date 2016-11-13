@@ -2,8 +2,10 @@ package com.example.controller.tongxinyun;
 
 import com.example.entity.Activity;
 import com.example.entity.Comment;
+import com.example.entity.Student;
 import com.example.service.ActivityService;
 import com.example.service.CommentService;
+import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+
+import static com.example.controller.tongxinyun.SessionController.getUsername;
 
 /**
  * Created by hongjiayong on 2016/10/25.
@@ -27,6 +31,9 @@ public class TActivityController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping("")
     // 活动合集首页
@@ -97,8 +104,9 @@ public class TActivityController {
 
     @RequestMapping(value = "/{name}/comment", method = RequestMethod.GET)
     // 进行评论
-    public @ResponseBody String commentActivity(@PathVariable String name, String comment, HttpServletRequest servletRequest){
+    public @ResponseBody String commentActivity(@PathVariable String name, String comment, HttpServletRequest request){
         System.out.println(comment);
+//        commentService.save(new Comment(getUsername(request), "1", 1, comment, java.util.Date.from(Instant.now())));
 
         return "true";
     }
@@ -121,8 +129,24 @@ public class TActivityController {
     // 点赞
     public @ResponseBody String goodForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
         map.addAttribute("name", name + " good");
+        try {
+            List<Student> students = studentService.findByMId(getUsername(request));
+            Student user = students.iterator().next();
 
-        return "false";
+            for (Activity activity : user.getFavouriteactivities()) {
+                if (activity.getmName().equals(name)) {
+                    return "false";
+                }
+            }
+
+            Activity addActivity = activityService.findByName(name).iterator().next();
+
+            studentService.addFavouriteActivity(getUsername(request), addActivity);
+
+            return "true";
+        }catch (Exception e){
+            return "login";
+        }
     }
 
     @RequestMapping(value = "/{name}/ungood")
