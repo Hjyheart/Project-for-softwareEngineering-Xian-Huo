@@ -84,10 +84,13 @@
             <div class="infinite-scroll infinite-scroll-bottom" data-distance="100">
                 <div class="list-block">
                     <ul class="list-container">
-                        <div class="card" th:each="comment:${comments}">
-                            <div class="card-header" th:text="${comment.mStudentId}"></div>
-                            <div class="card-content">
-                                <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                        <li th:each="comment:${comments}">
+                            <div class="card">
+                                <div class="card-header"><a th:text="${comment.studentName}" th:href="@{/t_stu/{studentId}/details(studentId=${comment.mStudentId})}"></a></div>
+                                <div class="card-content">
+                                    <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                                </div>
+                                <div class="card-footer" th:text="${comment.mDate}"></div>
                             </div>
                         </li>
                     </ul>
