@@ -126,15 +126,15 @@ public class TActivityController {
         List<Comment> commentList = commentService.findAllCommentOfActivity(mId);
 
         if (start + number <= commentList.size()){
-            for (Comment comment:commentList.subList(start - 1 , number + start)){
+            for (Comment comment:commentList.subList(start , number + start)){
                 comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
             }
-            map.addAttribute("comments", commentList.subList(start - 1, number + start));
+            map.addAttribute("comments", commentList.subList(start, number + start));
         }else if(start <= commentList.size()) {
-            for (Comment comment:commentList.subList(start - 1 ,commentList.size())){
+            for (Comment comment:commentList.subList(start ,commentList.size())){
                 comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
             }
-            map.addAttribute("comments", commentList.subList(start - 1, commentList.size()));
+            map.addAttribute("comments", commentList.subList(start, commentList.size()));
         }else{
             map.addAttribute("comments", null);
         }
