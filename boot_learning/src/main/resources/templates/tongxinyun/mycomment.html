@@ -26,13 +26,56 @@
         </header>
 
         <div class="content">
-            <div class="card" th:each="comment:${comments}">
-                <div class="card-header" th:text="${comment.name}">卡头</div>
-                <div class="card-content">
-                    <div class="card-content-inner" th:text="${comment.desc}">头和尾的卡片。卡头是用来显示一些额外的信息，或自定义操作卡标题和页脚。</div>
-                </div>
-                <div class="card-footer"><a href="#" class="link">查看</a></div>
+
+            <div class="buttons-tab">
+                <a href="#tab1" class="tab-link active button">社团</a>
+                <a href="#tab2" class="tab-link button">活动</a>
             </div>
+
+            <div class="tabs">
+                <div id="tab1" class="tab active">
+                    <div class="content-block">
+                        <div th:each="club : ${clubs}">
+                            <div class="content-block-title" th:text="${club.mName}"></div>
+                            <div th:each="comment : ${club.comments}">
+                                <div class="card" th:if="${comment.mStudentId}==${username}">
+                                    <div class="card-content">
+                                        <div class="card-content-inner">
+                                            <p th:text="${comment.mContent}"></p>
+                                            <p class="color-gray" th:text="${comment.mDate}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a th:href="@{/t_stu/deletecomment(id=${comment.mId})}">删除</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab2" class="tab">
+                    <div class="content-block">
+                        <div th:each="activity : ${activities}">
+                            <div class="content-block-title" th:text="${activity.mName}"></div>
+                            <div th:each="comment : ${activity.comments}">
+                                <div class="card" th:if="${comment.mStudentId}==${username}">
+                                    <div class="card-content">
+                                        <div class="card-content-inner">
+                                            <p th:text="${comment.mContent}"></p>
+                                            <p class="color-gray" th:text="${comment.mDate}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a th:href="@{/t_stu/deletecomment(id=${comment.mId})}" class="link">删除</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -43,6 +86,7 @@
 <script type='text/javascript' th:src='@{/tongxinyun/js/sm-extend.js}' charset='utf-8'></script>
 <script>
     $.init();
+
 </script>
 </body>
 </html>

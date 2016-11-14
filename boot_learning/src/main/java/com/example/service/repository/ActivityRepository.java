@@ -19,7 +19,7 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
     
     //find
     List<Activity> findByMName(String Name);
-    List<Activity> findByMId(String Id);
+    List<Activity> findByMId(Long Id);
     List<Activity> findByMLocation(String Location);
     List<Activity> findByMTime(Date Time);
 
@@ -28,24 +28,24 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
     //modifying
     @Modifying
     @Query("update Activity a set a.mName=?1 where a.mId=?2")
-    int setActivityNameById(String NewName, String Id);
+    int setActivityNameById(String NewName, Long Id);
 
     @Modifying
     @Query("update Activity a set a.mLocation=?1 where a.mId=?2")
-    int setActivityLocationById(String NewLocation, String Id);
+    int setActivityLocationById(String NewLocation, Long Id);
 
     @Modifying
     @Query("update Activity a set a.mTime=?1 where a.mId=?2")
-    int setActivityDateById(String NewTime, String Id);
+    int setActivityDateById(String NewTime, Long Id);
 
     @Modifying
     @Query("update Activity a set a.mContact =?1 where a.mId=?2")
-    int setActivityContactById(String NewContact, String Id);
+    int setActivityContactById(String NewContact, Long Id);
 
 
     @Modifying
     @Query("update Activity a set a.mPraise = a.mPraise + 1 where a.mId=?1")
-    int addOneActivityPraiseById(String Id);
+    int addOneActivityPraiseById(Long Id);
 
 
 

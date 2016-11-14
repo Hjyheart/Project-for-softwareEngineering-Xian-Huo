@@ -84,13 +84,10 @@
             <div class="infinite-scroll infinite-scroll-bottom" data-distance="100">
                 <div class="list-block">
                     <ul class="list-container">
-                        <li th:each="comment:${comments}" th:fragment="commentList">
-                            <div class="card">
-                                <div class="card-header" th:text="${comment.mStudentId}"></div>
-                                <div class="card-content">
-                                    <div class="card-content-inner" th:text="${comment.mContent}"></div>
-                                </div>
-                                <div class="card-footer" th:text="${comment.mDate}"></div>
+                        <div class="card" th:each="comment:${comments}">
+                            <div class="card-header" th:text="${comment.mStudentId}"></div>
+                            <div class="card-content">
+                                <div class="card-content-inner" th:text="${comment.mContent}"></div>
                             </div>
                         </li>
                     </ul>
@@ -192,21 +189,34 @@
             $.actions(groups);
         });
 
-        $(document).on('click', '.submit-comment', function(){
-            $.get("/t_activity/" + [[${name}]] + "/comment?comment=" + $('#comment').val(), {Action: 'get', Name: 'comment'}, function(data, textStatus){
-                if (data == 'true') {
-                    $.closeModal('.popup-comment');
-                }else{
-                    $.alert("评论失败!");
-                }
-            })
-        });
 
         var loading = false;
 
-
         // 上次加载的序号
         var lastIndex = [[${lastIndex}]];
+
+        $(document).on('click', '.submit-comment', function(){
+            $.get("/t_activity/" + [[${mId}]] + "/comment?comment=" + $('#comment').val(), {Action: 'get', Name: 'comment'}, function(data, textStatus){
+                if (data == 'true') {
+                    $.get('/t_activity/' + [[${mId}]] + '/comment/refresh?start=' + lastIndex + '&number=1', {Action: 'get', Name: 'refreshComment'}, function(data){
+                        // 添加新条目
+                        $('.infinite-scroll-bottom .list-container').append(data);
+                        lastIndex = $('.list-container li').length;
+                        $.refreshScroller();
+                        $('#comment').val('');
+                        $.alert('评论成功');
+                    });
+                }else if (data == "login"){
+                    $.confirm("该操作需要先登录,是否登录",
+                            function (){
+                                $.alert("跳转去登录页");
+                            },
+                            function (){
+
+                            });
+                }
+            })
+        });
 
         // 注册'infinite'事件处理函数
         $(document).on('click', '.more', function() {
@@ -223,7 +233,7 @@
                 // 重置加载flag
                 loading = false;
 
-                $.get('/t_activity/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=10', {Action: 'get', Name: 'refreshComment'}, function(data){
+                $.get('/t_activity/' + [[${mId}]] + '/comment/refresh?start=' + lastIndex + '&number=10', {Action: 'get', Name: 'refreshComment'}, function(data){
                     // 添加新条目
                     $('.infinite-scroll-bottom .list-container').append(data);
                     if (lastIndex == $('.list-container li').length){

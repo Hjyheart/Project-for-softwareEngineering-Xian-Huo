@@ -17,14 +17,14 @@ public interface CommentRepository extends JpaRepository<Comment, String> {
 
     //find ways
     List<Comment> findByMStudentId(String Id);
-    List<Comment>  findByMTargetId(String Id);
+    List<Comment>  findByMTargetId(Long Id);
     List<Comment>  findByMDate(Date date);
-    List<Comment>  findByMId(String Id);
+    List<Comment>  findByMId(Long Id);
 
     //modifying
     @Modifying
     @Query("update Comment c set c.mContent=?1 where c.mId=?2")
-    int setCommentContentById(String NewContent , String Id);
+    int setCommentContentById(String NewContent , Long Id);
 
 
 }

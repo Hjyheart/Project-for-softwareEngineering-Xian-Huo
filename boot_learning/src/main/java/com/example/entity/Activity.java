@@ -3,15 +3,16 @@ package com.example.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by deado on 2016/10/22.
  */
 @Entity @Table(name = "ACTIVITY")
 public class Activity {
-    @Id  @Column(nullable = false, name = "ID")
-    private String mId;
+    @Id
+    @GeneratedValue
+    @Column(nullable = false, name = "ID")
+    private Long mId;
 
     @Column(nullable = false, name = "NAME")
     private String mName;
@@ -46,9 +47,8 @@ public class Activity {
     public Activity(){}
 
 
-    public Activity(String mId, String mName, String mLocation, Date mTime, String mContact,
+    public Activity(String mName, String mLocation, Date mTime, String mContact,
                     Integer mPraise, String mImgUrl, String mDescription) {
-        this.mId = mId;
         this.mName = mName;
         this.mLocation = mLocation;
         this.mTime = mTime;
@@ -58,12 +58,8 @@ public class Activity {
         this.mDescription = mDescription;
     }
 
-    public String getmId() {
+    public Long getmId() {
         return mId;
-    }
-
-    public void setmId(String mId) {
-        this.mId = mId;
     }
 
     public String getmName() {

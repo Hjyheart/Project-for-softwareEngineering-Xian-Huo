@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by deado on 2016/10/23.
@@ -33,7 +32,7 @@ public class ActivityService {
     }
 
     @Transactional
-    public void addStudentToActivity(String studentId, String activityId) throws Exception{
+    public void addStudentToActivity(String studentId, Long activityId) throws Exception{
 
         try{
             Student student = this.studentRepository.findByMId(studentId).iterator().next();
@@ -50,7 +49,7 @@ public class ActivityService {
     }
 
     @Transactional
-    public void deleteStudentFromActivity(String studentId, String activityId) throws Exception{
+    public void deleteStudentFromActivity(String studentId, Long activityId) throws Exception{
 
         try{
             Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
@@ -80,7 +79,7 @@ public class ActivityService {
     }
 
     @Transactional
-    public void addCommentToActivity(Comment comment, String activityId) throws Exception{
+    public void addCommentToActivity(Comment comment, Long activityId) throws Exception{
 
         try{
             Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
@@ -97,7 +96,7 @@ public class ActivityService {
     }
 
     @Transactional
-    public void addPraise(String activityId) throws Exception{
+    public void addPraise(Long activityId) throws Exception{
 
         try{
             Activity activity = this.activityRepository.findByMId(activityId).iterator().next();
@@ -112,7 +111,7 @@ public class ActivityService {
 
 
     @Transactional
-    public List<Activity> findActivityById(String activityId) throws Exception {
+    public List<Activity> findActivityById(Long activityId) throws Exception {
         try{
             return this.activityRepository.findByMId(activityId);
         }catch(Exception e){

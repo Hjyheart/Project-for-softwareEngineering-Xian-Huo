@@ -10,18 +10,21 @@ import java.util.Date;
 @Table(name = "COMMENT")
 public class Comment {
     @Id
+    @GeneratedValue
     @Column(nullable = false, name = "ID")
-    private String mId;
+    private Long mId;
     @Column(nullable = false, name = "STUDENTID")
     private String mStudentId;
     @Column(nullable = false, name = "TARGETID")
-    private String mTargetId;
+    private Long mTargetId;
     @Column(nullable = false, name = "TARGETTYPE")
     private Integer mTargetType; // 0 -- club, 1 -- activity
     @Column(nullable = false, name = "CONTENT")
     private String  mContent;
     @Column(nullable = false, name = "DATE")
     private Date   mDate;
+
+    private String studentName;
 
 
     @ManyToOne
@@ -34,7 +37,7 @@ public class Comment {
 
 
 
-    public Comment(String mStudentId, String mTargetId, Integer mTargetType, String mContent, Date mDate) {
+    public Comment(String mStudentId, Long mTargetId, Integer mTargetType, String mContent, Date mDate) {
 
         this.mStudentId = mStudentId;
         this.mTargetId = mTargetId;
@@ -43,11 +46,11 @@ public class Comment {
         this.mDate = mDate;
     }
 
-    public String getmId() {
+    public Long getmId() {
         return mId;
     }
 
-    public void setmId(String mId) {
+    public void setmId(Long mId) {
         this.mId = mId;
     }
 
@@ -59,11 +62,11 @@ public class Comment {
         this.mStudentId = mStudentId;
     }
 
-    public String getmTargetId() {
+    public Long getmTargetId() {
         return mTargetId;
     }
 
-    public void setmTargetId(String mTargetId) {
+    public void setmTargetId(Long mTargetId) {
         this.mTargetId = mTargetId;
     }
 
@@ -105,5 +108,13 @@ public class Comment {
 
     public void setClub(Club club) {
         this.club = club;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStudentName() {
+        return studentName;
     }
 }

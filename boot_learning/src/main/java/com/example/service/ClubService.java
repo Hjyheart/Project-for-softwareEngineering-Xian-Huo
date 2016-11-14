@@ -33,14 +33,14 @@ public class ClubService {
         clubRepository.save(club);
     }
 
-    public List<Club> findByMId(String id){
+    public List<Club> findByMId(Long id){
         return clubRepository.findByMId(id);
     }
 
     public List<Club> findByMName(String name){ return clubRepository.findByMName(name);}
 
     @Transactional
-    public boolean studentQuitClub(String clubid,String stuid) throws Exception{  //AoQ申请true或者退出false
+    public boolean studentQuitClub(Long clubid,String stuid) throws Exception{  //AoQ申请true或者退出false
 
         try {
             Club c = clubRepository.findByMId(clubid).iterator().next();
@@ -67,7 +67,7 @@ public class ClubService {
     }
 
     @Transactional
-    public boolean studentApplyClub(String clubid,String stuid){
+    public boolean studentApplyClub(Long clubid,String stuid){
         List<Club> clubs = clubRepository.findByMId(clubid);
         List<Student> students = studentRepository.findByMId(stuid);
         Iterator<Club> iterClub= clubs.iterator();
@@ -86,7 +86,7 @@ public class ClubService {
     }
 
     @Transactional
-    public List<Comment> getClubComment(String clubid){
+    public List<Comment> getClubComment(Long clubid){
         Club club = clubRepository.findByMId(clubid).iterator().next();
         return club.getComments();
 
