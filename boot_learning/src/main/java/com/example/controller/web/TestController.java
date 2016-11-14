@@ -2,27 +2,17 @@ package com.example.controller.web;
 
 import com.example.entity.Activity;
 import com.example.entity.Comment;
-import com.example.entity.Student;
 import com.example.service.ActivityService;
 import com.example.service.EncryptionService;
 import com.example.service.StorageService;
 import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +36,7 @@ public class TestController {
     @RequestMapping("/nameapply")
     public String nameApply(){
         try{
-            this.activityService.addStudentToActivity("1452716","123");
+            this.activityService.addStudentToActivity("1452716", 1L);
             return "Success";
         }catch(Exception ex){
             ex.printStackTrace();
@@ -59,9 +49,9 @@ public class TestController {
     @RequestMapping("/activitycomment")
     public String activityComment(){
         try{
-            Comment comment = new Comment("1452716", "123", 1, "qiangwudi", new Date());
+            Comment comment = new Comment("1452716", 1L, 1, "qiangwudi", new Date());
 
-            this.activityService.addCommentToActivity(comment, "123");
+            this.activityService.addCommentToActivity(comment, 1L);
             return "Success";
         }catch(Exception ex){
             ex.printStackTrace();
@@ -72,7 +62,7 @@ public class TestController {
     @RequestMapping("/unnameapply")
     public String unnameApply() {
         try {
-            this.activityService.deleteStudentFromActivity("1452716", "123");
+            this.activityService.deleteStudentFromActivity("1452716", 1L);
             return "Success";
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -109,7 +99,7 @@ public class TestController {
     @RequestMapping("/good")
     public String good(){
         try{
-            this.activityService.addPraise("123");
+            this.activityService.addPraise(1L);
             return "Success";
         }catch(Exception ex){
             ex.printStackTrace();
@@ -148,6 +138,17 @@ public class TestController {
 
         }catch(Exception e){
             return false;
+        }
+    }
+
+    @RequestMapping(value = "/addActivity")
+    public @ResponseBody String addActivityTest(){
+        try {
+            activityService.save(new Activity("谷歌编程一小时", "济事楼", Date.from(Instant.now()), "123456", 10, "http://127.0.0.1/tongxinyun/D,jpg", "屌得一逼"));
+            return "true";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "false";
         }
     }
 

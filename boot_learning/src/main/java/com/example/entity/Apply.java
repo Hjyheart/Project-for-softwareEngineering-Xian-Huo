@@ -48,10 +48,6 @@ public class Apply {
         return mId;
     }
 
-    public void setmId(Long mId) {
-        this.mId = mId;
-    }
-
     public String getmFromId() {
         return mFromId;
     }

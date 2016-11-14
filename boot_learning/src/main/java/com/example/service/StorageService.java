@@ -5,11 +5,6 @@ package com.example.service;
  */
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 import com.example.entity.ClubFile;
 import com.example.service.repository.ClubRepository;
 import com.example.service.repository.FileRepository;
@@ -24,7 +19,13 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 
 @Service
@@ -117,7 +118,7 @@ public class StorageService {
     }
 
 
-    public String downloadFileUrl(String clubId, String fileName) throws Exception{
+    public String downloadFileUrl(Long clubId, String fileName) throws Exception{
 
         try{
             List<ClubFile> files = this.clubRepository.findByMId(clubId).iterator().next().getClubfiles();

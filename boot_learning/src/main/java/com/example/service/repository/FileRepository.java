@@ -18,14 +18,14 @@ import java.util.Set;
 public interface FileRepository extends JpaRepository<ClubFile, String> {
 
     //find ways
-    List<ClubFile> findByMId(String Id);
+    List<ClubFile> findByMId(Long Id);
     List<ClubFile> findByMName(String Name);
-    List<ClubFile> findByMClub(String CLUBID);
+    List<ClubFile> findByMClub(Long CLUBID);
     List<ClubFile> findByMUrl(String Url);
 
     //delete
     @Query("delete from ClubFile f where f.mId=?1")
-    int deleteFileById(String Id);
+    int deleteFileById(Long Id);
 
     @Query("delete from ClubFile f where f.mUrl=?1")
     int deleteFileByUrl(String Url);

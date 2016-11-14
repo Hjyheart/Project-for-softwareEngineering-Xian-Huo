@@ -7,8 +7,10 @@ import javax.persistence.*;
  */
 @Entity @Table(name = "CLUBFILE")
 public class ClubFile {
-    @Id @Column(nullable = false, name = "ID")
-    private String mId;//??
+    @Id
+    @GeneratedValue
+    @Column(nullable = false, name = "ID")
+    private Long mId;//??
     @Column(nullable = false, name = "NAME")
     private String mName;
     @Column(nullable = false, name = "URL")
@@ -25,19 +27,14 @@ public class ClubFile {
     public ClubFile() {
     }
 
-    public ClubFile(String mId, String mName, String mUrl, String mClub) {
-        this.mId = mId;
+    public ClubFile(String mName, String mUrl, String mClub) {
         this.mName = mName;
         this.mUrl = mUrl;
         this.mClub = mClub;
     }
 
-    public String getmId() {
+    public Long getmId() {
         return mId;
-    }
-
-    public void setmId(String mId) {
-        this.mId = mId;
     }
 
     public String getmName() {

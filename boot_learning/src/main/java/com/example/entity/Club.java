@@ -9,8 +9,10 @@ import java.util.List;
 
 @Entity @Table(name = "CLUB")
 public class Club {
-    @Id @Column(nullable = false, name = "ID")
-    private String mId;
+    @Id
+    @GeneratedValue
+    @Column(nullable = false, name = "ID")
+    private Long mId;
 
     @Column(nullable = false, name = "NAME")
     private String mName;
@@ -49,8 +51,7 @@ public class Club {
 
     public Club(){}
 
-    public Club(String mId ,String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription) {
-        this.mId = mId;
+    public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription) {
         this.mName = mName;
         this.mTeacher = mTeacher;
         this.mChairmanId = mChairmanId;
@@ -58,12 +59,8 @@ public class Club {
         this.mDescription = mDescription;
     }
 
-    public String getmId() {
+    public Long getmId() {
         return mId;
-    }
-
-    public void setmId(String mId) {
-        this.mId = mId;
     }
 
     public String getmName() {

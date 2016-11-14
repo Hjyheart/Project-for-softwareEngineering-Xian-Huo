@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by deado on 2016/10/24.
@@ -24,5 +23,13 @@ public class CommentService {
 
     public List<Comment> findAllComment(String student_id){
         return commentRepository.findByMStudentId(student_id);
+    }
+
+    public List<Comment> findAllCommentOfActivity(Long activityId) throws Exception {
+        try{
+            return this.commentRepository.findByMTargetId(activityId);
+        }catch(Exception e){
+            throw e;
+        }
     }
 }

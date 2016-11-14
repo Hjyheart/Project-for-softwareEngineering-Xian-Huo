@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<!--activity评论-->
+<li th:each="comment:${comments}" th:fragment="commentList">
+    <div class="card">
+        <div class="card-header"><a th:text="${comment.studentName}" th:href="@{/t_stu/{studentId}/details(studentId=${comment.mStudentId})}"></a></div>
+        <div class="card-content">
+            <div class="card-content-inner" th:text="${comment.mContent}"></div>
+        </div>
+        <div class="card-footer" th:text="${comment.mDate}"></div>
+    </div>
+</li>
+
+</body>
+</html>

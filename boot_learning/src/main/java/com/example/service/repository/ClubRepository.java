@@ -19,7 +19,7 @@ import java.util.Set;
 public interface ClubRepository extends JpaRepository<Club, Long> {
 
     //find data ways
-    List<Club> findByMId(String Id);
+    List<Club> findByMId(Long Id);
     List<Club> findByMName(String Name);
     List<Club> findByMTeacher(String TeacherId);
     List<Club> findByMChairmanId(String ChairmanId);
@@ -29,24 +29,24 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     //modifying ways
     @Modifying
     @Query("update Club c set c.mName=?1 where c.mId=?2")
-    int setClubName(String NewName, String Id);
+    int setClubName(String NewName, Long Id);
 
     @Modifying
     @Query("update Club c set c.mChairmanId=?1 where c.mId=?2")
-    int setClubChairman(String NewChaiman ,String Id);
+    int setClubChairman(String NewChaiman ,Long Id);
 
     @Modifying
     @Query("update Club c set c.mMemberNumber=c.mMemberNumber+1 where c.mId=?1")
-    int setClubMemberNumberById(String Id);
+    int setClubMemberNumberById(Long Id);
 
     @Modifying
     @Query("update Club c set c.mTeacher=?1 where c.mId=?2")
-    int setClubTeacherById(String Id);
+    int setClubTeacherById(Long Id);
 
     @Modifying
     @Transactional
     @Query("update Club c set c.mMemberNumber=c.mMemberNumber-1 where c.mId=?1")
-    int decreaseNumtFromClub(String Id);
+    int decreaseNumtFromClub(Long Id);
 
 
 }

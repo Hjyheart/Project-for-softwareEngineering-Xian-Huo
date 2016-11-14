@@ -2,8 +2,10 @@ package com.example.controller.tongxinyun;
 
 import com.example.entity.Activity;
 import com.example.entity.Comment;
+import com.example.entity.Student;
 import com.example.service.ActivityService;
 import com.example.service.CommentService;
+import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.Instant;
 import java.util.List;
+
+import static com.example.controller.tongxinyun.SessionController.getUsername;
+import static com.example.controller.tongxinyun.SessionController.vertifySession;
 
 /**
  * Created by hongjiayong on 2016/10/25.
@@ -27,6 +33,9 @@ public class TActivityController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping("")
     // 活动合集首页
@@ -47,18 +56,25 @@ public class TActivityController {
         return "tongxinyun/activities :: activityList";
     }
 
-    @RequestMapping(value = "/{name}")
+    @RequestMapping(value = "/{mId}")
     // 根据活动名称展现活动
-    public String showActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    public String showActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
         try {
-            List<Activity> activitySet = this.activityService.findByName(name);
-            List<Comment> commentList = commentService.findAllComment("1452822");
+            List<Activity> activitySet = this.activityService.findActivityById(mId);
+            List<Comment> commentList = commentService.findAllCommentOfActivity(mId);
 
             if (commentList.size() >= 10){
+                for (Comment comment:commentList.subList(0 ,9)){
+                    comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+                }
                 map.addAttribute("comments", commentList.subList(0, 9));
+                map.addAttribute("lastIndex", 10);
             }else{
+                for (Comment comment:commentList){
+                    comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+                }
                 map.addAttribute("comments", commentList);
+                map.addAttribute("lastIndex", commentList.size());
             }
 
             map.addAttribute("activity", activitySet.iterator().next());
@@ -73,58 +89,86 @@ public class TActivityController {
 
     }
 
-    @RequestMapping(value = "/{name}/apply")
+    @RequestMapping(value = "/{mId}/apply")
     // 申请参加活动
     public @ResponseBody
-    String applyActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    String applyActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
 
         return "false";
 
     }
 
-    @RequestMapping(value = "/{name}/unapply")
+    @RequestMapping(value = "/{mId}/unapply")
     // 取消申请参加活动
-    public @ResponseBody String unApplyActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    public @ResponseBody String unApplyActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
 
         return "true";
 
     }
 
 
-    @RequestMapping(value = "/{name}/comment", method = RequestMethod.GET)
+    @RequestMapping(value = "/{mId}/comment", method = RequestMethod.GET)
     // 进行评论
-    public @ResponseBody String commentActivity(@PathVariable String name, String comment, HttpServletRequest servletRequest){
+    public @ResponseBody String commentActivity(@PathVariable Long mId, String comment, HttpServletRequest request) throws Exception {
         System.out.println(comment);
+        if(!vertifySession(request)){
+            return "login";
+        }
+        Comment newComment = new Comment(getUsername(request), mId, 1, comment, java.util.Date.from(Instant.now()));
+        activityService.addCommentToActivity(newComment, mId);
 
         return "true";
     }
 
-    @RequestMapping(value = "/{name}/comment/refresh", method = RequestMethod.GET)
+    @RequestMapping(value = "/{mId}/comment/refresh", method = RequestMethod.GET)
     // 异步加载评论
-    public @ResponseBody List<Comment> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
-        List<Comment> commentList = commentService.findAllComment("1452822");
+    public String commentRefresh(@PathVariable Long mId, int start, int number, ModelMap map) throws Exception {
+        List<Comment> commentList = commentService.findAllCommentOfActivity(mId);
 
         if (start + number <= commentList.size()){
-            return commentList.subList(start - 1, number + start);
+            for (Comment comment:commentList.subList(start - 1 , number + start)){
+                comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+            }
+            map.addAttribute("comments", commentList.subList(start - 1, number + start));
+        }else if(start <= commentList.size()) {
+            for (Comment comment:commentList.subList(start - 1 ,commentList.size())){
+                comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+            }
+            map.addAttribute("comments", commentList.subList(start - 1, commentList.size()));
         }else{
-            return commentList.subList(start - 1, commentList.size() - 1);
+            map.addAttribute("comments", null);
+        }
+        return "tongxinyun/fragments :: commentList";
+    }
+
+    @RequestMapping(value = "/{mId}/good")
+    // 点赞
+    public @ResponseBody String goodForActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
+        map.addAttribute("name", mId + " good");
+        try {
+            List<Student> students = studentService.findByMId(getUsername(request));
+            Student user = students.iterator().next();
+
+            for (Activity activity : user.getFavouriteactivities()) {
+                if (activity.getmId() == mId) {
+                    return "false";
+                }
+            }
+
+            Activity addActivity = activityService.findActivityById(mId).iterator().next();
+
+            studentService.addFavouriteActivity(getUsername(request), addActivity);
+
+            return "true";
+        }catch (Exception e){
+            return "login";
         }
     }
 
-    @RequestMapping(value = "/{name}/good")
-    // 点赞
-    public @ResponseBody String goodForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " good");
-
-        return "false";
-    }
-
-    @RequestMapping(value = "/{name}/ungood")
+    @RequestMapping(value = "/{mId}/ungood")
     // 取消点赞
-    public @ResponseBody String unGoodForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " good");
+    public @ResponseBody String unGoodForActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
+        map.addAttribute("name", mId + " good");
 
         return "true";
     }
@@ -150,6 +194,7 @@ public class TActivityController {
         public String getData() {
             return data;
         }
+
 
         public String getDesc() {
             return desc;
