@@ -2,6 +2,7 @@ package com.example.controller.tongxinyun;
 
 import com.example.entity.Club;
 import com.example.entity.Comment;
+import com.example.entity.Student;
 import com.example.service.ClubService;
 import com.example.service.CommentService;
 import com.example.service.StudentService;
@@ -13,7 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.time.Instant;
 import java.util.List;
+
+import static com.example.controller.tongxinyun.SessionController.getUsername;
+import static com.example.controller.tongxinyun.SessionController.vertifySession;
 
 /**
  * Created by hongjiayong on 2016/10/29.
@@ -50,71 +56,109 @@ public class TOrganizeController {
 
         map.addAttribute("organizes", clubList);
 
-        return "organizes :: organizeList";
+        return "fragments :: organizeList";
     }
 
-    @RequestMapping(value = "/{name}")
-    public String showOrganize(@PathVariable String name, ModelMap map, HttpServletRequest request){
+    @RequestMapping(value = "/{mId}")
+    public String showOrganize(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
 
-        List<Club> club = clubService.findByMName(name);
-        List<Comment> commentList = commentService.findAllComment("1452822");
+        try {
+            List<Club> clubList = clubService.findByMId(mId);
+            List<Comment> commentList = clubList.iterator().next().getComments();
 
-        if (commentList.size() >= 10){
-            map.addAttribute("comments", commentList.subList(0, 9));
-        }else{
-            map.addAttribute("comments", commentList);
+            if (commentList.size() >= 10){
+                for (Comment comment:commentList.subList(0 ,9)){
+                    comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+                }
+                map.addAttribute("comments", commentList.subList(0, 9));
+                map.addAttribute("lastIndex", 10);
+            }else{
+                for (Comment comment:commentList){
+                    comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+                }
+                map.addAttribute("comments", commentList);
+                map.addAttribute("lastIndex", commentList.size());
+            }
+
+            map.addAttribute("organize", clubList.iterator().next());
+
+            return "tongxinyun/organize";
+        }catch (NullPointerException e){
+            return "error";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
         }
-        map.addAttribute("organize", club.iterator().next());
-
-        return "tongxinyun/organize";
     }
 
-    @RequestMapping(value = "/{name}/apply")
+    @RequestMapping(value = "/{mId}/apply")
     // 申请参加社团
-    public @ResponseBody String applyOrganize(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    public @ResponseBody String applyOrganize(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
+        try{
+            List<Club> clubList = clubService.findByMId(mId);
+            List<Student> studentList = studentService.findByMId(getUsername(request));
 
-        return "true";
+            for (Club club : clubList){
+                if (club.getmId() == mId){
+                    return "false";
+                }
+            }
+
+            clubService.studentApplyClub(mId, getUsername(request));
+            return "true";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "login";
+        }
     }
 
-    @RequestMapping(value = "/{name}/unapply")
+    @RequestMapping(value = "/{mId}/unapply")
     // 取消申请社团
-    public @ResponseBody String unApplyActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    public @ResponseBody String unApplyActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
 
-        return "true";
+        try{
+            clubService.studentQuitClub(mId, getUsername(request));
+            return "true";
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return "false";
+        }
     }
 
-    @RequestMapping(value = "/{name}/comment", method = RequestMethod.GET)
+    @RequestMapping(value = "/{mId}/comment", method = RequestMethod.GET)
     // 进行评论
-    public @ResponseBody String commentOrganize(@PathVariable String name, String comment, HttpServletRequest servletRequest){
-        System.out.println(comment);
+    public @ResponseBody String commentOrganize(@PathVariable Long mId, String comment, HttpServletRequest request) throws Exception {
+
+        if(!vertifySession(request)){
+            return "login";
+        }
+        Comment newComment = new Comment(getUsername(request), mId, 0, comment, java.util.Date.from(Instant.now()));
+        clubService.addCommentToClub(newComment, mId);
 
         return "true";
     }
 
-    @RequestMapping(value = "/{name}/comment/refresh", method = RequestMethod.GET)
+    @RequestMapping(value = "/{mId}/comment/refresh", method = RequestMethod.GET)
     // 异步加载评论
-    public @ResponseBody List<Comment> commentRefresh(@PathVariable String name, int start, int number, HttpServletRequest request){
-        List<Comment> commentList = commentService.findAllComment("1452822");
+    public String commentRefresh(@PathVariable Long mId, int start, int number, ModelMap map) throws Exception {
+
+        List<Comment> commentList = commentService.findAllCommentOfClub(mId);
 
         if (start + number <= commentList.size()){
-            return commentList.subList(start - 1, number + start);
+            for (Comment comment:commentList.subList(start , number + start)){
+                comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+            }
+            map.addAttribute("comments", commentList.subList(start, number + start));
+        }else if(start <= commentList.size()) {
+            for (Comment comment:commentList.subList(start ,commentList.size())){
+                comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
+            }
+            map.addAttribute("comments", commentList.subList(start, commentList.size()));
         }else{
-            return commentList.subList(start - 1, commentList.size() - 1);
+            map.addAttribute("comments", null);
         }
-    }
-
-    @RequestMapping(value = "/{name}/good")
-    // 点赞
-    public @ResponseBody String goodForOrganize(@PathVariable String name, ModelMap map, HttpServletRequest  request){
-        return "false";
-    }
-
-    @RequestMapping(value = "/{name}/ungood")
-    // 取消点赞
-    public @ResponseBody String unGoodForOrganize(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        return "true";
+        return "fragments :: commentList";
     }
 }
 
