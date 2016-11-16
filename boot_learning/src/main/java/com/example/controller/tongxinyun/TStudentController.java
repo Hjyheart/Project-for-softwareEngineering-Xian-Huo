@@ -80,6 +80,7 @@ public class TStudentController {
     public @ResponseBody String deleteComment(Long id, HttpServletRequest request){
         System.out.println(id);
 
+
         return "true";
     }
 
@@ -99,12 +100,10 @@ public class TStudentController {
     @RequestMapping("/myactivity")
     // 返回申请和玩过的活动
     public String myActivity(ModelMap map, HttpServletRequest request){
-        ArrayList <TActivityController.activity> organizeList = new ArrayList<>();
 
-        organizeList.add(new TActivityController.activity("李阳", "无敌", "2016/10.27"));
-        organizeList.add(new TActivityController.activity("洪嘉勇", "菜鸡", "2016/10.27"));
+        List<Activity> activityList = studentService.getStudentActivity(getUsername(request));
 
-        map.addAttribute("activities", organizeList);
+        map.addAttribute("activities", activityList);
 
         return "tongxinyun/myactivity";
     }

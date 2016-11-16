@@ -27,8 +27,34 @@ public class CommentService {
 
     public List<Comment> findAllCommentOfActivity(Long activityId) throws Exception {
         try{
-            return this.commentRepository.findByMTargetId(activityId);
+            List<Comment> commentList = this.commentRepository.findByMTargetId(activityId);
+
+           for (int i = 0; i < commentList.size(); i++){
+               if (commentList.get(i).getmTargetType() == 0){
+                   commentList.remove(i);
+                   i--;
+               }
+           }
+
+            return commentList;
         }catch(Exception e){
+            throw e;
+        }
+    }
+
+    public List<Comment> findAllCommentOfClub(Long clubId) throws Exception {
+        try{
+            List<Comment> commentList = this.commentRepository.findByMTargetId(clubId);
+
+            for (int i = 0; i < commentList.size(); i++){
+                if (commentList.get(i).getmTargetType() == 1){
+                    commentList.remove(i);
+                    i--;
+                }
+            }
+
+            return commentList;
+        }catch (Exception e){
             throw e;
         }
     }

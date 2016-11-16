@@ -101,10 +101,7 @@
             </div>
         </div>
     </div>
-
-
-
-
+    
     <script th:inline="javascript">
         /*<![CDATA[*/
         $.init();
@@ -120,13 +117,13 @@
                     bold: true,
                     color: 'danger',
                     onClick: function() {
-                        $.get("/t_activity/" + [[${name}]] + "/apply", {Action: "get", Name: "activityapply"}, function(data, textStatus){
+                        $.get("/t_activity/" + [[${mId}]] + "/apply", {Action: "get", Name: "activityapply"}, function(data, textStatus){
                             if (data == "true"){
                                 $.alert("报名成功!");
-                            }else{
+                            }else if (data == "false"){
                                 $.confirm('已经报名,是否取消报名',
                                         function () {
-                                            $.get("/activity/" + [[${name}]] + "/unapply", {Action: "get", Name: "activityunapply"}, function(data, textStatus){
+                                            $.get("/t_activity/" + [[${mId}]] + "/unapply", {Action: "get", Name: "activityunapply"}, function(data, textStatus){
                                                 if (data == "true"){
                                                     $.alert("成功取消报名!");
                                                 }else{
@@ -138,6 +135,14 @@
 
                                         }
                                 );
+                            }else if (data == "login"){
+                                $.confirm("该操作需要先登录,是否登录",
+                                        function (){
+                                            $.alert("跳转去登录页");
+                                        },
+                                        function (){
+
+                                        });
                             }
                         });
                     }
@@ -145,13 +150,13 @@
                 {
                     text: '赞',
                     onClick: function() {
-                        $.get("/t_activity/" + [[${name}]] + "/good", {Action: "get", Name: "activitygood"}, function(data, textStatus){
+                        $.get("/t_activity/" + [[${mId}]] + "/good", {Action: "get", Name: "activitygood"}, function(data, textStatus){
                             if (data == "true"){
                                 $.alert("赞!");
                             }else if(data == "false"){
                                 $.confirm('已经赞,是否取消赞',
                                     function () {
-                                        $.get("/activity/" + [[${name}]] + "/ungood", {Action: "get", Name: "activityungood"}, function(data, textStatus){
+                                        $.get("/t_activity/" + [[${mId}]] + "/ungood", {Action: "get", Name: "activityungood"}, function(data, textStatus){
                                             if (data == "true"){
                                                 $.alert("成功取消赞!");
                                             }else{
