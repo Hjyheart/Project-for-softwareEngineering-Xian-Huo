@@ -3,9 +3,11 @@ package com.example.service;
 import com.example.service.repository.StudentRepository;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.security.MessageDigest;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Created by deado on 2016/11/9.
@@ -46,6 +48,31 @@ public class EncryptionService {
         }
     }
 
+    private boolean checkByPython(String Id, String Password) throws Exception{
+        try{
+            String cmd = "python Login.py " + Id + " " + Password;
+            Runtime run = Runtime.getRuntime();
+            Process p = run.exec(cmd);// 启动另一个进程来执行命令
+            BufferedInputStream in = new BufferedInputStream(p.getInputStream());
+            BufferedReader inBr = new BufferedReader(new InputStreamReader(in));
+
+            String res = inBr.readLine();
+            while (res == null){
+                res = inBr.readLine();
+            }//获得命令执行后在控制台的输出信息
+
+            if(0 == res.compareTo("False")){
+                return false;
+            }else{
+                return true;
+            }
+
+        }catch(Exception e){
+            throw e;
+        }
+
+    }
+
     public boolean comparePW(String studentId, String password) throws Exception{
         try{
             String md5Pw = this.studentRepository.findByMId(studentId).iterator().next().getmPassword();
@@ -66,6 +93,14 @@ public class EncryptionService {
     public String encipher(String password) throws Exception{
         try{
             return this.encipherPassword(password);
+        }catch(Exception e){
+            throw e;
+        }
+    }
+
+    public boolean checkIdentity(String studentId, String password) throws Exception{
+        try{
+            return this.checkByPython(studentId, password);
         }catch(Exception e){
             throw e;
         }

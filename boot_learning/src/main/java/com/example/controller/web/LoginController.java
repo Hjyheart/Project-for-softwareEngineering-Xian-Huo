@@ -8,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.File;
+
 /**
  * Created by hongjiayong on 2016/10/21.
  */
@@ -23,7 +25,7 @@ public class LoginController {
     // 登录页
     public String loginView(ModelMap map){
         map.addAttribute("name", "LoginView");
-        return "web/loginView";
+        return "web/login";
     }
 
     @RequestMapping(value = "/vertify", method = RequestMethod.POST)
@@ -34,14 +36,13 @@ public class LoginController {
         String password = request.getParameter("password").trim();
 
 
-        if (studentService.findByMId(id) != null) {
+        if (this.studentService.login(id,password)) {
             request.getSession().setAttribute("user_id", id);
             request.getSession().setAttribute("user_password", password);
 
             return "redirect:/home";
-
         }
-        else return "redirect:/home";
+        else return "redirect:/login";
 
 
     }

@@ -152,4 +152,19 @@ public class TestController {
         }
     }
 
+    @RequestMapping(value = "/pythontest")
+    public String pythonTest(){
+        try{
+            if(this.encryptionService.checkIdentity("1452716", "852147")){
+                return "true";
+            }else{
+                return "false";
+            }
+
+        }catch(Exception e){
+            return "bbb";
+        }
+    }
+
+
 }

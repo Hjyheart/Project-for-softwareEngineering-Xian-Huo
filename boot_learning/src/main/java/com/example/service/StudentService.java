@@ -40,21 +40,13 @@ public class StudentService {
     }  //获取学生基本信息
 
 
-    public void addStudent(String Id, String Name, String Grade, String Major,
-                                String Contact,String Password) throws Exception {
-        //TODO:encrypt passwords
-
-
+    public void addStudent(String Id, String Name, String Grade, String Major, String Contact,String Password) throws Exception {
         try{
             Student student= new Student(Id, Password, Name,Grade,Major,Contact);
             studentRepository.save(student);
         }catch(Exception e){
             throw e;
         }
-
-
-
-
     }
 
     public List<Club> getStudentClub(String id){
@@ -120,6 +112,24 @@ public class StudentService {
             student.getFavouriteactivities().add(activity);
         }catch(Exception e){
             throw e;
+        }
+    }
+
+    public boolean login(String Id, String Password){
+        try{
+            List<Student> stu = this.studentRepository.findByMId(Id);
+            if(0 == stu.size()){//there is no such a student in database
+                if(this.encryptionService.checkIdentity(Id, Password)){
+                    this.addStudent(Id, "unknown"," "," "," ",Password);
+                    return true;
+                }
+                return false;
+            }else{//this user has already been in database
+                return this.encryptionService.comparePW(Id,Password);//check the password
+            }
+
+        }catch(Exception e){
+            return false;
         }
     }
 }
