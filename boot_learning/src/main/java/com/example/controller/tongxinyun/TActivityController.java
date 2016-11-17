@@ -40,6 +40,7 @@ public class TActivityController {
     @RequestMapping("")
     // 活动合集首页
     public String activities(ModelMap map) throws Exception {
+
         List<Activity> activityList = activityService.findAllActivities();
 
         map.addAttribute("activities", activityList);
@@ -49,16 +50,18 @@ public class TActivityController {
 
     @RequestMapping("/refresh")
     public String refresh(ModelMap map) throws Exception {
+
         List<Activity> activityList = activityService.findAllActivities();
 
         map.addAttribute("activities", activityList);
 
-        return "tongxinyun/activities :: activityList";
+        return "fragments :: activityList";
     }
 
     @RequestMapping(value = "/{mId}")
     // 根据活动名称展现活动
     public String showActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
+
         try {
             List<Activity> activitySet = this.activityService.findActivityById(mId);
             List<Comment> commentList = commentService.findAllCommentOfActivity(mId);
@@ -94,16 +97,36 @@ public class TActivityController {
     public @ResponseBody
     String applyActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
 
-        return "false";
+        try{
+            List<Student> studentList = studentService.findByMId(getUsername(request));
+            List<Activity> activityList = studentList.iterator().next().getActivities();
 
+            for (Activity activity : activityList){
+                if (activity.getmId() == mId){
+                    return "false";
+                }
+            }
+
+            activityService.addStudentToActivity(getUsername(request), mId);
+            return "true";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "login";
+        }
     }
 
     @RequestMapping(value = "/{mId}/unapply")
     // 取消申请参加活动
     public @ResponseBody String unApplyActivity(@PathVariable Long mId, ModelMap map, HttpServletRequest request){
 
-        return "true";
+        try{
+            activityService.deleteStudentFromActivity(getUsername(request), mId);
+            return "true";
 
+        }catch (Exception e){
+            e.printStackTrace();
+            return "false";
+        }
     }
 
 
@@ -123,22 +146,23 @@ public class TActivityController {
     @RequestMapping(value = "/{mId}/comment/refresh", method = RequestMethod.GET)
     // 异步加载评论
     public String commentRefresh(@PathVariable Long mId, int start, int number, ModelMap map) throws Exception {
+
         List<Comment> commentList = commentService.findAllCommentOfActivity(mId);
 
         if (start + number <= commentList.size()){
-            for (Comment comment:commentList.subList(start - 1 , number + start)){
+            for (Comment comment:commentList.subList(start , number + start)){
                 comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
             }
-            map.addAttribute("comments", commentList.subList(start - 1, number + start));
+            map.addAttribute("comments", commentList.subList(start, number + start));
         }else if(start <= commentList.size()) {
-            for (Comment comment:commentList.subList(start - 1 ,commentList.size())){
+            for (Comment comment:commentList.subList(start ,commentList.size())){
                 comment.setStudentName(studentService.findByMId(comment.getmStudentId()).iterator().next().getmName());
             }
-            map.addAttribute("comments", commentList.subList(start - 1, commentList.size()));
+            map.addAttribute("comments", commentList.subList(start, commentList.size()));
         }else{
             map.addAttribute("comments", null);
         }
-        return "tongxinyun/fragments :: commentList";
+        return "fragments :: commentList";
     }
 
     @RequestMapping(value = "/{mId}/good")

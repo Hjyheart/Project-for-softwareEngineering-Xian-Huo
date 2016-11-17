@@ -83,13 +83,15 @@
             <div class="infinite-scroll infinite-scroll-bottom" data-distance="100">
                 <div class="list-block">
                     <ul class="list-container">
-                        <div class="card" th:each="comment:${comments}">
-                            <div class="card-header" th:text="${comment.mStudentId}"></div>
-                            <div class="card-content">
-                                <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                        <li th:each="comment:${comments}">
+                            <div class="card">
+                                <div class="card-header"><a th:text="${comment.studentName}" th:href="@{/t_stu/{studentId}/details(studentId=${comment.mStudentId})}"></a></div>
+                                <div class="card-content">
+                                    <div class="card-content-inner" th:text="${comment.mContent}"></div>
+                                </div>
+                                <div class="card-footer" th:text="${comment.mDate}"></div>
                             </div>
-                            <div class="card-footer" th:text="${comment.mDate}"></div>
-                        </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="content-block">
@@ -113,27 +115,15 @@
                     bold: true,
                     color: 'danger',
                     onClick: function() {
-                        $.get("/t_organize/" + [[${name}]] + "/apply", {Action: "get", Name: "organizeapply"}, function(data, textStatus){
+                        $.get("/t_organize/" + [[${mId}]] + "/apply", {Action: "get", Name: "organizeapply"}, function(data, textStatus){
                             if (data == "true"){
                                 $.alert("申请已经投递!");
-                            }else{
-                                $.alert("已经申请!");
-                            }
-                        });
-                    }
-                },
-                {
-                    text: '赞',
-                    onClick: function() {
-                        $.get("/t_organize/" + [[${name}]] + "/good", {Action: "get", Name: "organizegood"}, function(data, textStatus){
-                            if (data == "true"){
-                                $.alert("赞!");
-                            }else{
-                                $.confirm('已经赞,是否取消赞',
+                            }else if (data == "false"){
+                                $.confirm('已经申请,是否取消申请',
                                         function () {
-                                            $.get("/t_organize/" + [[${name}]] + "/ungood", {Action: "get", Name: "organizeungood"}, function(data, textStatus){
+                                            $.get("/t_organize/" + [[${mId}]] + "/unapply", {Action: "get", Name: "activityunapply"}, function(data, textStatus){
                                                 if (data == "true"){
-                                                    $.alert("成功取消赞!");
+                                                    $.alert("成功取消申请!");
                                                 }else{
                                                     $.alert("取消失败");
                                                 }
@@ -143,6 +133,14 @@
 
                                         }
                                 );
+                            }else if (data == "login"){
+                                $.confirm("该操作需要先登录,是否登录",
+                                        function (){
+                                            $.alert("跳转去登录页");
+                                        },
+                                        function (){
+
+                                        });
                             }
                         });
                     }
@@ -164,35 +162,33 @@
             $.actions(groups);
         });
 
+        var loading = false;
+
+        // 上次加载的序号
+        var lastIndex = [[${lastIndex}]];
+
         $(document).on('click', '.submit-comment', function(){
-            $.get("/t_organize/" + [[${name}]] + "/comment?comment=" + $('#comment').val(), {Action: 'get', Name: 'comment'}, function(data, textStatus){
+            $.get("/t_organize/" + [[${mId}]] + "/comment?comment=" + $('#comment').val(), {Action: 'get', Name: 'comment'}, function(data, textStatus){
                 if (data == 'true') {
-                    $.closeModal('.popup-comment');
-                }else{
-                    $.alert("评论失败!");
+                    $.get('/t_organize/' + [[${mId}]] + '/comment/refresh?start=' + lastIndex + '&number=1', {Action: 'get', Name: 'refreshComment'}, function(data){
+                        // 添加新条目
+                        $('.infinite-scroll-bottom .list-container').append(data);
+                        lastIndex = $('.list-container li').length;
+                        $.refreshScroller();
+                        $('#comment').val('');
+                        $.alert('评论成功');
+                    });
+                }else if (data == "login"){
+                    $.confirm("该操作需要先登录,是否登录",
+                            function (){
+                                $.alert("跳转去登录页");
+                            },
+                            function (){
+
+                            });
                 }
             })
         });
-
-        var loading = false;
-        // 最多可加载的条目
-        var maxItems = 100;
-
-        // 每次加载添加多少条目
-        var itemsPerLoad = 20;
-
-        function addItems(obj) {
-            // 生成新条目的HTML
-            var html = '';
-            html += '<div class="card"><div class="card-header">' + obj.mStudentId +'</div><div class="card-content"><div class="card-content-inner">' + obj.mContent +'</div> </div> <div class="card-footer">' + obj.mDate + '</div> </div>';
-            // 添加新条目
-            $('.infinite-scroll-bottom .list-container').append(html);
-
-        }
-
-        // 上次加载的序号
-
-        var lastIndex = 1;
 
         // 注册'infinite'事件处理函数
         $(document).on('click', '.more', function() {
@@ -209,23 +205,15 @@
                 // 重置加载flag
                 loading = false;
 
-                if (lastIndex >= maxItems) {
-                    return;
-                }
-
-                $.get('/t_organize/' + [[${name}]] + '/comment/refresh?start=' + lastIndex + '&number=1', {Action: 'get', Name: 'refreshComment'}, function(data){
+                $.get('/t_organize/' + [[${mId}]] + '/comment/refresh?start=' + lastIndex + '&number=10', {Action: 'get', Name: 'refreshComment'}, function(data){
                     // 添加新条目
-//                    for (var i = 0; i < data.length; i++) {
-//                        lastIndex = lastIndex + 1;
-//                        addItems(data);
-//                    }
-                    alert(data);
+                    $('.infinite-scroll-bottom .list-container').append(data);
+                    if (lastIndex == $('.list-container li').length){
+                        $.alert("无更多评论!");
+                    }else{
+                        lastIndex = $('.list-container li').length;
+                    }
                 });
-
-                lastIndex += 10;
-                // 更新最后加载的序号
-                lastIndex = $('.list-container li').length;
-                //容器发生改变,如果是js滚动，需要刷新滚动
                 $.refreshScroller();
                 $.hidePreloader();
             }, 1000);

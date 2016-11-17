@@ -65,34 +65,7 @@
                 <img th:src="@{/tongxinyun/D.jpg}" style="width: 92%;"/>
             </div>
 
-            <div class="card-container" th:fragment="activityList">
-                <div class="card" th:each="activity:${activities}">
-                    <div class="card-header" th:text="${activity.clubs[0].mName}">社团的名字</div>
-                    <div class="card-content">
-                        <div class="list-block media-list">
-                            <ul>
-                                <li>
-                                    <a class="item-content item-link" th:href="@{/t_activity/{name}(name=${activity.mId})}">
-                                        <div class="item-media">
-                                            <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"/>
-                                        </div>
-                                        <div class="item-inner">
-                                            <div class="item-title-row">
-                                                <div class="item-title" th:text="${activity.mName}">标题</div>
-                                            </div>
-                                            <div class="item-subtitle" th:text="${activity.mLocation}">地点</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <span th:text="${activity.mTime}">2015/01/15</span>
-                        <span th:text="${#lists.size(activity.comments)} + ' 评论'">5</span>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="fragments :: activityList"></div>
         </div>
     </div>
     <script th:inline="javascript">

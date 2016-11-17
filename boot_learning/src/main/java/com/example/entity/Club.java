@@ -32,6 +32,9 @@ public class Club {
     @Column(nullable = true, name = "DESCRIPTION")
     private String mDescription;
 
+    @Column(nullable = true, name = "IMGURL")
+    private String mImgUrl;
+
 
     @ManyToMany
     private List<Student> students;
@@ -133,5 +136,17 @@ public class Club {
 
     public void setmDescription(String mDescription) {
         this.mDescription = mDescription;
+    }
+
+    public void setmId(Long mId) {
+        this.mId = mId;
+    }
+
+    public String getmImgUrl() {
+        return mImgUrl;
+    }
+
+    public void setmImgUrl(String mImgUrl) {
+        this.mImgUrl = mImgUrl;
     }
 }

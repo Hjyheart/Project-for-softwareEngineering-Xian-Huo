@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<!--activity评论-->
+<li th:each="comment:${comments}" th:fragment="commentList">
+    <div class="card">
+        <div class="card-header"><a th:text="${comment.studentName}" th:href="@{/t_stu/{studentId}/details(studentId=${comment.mStudentId})}"></a></div>
+        <div class="card-content">
+            <div class="card-content-inner" th:text="${comment.mContent}"></div>
+        </div>
+        <div class="card-footer" th:text="${comment.mDate}"></div>
+    </div>
+</li>
+
+<!--activity列表-->
+<div class="card-container" th:fragment="activityList">
+    <div class="card" th:each="activity:${activities}">
+        <div class="card-header" th:text="${activity.clubs[0].mName}">社团的名字</div>
+        <div class="card-content">
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <a class="item-content item-link" th:href="@{/t_activity/{name}(name=${activity.mId})}">
+                            <div class="item-media">
+                                <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"/>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title" th:text="${activity.mName}">标题</div>
+                                </div>
+                                <div class="item-subtitle" th:text="${activity.mLocation} + ' ' + ${activity.mTime}">地点</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-footer">
+            <span th:text="${activity.mPraise} + '赞'">赞</span>
+            <span th:text="${#lists.size(activity.comments)} + ' 评论'">5</span>
+        </div>
+    </div>
+</div>
+
+<!--Organize列表-->
+<div class="card-container" th:fragment="organizeList">
+    <div class="card facebook-card" th:each="organize:${organizes}">
+        <div class="card-header no-border">
+            <div class="facebook-avatar"><img th:src="${organize.mImgUrl}" width="34" height="34"/></div>
+            <div class="facebook-name" th:text="${organize.mName}">夜萧</div>
+            <div class="facebook-date" th:text="${organize.mTeacher}">星期一 3:47pm</div>
+        </div>
+        <div class="card-content"><img th:src="${organize.mImgUrl}" width="100%"/></div>
+        <div class="card-footer no-border">
+            <a th:href="@{/t_organize/{mId}/(mId=${organize.mId})}" class="link open-organize">详情</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
