@@ -123,7 +123,7 @@ public class StudentService {
                     this.addStudent(Id, "unknown"," "," "," ",Password);
                     return true;
                 }
-                return false;
+                return false;//check fail
             }else{//this user has already been in database
                 return this.encryptionService.comparePW(Id,Password);//check the password
             }
