@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${name}"></title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/Semantic-UI/semantic.min.css}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/jquery-3.1.1.min.js}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/semantic.min.js}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/floatingNav.js}"/>
+
+    <script type="text/javascript" th:src="@{/web/ng-controller/app.js}"/>
+    <script type="text/javascript" th:src="@{/web/ng-controller/homeCtrl.js}"/>
+
+</head>
+<body class="pushable" ng-app="myApp" ng-controller="homeCtrl">
+
+    <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
+
+    <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment">
+            <div ng-if="!isLogin">
+                <div th:include="web/nav/navbar-public :: navbar-public"></div>
+            </div>
+            <div ng-if="isLogin">
+                <div th:include="web/nav/navbar-personal :: navbar-personal"></div>
+            </div>
+
+            <div class="ui text container">
+                <br/><br/>
+                <h1 class="ui inverted header">
+                   鲜&nbsp;&nbsp;活
+                </h1>
+                <h2>最棒的大学生社团管理平台!</h2>
+                <br/>
+                <i class="down arrow icon"></i>
+            </div>
+        </div>
+
+        <div class="ui stripe theming vertical segment">
+
+        </div>
+
+        <div th:include="web/footer :: footer"></div>
+    </div>
+
+</body>
+</html>
