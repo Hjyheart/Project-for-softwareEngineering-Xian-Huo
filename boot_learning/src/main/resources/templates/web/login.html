@@ -18,6 +18,56 @@
 </head>
 
 <body class="pushable" ng-app="myApp" ng-controller="loginCtrl">
+<div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+
+      <div th:include="web/nav/navbar-public :: navbar-public"></div>
+      <div class="ui text container">
+      <br/><br/>
+        <h1 class="ui inverted header">
+          登&nbsp;录
+        </h1>
+        <h2>从此开启神奇之旅!</h2>
+        <br/>
+        <i class="down arrow icon"></i>
+        <br/>
+      </div>
+    </div>
+
+    <div class="ui vertical stripe segment">
+      <br/><br/>
+      <div class="ui middle aligned center aligned grid">
+        <div class="row">
+          <div class="six wide column">
+            <form class="ui large form" id="form">
+              <div class="ui stacked segment">
+                <div class="field" id="email">
+                  <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <input type="text" name="email" placeholder="学号" ng-model="email" ng-focus="removeError()"/>
+                  </div>
+                </div>
+                <div class="field" id="password">
+                  <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    <input type="password" name="password" placeholder="统一认证密码" ng-model="pwd" ng-focus="removeError()"/>
+                  </div>
+                </div>
+                <div class="ui error message" ng-if="error">
+                  <div class="header">错误</div>
+                  <p>没有该id或密码错误!</p>
+                </div>
+                <button class="ui fluid large blue submit button" ng-click="login(email, pwd)">登录</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <br/><br/><br/>
+    </div>
+  <div th:include="web/footer :: footer"></div>
+</div>
 
 </body>
 </html>

@@ -34,7 +34,6 @@ public class LoginController {
         String id = request.getParameter("id").trim();
         String password = request.getParameter("password").trim();
 
-
         if (this.studentService.login(id,password)) {
             request.getSession().setAttribute("user_id", id);
             request.getSession().setAttribute("user_password", password);
