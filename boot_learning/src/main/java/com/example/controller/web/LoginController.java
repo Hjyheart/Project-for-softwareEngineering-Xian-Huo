@@ -7,8 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.io.File;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by hongjiayong on 2016/10/21.
@@ -51,5 +50,18 @@ public class LoginController {
     // 跳转到注册页
     public String turnToRegister(){
         return "redirect:/register";
+    }
+
+    @RequestMapping("/if")
+    @ResponseBody
+    // 是否登录
+    public boolean loginIf(HttpServletRequest request){
+        String userId = (String) request.getSession().getAttribute("user_id");
+        if (userId == null){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 }
