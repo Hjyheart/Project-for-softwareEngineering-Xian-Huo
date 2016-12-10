@@ -115,21 +115,26 @@ public class StudentService {
         }
     }
 
-    public boolean login(String Id, String Password){
+    public Integer login(String Id, String Password){
         try{
             List<Student> stu = this.studentRepository.findByMId(Id);
             if(0 == stu.size()){//there is no such a student in database
                 if(this.encryptionService.checkIdentity(Id, Password)){
                     this.addStudent(Id, "unknown"," "," "," ",Password);
-                    return true;
+                    return 0;
                 }
-                return false;//check fail
+                return -1;//check fail
             }else{//this user has already been in database
-                return this.encryptionService.comparePW(Id,Password);//check the password
+                //check the password
+                if (this.encryptionService.comparePW(Id,Password)){
+                    return 1;
+                }else{
+                    return -1;
+                }
             }
 
         }catch(Exception e){
-            return false;
+            return -1;
         }
     }
 }

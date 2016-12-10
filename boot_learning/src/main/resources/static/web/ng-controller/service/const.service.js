@@ -7,6 +7,7 @@ app.service('constService', function(){
         urls:{
             // 用户认证
             loginIf: `${ServiceHost}/login/if`,
+            vertify: `${ServiceHost}/login/vertify`,
 
             // 首页
             indexInit: `${ServiceHost}/home/init`

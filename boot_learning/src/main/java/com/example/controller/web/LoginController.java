@@ -28,21 +28,26 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/vertify", method = RequestMethod.POST)
+    @ResponseBody
     // 处理登录
-    public String dealLogin(HttpServletRequest request, ModelMap map){
+    public Integer dealLogin(HttpServletRequest request, ModelMap map){
 
         String id = request.getParameter("id").trim();
         String password = request.getParameter("password").trim();
 
-        if (this.studentService.login(id,password)) {
-            request.getSession().setAttribute("user_id", id);
-            request.getSession().setAttribute("user_password", password);
+        Integer flag = this.studentService.login(id,password);
 
-            return "redirect:/home";
+        switch (flag){
+            case 1:
+                request.getSession().setAttribute("user_id", id);
+                request.getSession().setAttribute("user_password", password);
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
         }
-        else return "redirect:/login";
-
-
+        return flag;
     }
 
     @RequestMapping("/register")

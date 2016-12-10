@@ -41,23 +41,27 @@
           <div class="six wide column">
             <form class="ui large form" id="form">
               <div class="ui stacked segment">
-                <div class="field" id="email">
+
+                <div class="field" id="stuId" data-content="请输入学号!" data-inverted="">
                   <div class="ui left icon input">
                     <i class="user icon"></i>
-                    <input type="text" name="email" placeholder="学号" ng-model="email" ng-focus="removeError()"/>
+                    <input type="text" name="stuId" placeholder="学号" ng-model="stuId" ng-focus="removeError()"/>
                   </div>
                 </div>
-                <div class="field" id="password">
+
+                <div class="field" id="password" data-content="请输入密码!" data-inverted="">
                   <div class="ui left icon input">
                     <i class="lock icon"></i>
-                    <input type="password" name="password" placeholder="统一认证密码" ng-model="pwd" ng-focus="removeError()"/>
+                    <input type="password" name="password" placeholder="统一认证密码" ng-model="pwd" ng-focus="removeError()" id="stu-password" data-content="请输入密码!" data-inverted=""/>
                   </div>
                 </div>
-                <div class="ui error message" ng-if="error">
+
+                <div class="ui negative message" ng-if="passwordError">
                   <div class="header">错误</div>
                   <p>没有该id或密码错误!</p>
                 </div>
-                <button class="ui fluid large blue submit button" ng-click="login(email, pwd)">登录</button>
+
+                <button class="ui fluid large blue submit button" ng-click="login(stuId, pwd)">登录</button>
               </div>
 
             </form>
@@ -68,6 +72,7 @@
     </div>
   <div th:include="web/footer :: footer"></div>
 </div>
+
 
 </body>
 </html>
