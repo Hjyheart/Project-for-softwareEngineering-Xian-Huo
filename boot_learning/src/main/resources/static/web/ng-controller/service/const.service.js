@@ -8,6 +8,7 @@ app.service('constService', function(){
             // 用户认证
             loginIf: `${ServiceHost}/login/if`,
             vertify: `${ServiceHost}/login/vertify`,
+            compelete: `${ServiceHost}/login/compelete`,
 
             // 首页
             indexInit: `${ServiceHost}/home/init`

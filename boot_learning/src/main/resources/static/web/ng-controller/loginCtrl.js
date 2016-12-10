@@ -3,6 +3,11 @@
  */
 app.controller('loginCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
     $scope.passwordError = false;
+    $scope.schoolName = '软件学院';
+    $scope.user;
+    $scope.contact;
+    $scope.major;
+    $scope.grade = "2014";
     this.$onInit = function (){
 
     };
@@ -32,7 +37,29 @@ app.controller('loginCtrl', ['$scope', '$http', 'constService', function ($scope
                     window.location.href = '/home';
                     break;
                 case 0:
-                    window.location.href = '/init';
+                    $('.ui.modal').modal({
+                        closable: false,
+                        blurring: true,
+                        transition: 'horizontal flip',
+                        onApprove : function() {
+                            $http({
+                                method: 'POST',
+                                url: constService.urls().compelete,
+                                params:{
+                                    'id': stuId,
+                                    'user': $scope.user,
+                                    'major': $scope.major,
+                                    'grade': $('#gradeValue').val(),
+                                    'contact': $scope.contact
+                                }
+                            }).then( res=>{
+                                window.location.href = '/home';
+                            }).catch(err =>{
+                                $('.ui.modal').modal('show');
+                            })
+
+                        }
+                    }).modal('show');
                     break;
                 case -1:
                     $scope.passwordError = true;

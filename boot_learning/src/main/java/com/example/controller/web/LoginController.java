@@ -1,5 +1,6 @@
 package com.example.controller.web;
 
+import com.example.entity.Student;
 import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,29 @@ public class LoginController {
         }
 
     }
+
+    @RequestMapping(value = "/compelete", method = RequestMethod.POST)
+    @ResponseBody
+    // 完善个人信息
+    public boolean compeleteUserInformation(HttpServletRequest request){
+        try{
+            String id = request.getParameter("id").trim();
+            String name = request.getParameter("user").trim();
+            String major = request.getParameter("major").trim();
+            String grade = request.getParameter("grade").trim();
+            String contact = request.getParameter("contact").trim();
+
+            Student stu = studentService.findByMId(id).iterator().next();
+            stu.setmContact(contact);
+            stu.setmMajor(major);
+            stu.setmName(name);
+            stu.setmGrade(grade);
+            studentService.save(stu);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+
