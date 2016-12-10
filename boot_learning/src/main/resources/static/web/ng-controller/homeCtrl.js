@@ -3,13 +3,15 @@
  */
 app.controller('homeCtrl', ['$scope', '$http', 'constService', function($scope, $http, constService){
     $scope.isLogin = false;
+    $scope.student;
     this.$onInit = function(){
         $http({
             method: 'POST',
             url: constService.urls().loginIf
         }).then( res=>{
-            if (res.data === true){
+            if (res.data !== '') {
                 $scope.isLogin = true;
+                $scope.student = res.data;
             }
         }).catch( err=>{
            console.log(err);

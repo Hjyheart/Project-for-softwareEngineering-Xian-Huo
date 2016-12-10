@@ -2,6 +2,7 @@
  * Created by hongjiayong on 2016/12/9.
  */
 app.controller('loginCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
+    $scope.isLogin;
     $scope.passwordError = false;
     $scope.schoolName = '软件学院';
     $scope.user;

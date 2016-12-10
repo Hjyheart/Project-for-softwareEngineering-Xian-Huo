@@ -1,0 +1,21 @@
+<div th:fragment="profile-card" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="ui cards">
+        <div class="ui card">
+            <div class="image">
+                <img src="/F.jpg"/>
+            </div>
+            <div class="content">
+                <a class="ui orange right ribbon label" onclick="showEdit()"><i class="write icon"></i>编辑</a>
+                <p class="header">{{student.mName}}</p>
+
+                <div class="meta">
+                    <span class="date">{{student.mContact}}</span>
+                </div>
+                <div class="description">{{student.mGrade}}->{{student.mMajor}} </div>
+            </div>
+            <div class="extra content">
+                <span class="right floated">{{student.mId}} </span>
+            </div>
+        </div>
+    </div>
+</div>

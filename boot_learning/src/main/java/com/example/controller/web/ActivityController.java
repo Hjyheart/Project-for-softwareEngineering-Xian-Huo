@@ -1,14 +1,11 @@
 package com.example.controller.web;
 
-import com.example.entity.Activity;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Set;
 
 /**
  * Created by hongjiayong on 2016/10/21.
@@ -22,7 +19,7 @@ public class ActivityController {
     public String activities(ModelMap map){
         map.addAttribute("name", "activities");
 
-        return "web/home";
+        return "web/activity/home";
     }
 
     @RequestMapping(value = "/{name}")

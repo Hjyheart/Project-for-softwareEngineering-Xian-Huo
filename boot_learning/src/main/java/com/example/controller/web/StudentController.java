@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by hongjiayong on 2016/10/17.
  */
 @Controller
-@RequestMapping("/stu")
+@RequestMapping("/mycenter")
 public class StudentController {
 
-    @RequestMapping("/basic")
+    @RequestMapping("/profile")
     // 显示学生的个人管理主页 内包括学生个人信息
     public String basic(ModelMap map, HttpServletRequest request){
         map.addAttribute("name", "stu basic");
 
         request.getSession().setAttribute("name","fuck");
-        return "web/home";
+        return "web/mycenter/profile";
     }
 
     @RequestMapping("/mycomments")

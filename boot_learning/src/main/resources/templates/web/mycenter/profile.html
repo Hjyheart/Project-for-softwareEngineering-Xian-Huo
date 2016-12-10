@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${name}"></title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/Semantic-UI/semantic.min.css}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/jquery-3.1.1.min.js}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/semantic.min.js}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/floatingNav.js}"/>
+
+    <script type="text/javascript" th:src="@{/web/ng-controller/app.js}"/>
+    <script type="text/javascript" th:src="@{/web/ng-controller/mycenter/profileCtrl.js}"/>
+    <script type="text/javascript" th:src="@{/web/ng-controller/service/const.service.js}"/>
+</head>
+
+<body class="pushable" ng-app="myApp" ng-controller="profileCtrl">
+<div th:include="web/nav/navbar-floating :: navbar-floating"></div>
+
+<div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+        <div ng-if="!isLogin">
+            <div th:include="web/nav/navbar-public :: navbar-public"></div>
+        </div>
+        <div ng-if="isLogin">
+            <div th:include="web/nav/navbar-personal :: navbar-personal"></div>
+        </div>
+
+        <div class="ui text container">
+            <br/><br/>
+            <h1 class="ui inverted header">
+                姓名
+            </h1>
+            <h2>个人资料!</h2>
+            <br/>
+            <i class="down arrow icon"></i>
+        </div>
+    </div>
+
+    <div class="ui vertical stripe segment">
+        <div class="ui aligned stackable grid container">
+            <div class="row">
+                <!--头像卡片-->
+                <div class="six wide column">
+                    <div th:include="web/mycenter/profile-informationcard :: profile-card"/>
+                </div>
+                <!--右侧信息-->
+                <div class="ten wide right floated column">
+                    <br/>
+                    <br/>
+                    <h2 class="ui header">
+                        <i class="user icon"></i>
+                        <div class="content">我的基本信息 </div>
+                    </h2>
+                    <br/>
+                    <div class="ui styled fluid accordion" id="accordion">
+                        <!--<div class="title"><i class="dropdown icon"></i> My DataSet </div>-->
+                        <!--<div class="content">-->
+                            <!--&lt;!&ndash;把我的数据集打表打出来&ndash;&gt;-->
+                            <!--<% include profile-mydataset.ejs%>-->
+                        <!--</div>-->
+                        <!--<div class="title"><i class="dropdown icon"></i> My Competition </div>-->
+                        <!--<div class="content">-->
+                            <!--&lt;!&ndash;把我的竞赛打表打出来&ndash;&gt;-->
+                            <!--<% include profile-mycompetition.ejs %>-->
+                        <!--</div>-->
+                        <!--<div class="title"><i class="dropdown icon"></i> My Mooc </div>-->
+                        <!--<div class="content">-->
+                            <!--&lt;!&ndash;把我的课打表打出来&ndash;&gt;-->
+                            <!--<% include profile-mymooc.ejs %>-->
+                        <!--</div>-->
+                        <!--<div class="title active"><i class="dropdown icon"></i> My Add </div>-->
+                        <!--<div class="content active">-->
+                            <!--<div class="vertical fluid ui buttons">-->
+                                <!--<button class="basic ui button" onclick="createDataset()">Add Dataset</button>-->
+                                <!--<button class="basic ui button" onclick="createCompetition()">Add Competition</button>-->
+                                <!--<button class="basic ui button" ng-click="createMooc()">Add Mooc</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="web/footer :: footer"></div>
+</div>
+
+</body>
+
+</html>

@@ -44,6 +44,8 @@ public class LoginController {
                 request.getSession().setAttribute("user_password", password);
                 break;
             case 0:
+                request.getSession().setAttribute("user_id", id);
+                request.getSession().setAttribute("user_password", password);
                 break;
             case -1:
                 break;
@@ -60,12 +62,13 @@ public class LoginController {
     @RequestMapping("/if")
     @ResponseBody
     // 是否登录
-    public boolean loginIf(HttpServletRequest request){
+    public Student loginIf(HttpServletRequest request){
         String userId = (String) request.getSession().getAttribute("user_id");
-        if (userId == null){
-            return false;
+        if (userId != null){
+            Student stu = studentService.findByMId(userId).iterator().next();
+            return stu;
         }else{
-            return true;
+            return null;
         }
 
     }
