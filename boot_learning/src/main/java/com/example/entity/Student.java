@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import com.example.service.EncryptionService;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -117,6 +118,7 @@ public class Student{
         this.mContact = mContact;
     }
 
+    @JsonBackReference
     public List<Club> getClubs() {
         return clubs;
     }
@@ -125,6 +127,7 @@ public class Student{
         this.clubs = clubs;
     }
 
+    @JsonBackReference
     public List<Activity> getActivities() {
         return activities;
     }
@@ -133,6 +136,7 @@ public class Student{
         this.activities = activities;
     }
 
+    @JsonBackReference
     public List<Activity> getFavouriteactivities() {
         return favouriteactivities;
     }
@@ -141,6 +145,7 @@ public class Student{
         this.favouriteactivities = favouriteactivities;
     }
 
+    @JsonBackReference
     public List<Apply> getSendApplies() {
         return sendApplies;
     }
@@ -149,6 +154,7 @@ public class Student{
         this.sendApplies = sendApplies;
     }
 
+    @JsonBackReference
     public List<Apply> getReceiveApplies() {
         return receiveApplies;
     }

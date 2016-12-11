@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -98,6 +100,7 @@ public class Club {
         this.mMemberNumber = mMemberNumber;
     }
 
+    @JsonBackReference
     public List<Student> getStudents() {
         return students;
     }
@@ -106,6 +109,7 @@ public class Club {
         this.students = students;
     }
 
+    @JsonBackReference
     public List<Activity> getActivities() {
         return activities;
     }
