@@ -30,7 +30,7 @@
         <div class="ui text container">
             <br/><br/>
             <h1 class="ui inverted header">
-                姓名
+                {{student.name}}
             </h1>
             <h2>个人资料!</h2>
             <br/>
@@ -55,21 +55,27 @@
                     </h2>
                     <br/>
                     <div class="ui styled fluid accordion" id="accordion">
-                        <!--<div class="title"><i class="dropdown icon"></i> My DataSet </div>-->
-                        <!--<div class="content">-->
-                            <!--&lt;!&ndash;把我的数据集打表打出来&ndash;&gt;-->
-                            <!--<% include profile-mydataset.ejs%>-->
-                        <!--</div>-->
-                        <!--<div class="title"><i class="dropdown icon"></i> My Competition </div>-->
-                        <!--<div class="content">-->
-                            <!--&lt;!&ndash;把我的竞赛打表打出来&ndash;&gt;-->
-                            <!--<% include profile-mycompetition.ejs %>-->
-                        <!--</div>-->
-                        <!--<div class="title"><i class="dropdown icon"></i> My Mooc </div>-->
-                        <!--<div class="content">-->
-                            <!--&lt;!&ndash;把我的课打表打出来&ndash;&gt;-->
-                            <!--<% include profile-mymooc.ejs %>-->
-                        <!--</div>-->
+                        <div class="title"><i class="dropdown icon"></i> 我加入的社团 </div>
+                        <div class="content">
+                            <!--把我的加入的社团打表打出来-->
+                            <div th:include="web/mycenter/profile-join-clubs :: profile-join-clubs"/>
+                        </div>
+                        <div class="title"><i class="dropdown icon"></i> 我参与的活动 </div>
+                        <div class="content">
+                            <!--把我的活动打表打出来-->
+                            <div th:include="web/mycenter/profile-join-activity :: profile-join-activity"/>
+                        </div>
+                        <div class="title"><i class="dropdown icon"></i> 我的社团 </div>
+                        <div class="content">
+                            <!--把我创建的社团打出来-->
+                            <div th:include="web/mycenter/profile-my-club :: profile-my-club"/>
+                        </div>
+                        <div class="title"><i class="dropdown icon"></i> 我的活动 </div>
+                        <div class="content">
+                            <!--把我发布的活动打出来-->
+                            <div th:include="web/mycenter/profile-my-activity :: profile-my-activity"/>
+                        </div>
+
                         <!--<div class="title active"><i class="dropdown icon"></i> My Add </div>-->
                         <!--<div class="content active">-->
                             <!--<div class="vertical fluid ui buttons">-->
@@ -84,8 +90,17 @@
         </div>
     </div>
     <div th:include="web/footer :: footer"></div>
+    <!--编辑个人信息的弹窗-->
+    <div th:include="web/mycenter/profile-edit :: profile-edit"/>
 </div>
-
+<script>
+    $('#school').dropdown({
+        on: 'hover'
+    });
+    $('#grade').dropdown({
+        on: 'hover'
+    });
+</script>
 </body>
 
 </html>

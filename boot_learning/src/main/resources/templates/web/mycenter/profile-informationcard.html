@@ -5,16 +5,16 @@
                 <img src="/F.jpg"/>
             </div>
             <div class="content">
-                <a class="ui orange right ribbon label" onclick="showEdit()"><i class="write icon"></i>编辑</a>
-                <p class="header">{{student.mName}}</p>
+                <a class="ui orange right ribbon label" ng-click="showEdit()"><i class="write icon"></i>编辑</a>
+                <p class="header">{{student.name}}</p>
 
                 <div class="meta">
-                    <span class="date">{{student.mContact}}</span>
+                    <span class="date">{{student.contact}}</span>
                 </div>
-                <div class="description">{{student.mGrade}}->{{student.mMajor}} </div>
+                <div class="description">{{student.grade}}->{{student.major}} </div>
             </div>
             <div class="extra content">
-                <span class="right floated">{{student.mId}} </span>
+                <span class="right floated">{{student.id}} </span>
             </div>
         </div>
     </div>
