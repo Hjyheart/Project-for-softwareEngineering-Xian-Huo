@@ -9,9 +9,19 @@ app.service('constService', function(){
             loginIf: `${ServiceHost}/login/if`,
             vertify: `${ServiceHost}/login/vertify`,
             compelete: `${ServiceHost}/login/compelete`,
+            getstudent: `${ServiceHost}/mycenter/getstu`,
 
             // 首页
-            indexInit: `${ServiceHost}/home/init`
+            indexInit: `${ServiceHost}/home/init`,
+
+            // 用户中心
+            myclubs: `${ServiceHost}/mycenter/myclubs`,
+
+            // 社团
+            clubdetail: `${ServiceHost}/club/detail`,
+            getState: `${ServiceHost}/club/state`,
+            addStudent: `${ServiceHost}/club/addstudent`,
+            deleteStudent: `${ServiceHost}/club/deletestudent`
         }
     };
 

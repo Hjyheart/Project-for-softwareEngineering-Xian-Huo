@@ -34,9 +34,8 @@ public class StudentController {
     @RequestMapping("/profile")
     // 显示学生的个人管理主页 内包括学生个人信息
     public String basic(ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", "stu basic");
+        map.addAttribute("name", "个人信息主页");
 
-        request.getSession().setAttribute("name","fuck");
         return "web/mycenter/profile";
     }
 
@@ -83,5 +82,18 @@ public class StudentController {
         map.addAttribute("name", "myFavActivities");
 
         return "web/home";
+    }
+
+    @RequestMapping(value = "/getstu", method = RequestMethod.POST)
+    @ResponseBody
+    public Student getStudent(HttpServletRequest request){
+        try{
+            String id = request.getParameter("id").trim();
+            Student stu = studentService.findByMId(id).iterator().next();
+            return stu;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -3,8 +3,10 @@
  */
 app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
     $scope.student;
+    $scope.clubs;
     $scope.isLogin = false;
     this.$onInit = function(){
+        // 判断是否登录并获取个人基本信息
         $http({
             method: 'POST',
             url: constService.urls().loginIf
@@ -16,6 +18,22 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                 $scope.user = $scope.student.name;
                 $scope.major = $scope.student.major;
                 $scope.contact = $scope.student.contact;
+                $scope.grade = $scope.student.grade;
+
+                // 获取该学生的俱乐部信息
+                $http({
+                    method: 'POST',
+                    url: constService.urls().myclubs,
+                    params:{
+                        'id': $scope.student.id
+                    }
+                }).then( res=>{
+                    console.log(res.data);
+                    $scope.clubs = res.data;
+                }).catch( err=>{
+                    console.log(err);
+                });
+
             }else{
                 window.location.href = '/login';
             }
@@ -51,5 +69,13 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
 
             }
         }).modal('show');
+    };
+
+    $scope.more = function (club) {
+        window.location.href = '/club/' + club.mId;
+    };
+
+    $scope.delete = function (club) {
+        // 把一个club从一个user中移除
     };
 }]);

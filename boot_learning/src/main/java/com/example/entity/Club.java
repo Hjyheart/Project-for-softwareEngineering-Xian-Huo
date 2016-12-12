@@ -37,6 +37,9 @@ public class Club {
     @Column(nullable = true, name = "IMGURL")
     private String mImgUrl;
 
+    @Column(nullable = true, name = "CONTENT", length = 5000)
+    private String content;
+
 
     @ManyToMany
     private List<Student> students;
@@ -152,5 +155,13 @@ public class Club {
 
     public void setmImgUrl(String mImgUrl) {
         this.mImgUrl = mImgUrl;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
