@@ -6,6 +6,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
     $scope.isApply = false;
     $scope.student;
     $scope.club;
+    $scope.clubNum = 0;
     $scope.chairman;
     this.$onInit = function(){
         $http({
@@ -29,6 +30,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
         }).then( res =>{
             console.log(res);
             $scope.club = res.data;
+            $scope.clubNum = $scope.club.mMemberNumber;
             $http({
                 method: "POST",
                 url: constService.urls().getstudent,
@@ -70,7 +72,10 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                     'c_id': $scope.club.mId
                 }
             }).then(res=> {
-                $scope.isApply = true;
+                if (res.data === true){
+                    $scope.isApply = true;
+                    $scope.clubNum += 1;
+                }
             }).catch(err=> {
                 alert("申请失败");
                 console.log(err);
@@ -89,6 +94,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                 }
             }).then(res=> {
                 $scope.isApply = false;
+                $scope.clubNum -= 1;
             }).catch(err=> {
                 alert("申请失败");
                 console.log(err);

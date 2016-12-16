@@ -64,6 +64,8 @@ public class ClubService {
                     break;
                 }
             }
+            clubRepository.setDClubMemberNumberById(clubid);
+
             return true;
         } catch (Exception ex) {
             throw ex;
@@ -82,9 +84,18 @@ public class ClubService {
             Club c = iterClub.next();
             Student s = iterStudent.next();
 
+            List<Student> studentList = c.getStudents();
+
+            // 拒绝重复添加
+            for (Student stu : studentList){
+                if (stu.getmId().equals(stuid)){
+                    return false;
+                }
+            }
+
             c.getStudents().add(s);
             s.getClubs().add(c);
-            clubRepository.setClubMemberNumberById(clubid);
+            clubRepository.setAClubMemberNumberById(clubid);
 
             return true;
         }
