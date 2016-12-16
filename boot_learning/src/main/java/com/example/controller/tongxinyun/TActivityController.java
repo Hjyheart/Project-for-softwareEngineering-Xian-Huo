@@ -137,7 +137,7 @@ public class TActivityController {
         if(!vertifySession(request)){
             return "login";
         }
-        Comment newComment = new Comment(getUsername(request), mId, 1, comment, java.util.Date.from(Instant.now()));
+        Comment newComment = new Comment(getUsername(request), mId, 1, comment, java.util.Date.from(Instant.now()), getUsername(request));
         activityService.addCommentToActivity(newComment, mId);
 
         return "true";

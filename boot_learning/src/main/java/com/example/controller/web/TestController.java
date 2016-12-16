@@ -1,7 +1,6 @@
 package com.example.controller.web;
 
 import com.example.entity.Activity;
-import com.example.entity.Comment;
 import com.example.service.ActivityService;
 import com.example.service.EncryptionService;
 import com.example.service.StorageService;
@@ -46,18 +45,18 @@ public class TestController {
     }
 
 
-    @RequestMapping("/activitycomment")
-    public String activityComment(){
-        try{
-            Comment comment = new Comment("1452716", 1L, 1, "qiangwudi", new Date());
-
-            this.activityService.addCommentToActivity(comment, 1L);
-            return "Success";
-        }catch(Exception ex){
-            ex.printStackTrace();
-            return "Fail";
-        }
-    }
+//    @RequestMapping("/activitycomment")
+//    public String activityComment(){
+//        try{
+//            Comment comment = new Comment("1452716", 1L, 1, "qiangwudi", new Date());
+//
+//            this.activityService.addCommentToActivity(comment, 1L);
+//            return "Success";
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//            return "Fail";
+//        }
+//    }
 
     @RequestMapping("/unnameapply")
     public String unnameApply() {

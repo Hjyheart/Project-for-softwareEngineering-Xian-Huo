@@ -21,7 +21,9 @@ app.service('constService', function(){
             clubdetail: `${ServiceHost}/club/detail`,
             getState: `${ServiceHost}/club/state`,
             addStudent: `${ServiceHost}/club/addstudent`,
-            deleteStudent: `${ServiceHost}/club/deletestudent`
+            deleteStudent: `${ServiceHost}/club/deletestudent`,
+            getClubActivity: `${ServiceHost}/club/getactivity`,
+            getClubComment: `${ServiceHost}/club/getcomment`
         }
     };
 

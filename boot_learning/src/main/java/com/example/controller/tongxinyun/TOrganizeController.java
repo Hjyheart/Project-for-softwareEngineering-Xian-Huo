@@ -133,7 +133,7 @@ public class TOrganizeController {
         if(!vertifySession(request)){
             return "login";
         }
-        Comment newComment = new Comment(getUsername(request), mId, 0, comment, java.util.Date.from(Instant.now()));
+        Comment newComment = new Comment(getUsername(request), mId, 0, comment, java.util.Date.from(Instant.now()), getUsername(request));
         clubService.addCommentToClub(newComment, mId);
 
         return "true";

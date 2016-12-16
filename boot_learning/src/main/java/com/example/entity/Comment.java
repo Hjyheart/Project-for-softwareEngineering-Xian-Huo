@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -23,7 +25,7 @@ public class Comment {
     private String  mContent;
     @Column(nullable = false, name = "DATE")
     private Date   mDate;
-
+    @Column(nullable = false, name = "OWNER")
     private String studentName;
 
 
@@ -37,13 +39,14 @@ public class Comment {
 
 
 
-    public Comment(String mStudentId, Long mTargetId, Integer mTargetType, String mContent, Date mDate) {
+    public Comment(String mStudentId, Long mTargetId, Integer mTargetType, String mContent, Date mDate, String StudentName) {
 
         this.mStudentId = mStudentId;
         this.mTargetId = mTargetId;
         this.mTargetType = mTargetType;
         this.mContent = mContent;
         this.mDate = mDate;
+        this.studentName = StudentName;
     }
 
     public Long getmId() {
@@ -94,6 +97,7 @@ public class Comment {
         this.mDate = mDate;
     }
 
+    @JsonBackReference
     public Activity getActivity() {
         return activity;
     }
@@ -102,6 +106,7 @@ public class Comment {
         this.activity = activity;
     }
 
+    @JsonBackReference
     public Club getClub() {
         return club;
     }

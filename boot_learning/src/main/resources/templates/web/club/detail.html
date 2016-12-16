@@ -60,7 +60,7 @@
                             <a class="ui basic red left pointing label">{{clubNum}}</a>
                         </div>
                         <br/><br/>
-                        <div class="ui blue button" ng-if="isApply">
+                        <div class="ui blue button" ng-if="isApply" ng-click="showFile()">
                             <i class="file icon"></i>
                             资源
                         </div>
@@ -69,15 +69,15 @@
                             资源
                         </div>
 
-                        <div class="ui raised segment">
+                        <div class="ui raised segment transition hidden" id="source-list">
                             <div class="ui relaxed divided list">
                                 <div class="ui header">
-                                    My Participation
+                                    资源专区
                                 </div>
-                                <div class="item" ng-repeat="com in myPcompetitions">
-                                    <i class="large trophy middle aligned icon"></i>
+                                <div class="item">
+                                    <i class="large file middle aligned icon"></i>
                                     <div class="content">
-                                        <a class="header" href="/competition/{{com.com_id}}/detail">{{com.com_name}}</a>
+                                        <a class="header" href="#">文件</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,18 +95,20 @@
                             <p>{{chairman}}</p>
                         </div>
                         <!--评论区-->
-                        <div class="ui top attached tabular menu" id="tab-area">
-                            <div class="active item" data-tab="comment">评论区</div>
+                        <div class="ui top attached tabular menu">
+                            <div class="active item" ng-click="showComment()" id="first">评论区</div>
+                            <div class="item" ng-click="showActivity()" id="second">活动</div>
+
                         </div>
-                        <div class="ui bottom attached active tab segment" data-tab="comment">
+                        <div class="ui bottom attached active tab segment" id="comment">
                             <div class="ui comments">
-                                <div class="comment">
+                                <div class="comment" ng-repeat="comment in club.comment">
                                     <div class="content">
-                                        <a class="author">name</a>
+                                        <a class="author" href="/stu/{{comment.mStudentId}}">{{comment.studentName}}</a>
                                         <div class="metadata">
-                                            <span class="date">date</span>
+                                            <span class="date">{{comment.time}}</span>
                                         </div>
-                                        <div class="text">content </div>
+                                        <div class="text">{{comment.mContent}}</div>
                                     </div>
                                 </div>
                                 <form class="ui reply form" ng-if="isLogin">
@@ -117,6 +119,33 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div class="ui bottom attached tab segment" id="activity">
+                            <div class="ui divided items">
+                                <div class="item" ng-repeat="activity in club.activity">
+                                    <div class="image">
+                                        <img src="{{activity.mImgUrl}}"/>
+                                    </div>
+                                    <div class="content">
+                                        <a class="header">{{activity.mName}}</a>
+                                        <div class="meta">
+                                            <span class="cinema">
+                                                {{activity.time}}
+                                            </span>
+                                        </div>
+                                        <div class="meta">
+                                            <span class="cinema">{{activity.mLocation}}</span>
+                                        </div>
+                                        <div class="description">
+                                            <p>{{activity.mDescription}}</p>
+                                        </div>
+                                        <div class="extra">
+                                            <div class="ui right floated primary button" ng-click="toActivity(activity)">详情 <i class="right chevron icon"></i> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,8 +153,5 @@
 
         <div th:include="web/footer :: footer"></div>
     </div>
-    <script>
-        $('#tab-area').tab();
-    </script>
 </body>
 </html>

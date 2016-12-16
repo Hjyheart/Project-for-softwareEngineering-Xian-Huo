@@ -42,7 +42,7 @@ public class StudentService {
 
     public void addStudent(String Id, String Name, String Grade, String Major, String Contact,String Password) throws Exception {
         try{
-            Student student= new Student(Id, Password, Name,Grade,Major,Contact);
+            Student student= new Student(Id, Password, Name, Grade, Major,Contact);
             studentRepository.save(student);
         }catch(Exception e){
             throw e;
