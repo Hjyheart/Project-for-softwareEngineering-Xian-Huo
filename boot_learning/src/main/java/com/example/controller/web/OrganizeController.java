@@ -1,18 +1,18 @@
 package com.example.controller.web;
 
-import com.example.entity.Activity;
-import com.example.entity.Club;
-import com.example.entity.Comment;
-import com.example.entity.Student;
-import com.example.service.ClubService;
-import com.example.service.StudentService;
+import com.example.entity.*;
+import com.example.service.*;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hongjiayong on 2016/10/22.
@@ -26,6 +26,15 @@ public class OrganizeController {
 
     @Autowired
     private StudentService studentService = new StudentService();
+
+    @Autowired
+    private QiniuService qiniuService = new QiniuService();
+
+    @Autowired
+    private FileService fileService = new FileService();
+
+    @Autowired
+    private CommentService commentService = new CommentService();
 
     @RequestMapping("")
     // 社团合集主页
@@ -161,4 +170,80 @@ public class OrganizeController {
             return null;
         }
     }
+
+    @RequestMapping(value = "/addcomment", method = RequestMethod.POST)
+    @ResponseBody
+    // 添加社团评论
+    public Comment addComment(@RequestParam Long c_id, @RequestParam String s_id, @RequestParam String content){
+        try{
+            Club c = clubService.findByMId(c_id).iterator().next();
+            Student stu = studentService.findByMId(s_id).iterator().next();
+
+            Comment comment = new Comment();
+            comment.setClub(c);
+            comment.setmDate(Date.from(Instant.now()));
+            comment.setmStudentId(s_id);
+            comment.setmTargetType(0);
+            comment.setmTargetId(c_id);
+            comment.setStudentName(stu.getmName());
+            comment.setmContent(content);
+            commentService.save(comment);
+
+            c.getComments().add(comment);
+            clubService.save(c);
+
+            return comment;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean uploadFile(@RequestParam String filePath, @RequestParam Long id){
+        try{
+            Club c = clubService.findByMId(id).iterator().next();
+            if (qiniuService.uploadFile(filePath)){
+                Integer gang = filePath.lastIndexOf("/");
+                String key = filePath.substring(gang + 1, filePath.length());
+                ClubFile clubFile = new ClubFile();
+                clubFile.setmName(key);
+                clubFile.setmClub(c.getmName());
+                clubFile.setmUrl("http://" + qiniuService.getDomain() + "/" + key);
+                fileService.save(clubFile);
+                c.getClubfiles().add(clubFile);
+                clubService.save(c);
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @RequestMapping(value = "/getfiles", method = RequestMethod.POST)
+    @ResponseBody
+    public Map getFiles(@RequestParam Long clubId){
+        try{
+            Club c = clubService.findByMId(clubId).iterator().next();
+            Map map = new HashMap<>();
+
+            List<ClubFile> clubList = c.getClubfiles();
+
+            for (ClubFile clubfile : clubList){
+                clubfile.setmUrl(qiniuService.createDownloadUrl(clubfile.getmUrl()));
+            }
+
+            map.put("club_files", clubList);
+
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

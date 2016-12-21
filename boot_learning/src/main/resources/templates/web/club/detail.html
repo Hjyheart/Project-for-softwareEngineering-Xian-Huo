@@ -74,10 +74,10 @@
                                 <div class="ui header">
                                     资源专区
                                 </div>
-                                <div class="item">
+                                <div class="item" ng-repeat="file in club.files">
                                     <i class="large file middle aligned icon"></i>
                                     <div class="content">
-                                        <a class="header" href="#">文件</a>
+                                        <a class="header" href="{{file.mUrl}}">{{file.mName}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -113,9 +113,9 @@
                                 </div>
                                 <form class="ui reply form" ng-if="isLogin">
                                     <div class="field">
-                                        <textarea></textarea>
+                                        <textarea id="comment-area"></textarea>
                                     </div>
-                                    <div class="ui blue labeled submit icon button"><i class="icon edit"></i> 添加评论 </div>
+                                    <div class="ui blue labeled submit icon button" ng-click="addComment()"><i class="icon edit"></i> 添加评论 </div>
                                 </form>
                             </div>
                         </div>

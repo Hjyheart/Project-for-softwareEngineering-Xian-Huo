@@ -89,6 +89,18 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
             }).catch( err=>{
                 console.log(err);
             });
+            // 获得社团的资源文件
+            $http({
+                method: 'POST',
+                url: constService.urls().getClubFiles,
+                params:{
+                    'clubId': $scope.club.mId
+                }
+            }).then( res=>{
+                $scope.club.files = res.data.club_files;
+            }).catch( err=>{
+                console.log(err);
+            });
             if ($scope.isLogin === true){
                 // 得到申请状态
                 $http({
@@ -176,5 +188,30 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
     // 转到活动
     $scope.toActivity = function (activity) {
         window.location.href = '/activity/' + activity.mName;
-    }
+    };
+
+    // 添加评论
+    $scope.addComment = function(){
+        $http({
+            method: 'POST',
+            url: constService.urls().addComment,
+            params:{
+                's_id': $scope.student.mId,
+                'c_id': $scope.club.mId,
+                'content': $('#comment-area').val()
+            }
+        }).then( res=>{
+            console.log(res.data);
+            let date = new Date(res.data.mDate);
+            res.data.time = date.getFullYear().toString() + '/'
+                + date.getMonth().toString() + '/'
+                + date.getDay().toString() + '  '
+                + date.getHours().toString() + ':'
+                + date.getMinutes().toString();
+            $scope.club.comment.push(res.data);
+            $('#comment-area').val('');
+        }).catch( err=>{
+            console.log(err);
+        })
+    };
 }]);

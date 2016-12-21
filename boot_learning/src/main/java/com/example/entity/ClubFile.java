@@ -10,7 +10,7 @@ public class ClubFile {
     @Id
     @GeneratedValue
     @Column(nullable = false, name = "ID")
-    private Long mId;//??
+    private Long mId;
     @Column(nullable = false, name = "NAME")
     private String mName;
     @Column(nullable = false, name = "URL")

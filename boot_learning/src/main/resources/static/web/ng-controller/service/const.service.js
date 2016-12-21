@@ -23,7 +23,9 @@ app.service('constService', function(){
             addStudent: `${ServiceHost}/club/addstudent`,
             deleteStudent: `${ServiceHost}/club/deletestudent`,
             getClubActivity: `${ServiceHost}/club/getactivity`,
-            getClubComment: `${ServiceHost}/club/getcomment`
+            getClubComment: `${ServiceHost}/club/getcomment`,
+            getClubFiles: `${ServiceHost}/club/getfiles`,
+            addComment: `${ServiceHost}/club/addcomment`,
         }
     };
 

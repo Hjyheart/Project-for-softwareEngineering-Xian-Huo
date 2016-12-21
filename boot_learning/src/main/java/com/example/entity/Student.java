@@ -24,6 +24,8 @@ public class Student{
     private String mMajor;
     @Column(nullable = true, name = "CONTACT")
     private String mContact;
+    @Column(nullable = true, name = "HEADIMG")
+    private String mHeadUrl;
 
 
     @ManyToMany
@@ -48,9 +50,9 @@ public class Student{
     }
 
     public Student(String mId, String mPassword, String mName,
-                   String mGrade, String mMajor, String mContact) throws Exception {
+                   String mGrade, String mMajor, String mContact, String mHeadUrl) throws Exception {
         this.mId = mId;
-        //this.password = password;
+        this.mHeadUrl = mHeadUrl;
         this.mName = mName;
         this.mGrade = mGrade;
         this.mMajor = mMajor;
@@ -161,5 +163,13 @@ public class Student{
 
     public void setReceiveApplies(List<Apply> receiveApplies) {
         this.receiveApplies = receiveApplies;
+    }
+
+    public String getmHeadUrl() {
+        return mHeadUrl;
+    }
+
+    public void setmHeadUrl(String mHeadUrl) {
+        this.mHeadUrl = mHeadUrl;
     }
 }
