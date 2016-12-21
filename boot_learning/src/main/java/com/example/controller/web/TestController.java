@@ -3,17 +3,19 @@ package com.example.controller.web;
 import com.example.entity.Activity;
 import com.example.service.ActivityService;
 import com.example.service.EncryptionService;
-import com.example.service.StorageService;
 import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+
+//import com.example.service.StorageService;
 
 /**
  * Created by deado on 2016/10/23.
@@ -24,8 +26,8 @@ public class TestController {
 
     @Autowired
     private ActivityService activityService;
-    @Autowired
-    private StorageService storageService;
+//    @Autowired
+//    private StorageService storageService;
     @Autowired
     private EncryptionService encryptionService;
     @Autowired
@@ -106,16 +108,16 @@ public class TestController {
         }
     }
 
-    @RequestMapping(value="/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
-    public String upload(@RequestParam(value = "fileinput")MultipartFile mulFile, HttpServletRequest request){
-       try{
-           this.storageService.storeFile(mulFile, "TestClub");
-           return "redirect:/Test";
-        }catch(Exception e){
-           e.printStackTrace();
-           return "redirect:/Test";
-        }
-    }
+//    @RequestMapping(value="/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
+//    public String upload(@RequestParam(value = "fileinput")MultipartFile mulFile, HttpServletRequest request){
+//       try{
+////           this.storageService.storeFile(mulFile, "TestClub");
+//           return "redirect:/Test";
+//        }catch(Exception e){
+//           e.printStackTrace();
+//           return "redirect:/Test";
+//        }
+//    }
 
     @RequestMapping(value="")
     public String upPage(ModelMap map){

@@ -19,10 +19,6 @@ public class ClubFile {
     private String mClub;
 
 
-    @ManyToOne
-    private Club club;
-
-
 
     public ClubFile() {
     }
@@ -59,14 +55,6 @@ public class ClubFile {
 
     public void setmClub(String mClub) {
         this.mClub = mClub;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
     }
 
 

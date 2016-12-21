@@ -15,10 +15,10 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
             if (res.data !== ''){
                 $scope.isLogin = true;
                 $scope.student = res.data;
-                $scope.user = $scope.student.name;
-                $scope.major = $scope.student.major;
-                $scope.contact = $scope.student.contact;
-                $scope.grade = $scope.student.grade;
+                $scope.user = $scope.student.mName;
+                $scope.major = $scope.student.mMajor;
+                $scope.contact = $scope.student.mContact;
+                $scope.grade = $scope.student.mGrade;
 
                 // 获取该学生的俱乐部信息
                 $http({

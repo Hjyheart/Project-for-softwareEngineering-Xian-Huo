@@ -8,6 +8,8 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
     $scope.club;
     $scope.clubNum = 0;
     $scope.chairman;
+
+    //noinspection JSUnnecessarySemicolon
     this.$onInit = function(){
         $http({
             method: 'POST',
@@ -93,7 +95,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                     method: "POST",
                     url: constService.urls().getState,
                     params:{
-                        's_id': $scope.student.id,
+                        's_id': $scope.student.mId,
                         'c_id': $scope.club.mId
                     }
                 }).then( res=>{
@@ -114,7 +116,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                 method: 'POST',
                 url: constService.urls().addStudent,
                 params: {
-                    's_id': $scope.student.id,
+                    's_id': $scope.student.mId,
                     'c_id': $scope.club.mId
                 }
             }).then(res=> {
@@ -135,10 +137,10 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                 method: 'POST',
                 url: constService.urls().deleteStudent,
                 params: {
-                    's_id': $scope.student.id,
+                    's_id': $scope.student.mId,
                     'c_id': $scope.club.mId
                 }
-            }).then(res=> {
+            }).then( res=> {
                 $scope.isApply = false;
                 $scope.clubNum -= 1;
             }).catch(err=> {

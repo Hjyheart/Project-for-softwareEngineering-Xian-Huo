@@ -62,16 +62,12 @@ public class LoginController {
     @RequestMapping("/if")
     @ResponseBody
     // 是否登录
-    public String loginIf(HttpServletRequest request){
+    public Student loginIf(HttpServletRequest request){
         String userId = (String) request.getSession().getAttribute("user_id");
         if (userId != null){
             Student stu = studentService.findByMId(userId).iterator().next();
-            return "{" +
-                    "\"id\":" + stu.getmId() + ", " +
-                    "\"name\":" + "\"" + stu.getmName() + "\"," +
-                    "\"grade\":" + stu.getmGrade() + ", " +
-                    "\"major\":" + "\"" + stu.getmMajor() + "\"," +
-                    "\"contact\":" + stu.getmContact() + "}";
+
+            return stu;
         }else{
             return null;
         }
