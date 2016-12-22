@@ -49,7 +49,8 @@ public class OrganizeController {
 
     /**
      * 获取某一个社团详情的网页模板
-     * @param  id 社团对应的id
+     * @param  id
+     * 社团对应的id
      * @return clubView
      */
     @RequestMapping(value = "/{id}")
@@ -70,7 +71,8 @@ public class OrganizeController {
 
     /**
      * 获取某一个社团之间的详情
-     * @param id 社团对应的id
+     * @param id
+     * 社团对应的id
      * @return club
      */
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
@@ -88,8 +90,10 @@ public class OrganizeController {
 
     /**
      * 获取某一个学生和某个社团之间的关系
-     * @param c_id 社团对应的id
-     * @param s_id 学生对应的id
+     * @param c_id
+     * 社团对应的id
+     * @param s_id
+     * 学生对应的id
      * @return 没申请-> false 申请了-> true
      */
     @RequestMapping(value = "/state", method = RequestMethod.POST)
@@ -134,8 +138,10 @@ public class OrganizeController {
 
     /**
      * 删除某个社团中的某个学生
-     * @param c_id 社团对应的id
-     * @param s_id 学生对应的id
+     * @param c_id
+     * 社团对应的id
+     * @param s_id
+     * 学生对应的id
      * @return boolean
      */
     @RequestMapping(value = "/deletestudent", method = RequestMethod.POST)
@@ -155,8 +161,10 @@ public class OrganizeController {
 
     /**
      * 返回社团所有的活动
-     * @pathvalue id 社团对应的id
-     * @return 社团所有活动
+     * @param  id
+     * 社团对应的id
+     * @return
+     * 社团所有活动
      */
     @RequestMapping(value = "/getactivity", method = RequestMethod.POST)
     @ResponseBody
@@ -173,8 +181,10 @@ public class OrganizeController {
 
     /**
      * 返回社团所有的评论
-     * @param id 社团对应的id
-     * @return 社团所有评论
+     * @param id
+     * 社团对应的id
+     * @return
+     * 社团所有评论
      */
     @RequestMapping(value = "/getcomment", method = RequestMethod.POST)
     @ResponseBody
@@ -191,9 +201,12 @@ public class OrganizeController {
 
     /**
      * 添加对社团的评论
-     * @param c_id 社团对应id
-     * @param s_id 学生对应id
-     * @return 所添加的评论
+     * @param c_id
+     * 社团对应id
+     * @param s_id
+     * 学生对应id
+     * @return comment
+     * 所添加的评论
      */
     @RequestMapping(value = "/addcomment", method = RequestMethod.POST)
     @ResponseBody
@@ -224,8 +237,10 @@ public class OrganizeController {
 
     /**
      * 上传文件
-     * @param filePath 文件本地路径
-     * @param id 社团对应的id
+     * @param filePath
+     * 文件本地路径
+     * @param id
+     * 社团对应的id
      * @return boolean
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -255,7 +270,8 @@ public class OrganizeController {
 
     /**
      * 获取某俱乐部的资源文件
-     * @param clubId 俱乐部的id
+     * @param clubId
+     * 俱乐部的id
      * @return 文件map
      */
     @RequestMapping(value = "/getfiles", method = RequestMethod.POST)
@@ -282,7 +298,8 @@ public class OrganizeController {
 
     /**
      * 返回社团管理页面
-     * @pathvalue id 社团对应的id
+     * @pathvalue id
+     * 社团对应的id
      * @return 社团视图
      */
     @RequestMapping(value = "/{id}/manage")

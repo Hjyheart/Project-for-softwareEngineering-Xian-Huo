@@ -3,7 +3,9 @@ package com.example.controller.web;
 import com.example.entity.Activity;
 import com.example.service.ActivityService;
 import com.example.service.EncryptionService;
+import com.example.service.MessageService;
 import com.example.service.StudentService;
+import com.taobao.api.ApiException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -26,12 +28,15 @@ public class TestController {
 
     @Autowired
     private ActivityService activityService;
-//    @Autowired
-//    private StorageService storageService;
+
     @Autowired
     private EncryptionService encryptionService;
+
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private MessageService messageService;
 
 
     @RequestMapping("/nameapply")
@@ -165,6 +170,12 @@ public class TestController {
         }catch(Exception e){
             return "bbb";
         }
+    }
+
+    @RequestMapping(value = "/sendMessage")
+    @ResponseBody
+    public void messageTest() throws ApiException {
+        messageService.sendMessage("洪嘉勇", "15900582673", "小红俱乐部", "济事楼", Date.from(Instant.now()), "编程一小时");
     }
 
 

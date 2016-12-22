@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity @Table(name = "CLUBFILE")
 public class ClubFile {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "ID")
     private Long mId;
     @Column(nullable = false, name = "NAME")

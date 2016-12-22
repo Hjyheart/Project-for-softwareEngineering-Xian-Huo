@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8"/>
     <title th:text="${clubId}"></title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/Semantic-UI/semantic.min.css}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/jquery-3.1.1.min.js}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/semantic.min.js}"/>
+    <script type="text/javascript" th:src="@{/Semantic-UI/floatingNav.js}"/>
+
+    <script type="text/javascript" th:src="@{/web/ng-controller/app.js}"/>
+    <script type="text/javascript" th:src="@{/web/ng-controller/club/club-detailCtrl.js}"/>
+    <script type="text/javascript" th:src="@{/web/ng-controller/service/const.service.js}"/>
 </head>
 <body>
+    <div class="transition hidden" id="clubId" th:text="${id}"></div>
 
 </body>
 </html>

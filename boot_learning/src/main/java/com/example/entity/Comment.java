@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = "COMMENT")
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "ID")
     private Long mId;
     @Column(nullable = false, name = "STUDENTID")
