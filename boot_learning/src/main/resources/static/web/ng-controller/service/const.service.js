@@ -16,6 +16,7 @@ app.service('constService', function(){
 
             // 用户中心
             myclubs: `${ServiceHost}/mycenter/myclubs`,
+            myHostClub: `${ServiceHost}/mycenter/myhostclub`,
 
             // 社团
             clubdetail: `${ServiceHost}/club/detail`,

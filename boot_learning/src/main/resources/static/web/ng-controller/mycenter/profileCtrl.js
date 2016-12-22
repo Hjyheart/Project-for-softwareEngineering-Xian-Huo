@@ -4,6 +4,7 @@
 app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($scope, $http, constService) {
     $scope.student;
     $scope.clubs;
+    $scope.hclubs;
     $scope.isLogin = false;
     this.$onInit = function(){
         // 判断是否登录并获取个人基本信息
@@ -25,7 +26,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                     method: 'POST',
                     url: constService.urls().myclubs,
                     params:{
-                        'id': $scope.student.id
+                        'id': $scope.student.mId
                     }
                 }).then( res=>{
                     console.log(res.data);
@@ -34,6 +35,19 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                     console.log(err);
                 });
 
+                // 获取该学生创建的俱乐部的信息
+                $http({
+                    method: 'POST',
+                    url: constService.urls().myHostClub,
+                    params:{
+                        'id': $scope.student.mId
+                    }
+                }).then( res=>{
+                    console.log(res.data);
+                    $scope.hclubs = res.data.host_clubs;
+                }).catch( err=>{
+                    console.log(err);
+                })
             }else{
                 window.location.href = '/login';
             }
@@ -75,7 +89,29 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
         window.location.href = '/club/' + club.mId;
     };
 
+    $scope.manage = function (club) {
+        window.location.href = '/club/' + club.mId + '/manage';
+    };
+
     $scope.delete = function (club) {
         // 把一个club从一个user中移除
+        $http({
+            method: 'POST',
+            url: constService.urls().deleteStudent,
+            params:{
+                's_id': $scope.student.mId,
+                'c_id': club.mId
+            }
+        }).then( res=>{
+            console.log(res.data);
+            for (let i = 0; i < $scope.clubs.length; i++){
+                if ($scope.clubs[i] === club){
+                    $scope.clubs.splice(i ,1);
+                    break;
+                }
+            }
+        }).catch( err=>{
+            console.log(err);
+        })
     };
 }]);

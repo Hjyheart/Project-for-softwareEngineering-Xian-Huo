@@ -11,9 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hongjiayong on 2016/10/17.
@@ -57,8 +61,7 @@ public class StudentController {
     @RequestMapping(value = "/myclubs", method = RequestMethod.POST)
     @ResponseBody
     // 显示用户加入的社团列表 点击之后重定向到该社团
-    public List<Club> myOrganizes(HttpServletRequest request){
-        String id = request.getParameter("id").trim();
+    public List<Club> myOrganizes(@RequestParam String id){
 
         Student stu = studentService.findByMId(id).iterator().next();
 
@@ -66,6 +69,28 @@ public class StudentController {
 
 
         return clubList;
+    }
+
+    @RequestMapping(value = "/myhostclub", method = RequestMethod.POST)
+    @ResponseBody
+    // 获取用户建立的俱乐部
+    public Map myHostClub(@RequestParam String id){
+        try{
+            List<Club> clubList = clubService.findAll();
+            Map map = new HashMap<>();
+            ArrayList<Club> clubs = new ArrayList<>();
+
+            for (Club club : clubList){
+                if (club.getmChairmanId().equals(id)){
+                    clubs.add(club);
+                }
+            }
+            map.put("host_clubs", clubs);
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @RequestMapping("/myactivities")

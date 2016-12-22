@@ -50,7 +50,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                 method: 'POST',
                 url: constService.urls().getClubActivity,
                 params:{
-                    'c_id': $scope.club.mId
+                    'id': $scope.club.mId
                 }
             }).then( res=>{
                 $scope.club.activity = res.data;
@@ -73,7 +73,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
                 method: 'POST',
                 url: constService.urls().getClubComment,
                 params:{
-                    'c_id': $scope.club.mId
+                    'id': $scope.club.mId
                 }
             }).then( res=>{
                 $scope.club.comment = res.data;

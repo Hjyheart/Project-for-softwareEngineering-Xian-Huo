@@ -36,17 +36,24 @@ public class OrganizeController {
     @Autowired
     private CommentService commentService = new CommentService();
 
+    /**
+     * 获取社团集锦的网页模板
+     * @return clubsView
+     */
     @RequestMapping("")
-    // 社团合集主页
     public String organizes(ModelMap map){
         map.addAttribute("name", "organize");
 
         return "web/home";
     }
 
+    /**
+     * 获取某一个社团详情的网页模板
+     * @param  id 社团对应的id
+     * @return clubView
+     */
     @RequestMapping(value = "/{id}")
-    // 根据名称查找展现社团
-    public String showOrganize(@PathVariable Long id, ModelMap map, HttpServletRequest request){
+    public String clubView(@PathVariable Long id, ModelMap map, HttpServletRequest request){
 
         try {
             Club club = clubService.findByMId(id).iterator().next();
@@ -61,10 +68,14 @@ public class OrganizeController {
         return "web/club/detail";
     }
 
+    /**
+     * 获取某一个社团之间的详情
+     * @param id 社团对应的id
+     * @return club
+     */
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     @ResponseBody
-    public Club getClubDetail(HttpServletRequest request){
-        Long id = Long.valueOf(request.getParameter("id").trim());
+    public Club getClubDetail(@RequestParam Long id){
         try{
             Club club = clubService.findByMId(id).iterator().next();
 
@@ -75,25 +86,20 @@ public class OrganizeController {
         }
     }
 
-    @RequestMapping(value = "/{name}/sources")
-    public String sourceForOrganize(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " sources");
-
-        return "web/home";
-    }
-
+    /**
+     * 获取某一个学生和某个社团之间的关系
+     * @param c_id 社团对应的id
+     * @param s_id 学生对应的id
+     * @return 没申请-> false 申请了-> true
+     */
     @RequestMapping(value = "/state", method = RequestMethod.POST)
     @ResponseBody
-    // 获得申请状态 -1为没申请 0为申请了 1为已经是成员了
-    public boolean getState(HttpServletRequest request){
+    public boolean getState(@RequestParam String s_id, @RequestParam Long c_id){
         try {
-            String stu_id = request.getParameter("s_id").trim();
-            Long club_id = Long.valueOf(request.getParameter("c_id").trim());
-
-            Student stu = studentService.findByMId(stu_id).iterator().next();
+            Student stu = studentService.findByMId(s_id).iterator().next();
 
             for (Club club : stu.getClubs()){
-                if (club.getmId().equals(club_id)){
+                if (club.getmId().equals(c_id)){
                     return true;
                 }
             }
@@ -105,15 +111,17 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 在某个社团中加入某个学生
+     * @param c_id 社团对应的id
+     * @param s_id 学生对应的id
+     * @return boolean
+     */
     @RequestMapping(value = "/addstudent", method = RequestMethod.POST)
     @ResponseBody
-    // 加学生进社团
-    public boolean addStudent(HttpServletRequest request){
+    public boolean addStudent(@RequestParam String s_id, @RequestParam Long c_id){
         try {
-            String stu_id = request.getParameter("s_id").trim();
-            Long club_id = Long.valueOf(request.getParameter("c_id").trim());
-
-            if (clubService.studentApplyClub(club_id, stu_id)){
+            if (clubService.studentApplyClub(c_id, s_id)){
                 return true;
             }else {
                 return false;
@@ -124,15 +132,17 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 删除某个社团中的某个学生
+     * @param c_id 社团对应的id
+     * @param s_id 学生对应的id
+     * @return boolean
+     */
     @RequestMapping(value = "/deletestudent", method = RequestMethod.POST)
     @ResponseBody
-    // 删除学生
-    public boolean deleteStudent(HttpServletRequest request){
+    public boolean deleteStudent(@RequestParam String s_id, @RequestParam Long c_id){
         try {
-            String stu_id = request.getParameter("s_id").trim();
-            Long club_id = Long.valueOf(request.getParameter("c_id").trim());
-
-            if (clubService.studentQuitClub(club_id, stu_id)){
+            if (clubService.studentQuitClub(c_id, s_id)){
                 return true;
             }else {
                 return false;
@@ -143,10 +153,14 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 返回社团所有的活动
+     * @pathvalue id 社团对应的id
+     * @return 社团所有活动
+     */
     @RequestMapping(value = "/getactivity", method = RequestMethod.POST)
     @ResponseBody
-    // 获取社团的活动
-    public List<Activity> getActivity(@RequestParam(value = "c_id") Long id){
+    public List<Activity> getActivity(@RequestParam Long id){
         try{
             Club c = clubService.findByMId(id).iterator().next();
             List<Activity> activities = c.getActivities();
@@ -157,10 +171,14 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 返回社团所有的评论
+     * @param id 社团对应的id
+     * @return 社团所有评论
+     */
     @RequestMapping(value = "/getcomment", method = RequestMethod.POST)
     @ResponseBody
-    // 获取社团的活动
-    public List<Comment> getComment(@RequestParam(value = "c_id") Long id){
+    public List<Comment> getComment(@RequestParam Long id){
         try{
             Club c = clubService.findByMId(id).iterator().next();
             List<Comment> comments = c.getComments();
@@ -171,9 +189,14 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 添加对社团的评论
+     * @param c_id 社团对应id
+     * @param s_id 学生对应id
+     * @return 所添加的评论
+     */
     @RequestMapping(value = "/addcomment", method = RequestMethod.POST)
     @ResponseBody
-    // 添加社团评论
     public Comment addComment(@RequestParam Long c_id, @RequestParam String s_id, @RequestParam String content){
         try{
             Club c = clubService.findByMId(c_id).iterator().next();
@@ -199,6 +222,12 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 上传文件
+     * @param filePath 文件本地路径
+     * @param id 社团对应的id
+     * @return boolean
+     */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public boolean uploadFile(@RequestParam String filePath, @RequestParam Long id){
@@ -224,6 +253,11 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 获取某俱乐部的资源文件
+     * @param clubId 俱乐部的id
+     * @return 文件map
+     */
     @RequestMapping(value = "/getfiles", method = RequestMethod.POST)
     @ResponseBody
     public Map getFiles(@RequestParam Long clubId){
@@ -244,6 +278,18 @@ public class OrganizeController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 返回社团管理页面
+     * @pathvalue id 社团对应的id
+     * @return 社团视图
+     */
+    @RequestMapping(value = "/{id}/manage")
+    public String manageView(@PathVariable Long id, ModelMap modelMap){
+        modelMap.addAttribute("clubId", id);
+
+        return "web/club/manage";
     }
 
 }

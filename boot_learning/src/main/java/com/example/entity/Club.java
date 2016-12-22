@@ -44,13 +44,13 @@ public class Club {
     @ManyToMany
     private List<Student> students;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Activity> activities;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ClubFile> clubfiles;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     //data get & set ways

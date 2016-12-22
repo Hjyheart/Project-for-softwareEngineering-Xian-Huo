@@ -1,15 +1,15 @@
 <div th:fragment="profile-my-club" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="ui cards">
-        <div class="card">
+        <div class="card" ng-repeat="club in hclubs">
             <div class="content">
-                <div class="header">社团名称 </div>
-                <div class="meta">社团人数 </div>
-                <div class="description">社团描述 </div>
+                <div class="header">{{club.mName}} </div>
+                <div class="meta">人数: {{club.mMemberNumber}} </div>
+                <div class="description">{{club.mDescription}} </div>
             </div>
             <div class="extra content">
                 <div class="ui three buttons">
-                    <div class="ui basic green button">More</div>
-                    <div class="ui basic blue button">Manage</div>
+                    <div class="ui basic green button" ng-click="more(club)">详情</div>
+                    <div class="ui basic blue button" ng-click="manage(club)">管理</div>
                 </div>
             </div>
         </div>
