@@ -17,29 +17,32 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
             if (res.data !== '') {
                 $scope.isLogin = true;
                 $scope.student = res.data;
+                if ($scope.isLogin === true){
+                    // 得到用户和club的关系
+                    $http({
+                        method: "POST",
+                        url: constService.urls().vertifyClubHost,
+                        params:{
+                            's_id': $scope.student.mId,
+                            'c_id': $('#clubId').text()
+                        }
+                    }).then( res=>{
+                        $scope.isHost = res.data;
+                        if (!$scope.isHost){
+                            window.location.href="/";
+                        }
+                    }).catch( err=>{
+                        console.log(err);
+                    })
+                }else{
+                    window.location.href="/login";
+                }
+            }else{
+                window.location.href="/login";
             }
         }).catch( err=>{
             console.log(err);
         });
-
-        if ($scope.isLogin === true){
-            // 得到用户和club的关系
-            $http({
-                method: "POST",
-                url: constService.urls().vertifyClubHost,
-                params:{
-                    's_id': $scope.student.mId,
-                    'c_id': $scope.club.mId
-                }
-            }).then( res=>{
-                $scope.isHost = res.data;
-                if (!$scope.isHost){
-                    window.location.href="/";
-                }
-            }).catch( err=>{
-                console.log(err);
-            })
-        }
 
         $http({
             method: 'POST',
@@ -98,6 +101,19 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
             }).catch( err=>{
                 console.log(err);
             });
+            // 获取社团的学生列表
+            $http({
+                method: 'POST',
+                url: constService.urls().getClubStudent,
+                params:{
+                    'c_id': $scope.club.mId
+                }
+            }).then( res=>{
+                console.log(res.data);
+                $scope.club.students = res.data;
+            }).catch( err=>{
+                console.log(err);
+            })
         }).catch( err =>{
             console.log(err);
         });
@@ -133,8 +149,36 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
 
     // 上传文件
     $scope.uploadFile = function () {
+        if ($('#upload-file').val() === '' || $('#upload-file').val() === null){
+            return;
+        }
+
+        var file = $('#upload-file');
+        //file.select();
+        //console.log(document.selection.createRange().text);
           //$http({
-          //
+          //    method: 'POST',
+          //    url: constService.urls().uploadClubFile,
+          //    params:{
+          //        'filePath': $('#upload-file').file[0].get,
+          //        'id': $scope.club.mId
+          //    }
+          //}).then( res=>{
+          //    console.log(res.data);
+          //    // 获得社团的资源文件
+          //    $http({
+          //        method: 'POST',
+          //        url: constService.urls().getClubFiles,
+          //        params:{
+          //            'clubId': $scope.club.mId
+          //        }
+          //    }).then( res=>{
+          //        $scope.club.files = res.data.club_files;
+          //    }).catch( err=>{
+          //        console.log(err);
+          //    });
+          //}).catch( err=>{
+          //    console.log(err);
           //})
     };
 }]);

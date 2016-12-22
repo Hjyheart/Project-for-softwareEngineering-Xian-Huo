@@ -22,12 +22,14 @@ app.service('constService', function(){
             clubdetail: `${ServiceHost}/club/detail`,
             getState: `${ServiceHost}/club/state`,
             addStudent: `${ServiceHost}/club/addstudent`,
+            getClubStudent: `${ServiceHost}/club/getstudents`,
             deleteStudent: `${ServiceHost}/club/deletestudent`,
             getClubActivity: `${ServiceHost}/club/getactivity`,
             getClubComment: `${ServiceHost}/club/getcomment`,
             getClubFiles: `${ServiceHost}/club/getfiles`,
             addComment: `${ServiceHost}/club/addcomment`,
-            vertifyClubHost: `${ServerHost}/club/vertifyclubhost`
+            vertifyClubHost: `${ServiceHost}/club/vertifyclubhost`,
+            uploadClubFile: `${ServiceHost}/club/upload`
         }
     };
 

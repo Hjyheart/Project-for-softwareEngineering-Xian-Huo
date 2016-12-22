@@ -334,4 +334,21 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 返回一个社团所有的学生的信息
+     * @param c_id
+     * 社团对应的id
+     * @return students
+     */
+    @RequestMapping(value = "/getstudents", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Student> getStudents(@RequestParam Long c_id){
+        try{
+            Club club = clubService.findByMId(c_id).iterator().next();
+            return club.getStudents();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

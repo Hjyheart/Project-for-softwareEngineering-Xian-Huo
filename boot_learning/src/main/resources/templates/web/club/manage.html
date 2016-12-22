@@ -85,7 +85,7 @@
                         <div class="ui bottom attached active tab segment" id="source">
                             <div class="ui action input">
                                 <input type="file" id="upload-file"/>
-                                <button class="ui teal right labeled icon button" ng-click="uploadFile()"><i class="file icon"></i> 上传 </button>
+                                <button class="ui teal right labeled icon button" onclick="uploadFile()"><i class="file icon"></i> 上传 </button>
                             </div>
                             <div class="ui relaxed divided list">
                                 <div class="item" ng-repeat="file in club.files">
@@ -124,7 +124,14 @@
                             </div>
                         </div>
                         <div class="ui bottom attached tab segment" id="student">
-
+                            <div class="ui relaxed divided list">
+                                <div class="item" ng-repeat="student in club.students">
+                                    <i class="large user middle aligned icon"></i>
+                                    <div class="content">
+                                        <a class="header" href="/other/{{student.mId}}">{{student.mName}}</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -135,5 +142,14 @@
         <div th:include="web/footer :: footer"></div>
     </div>
 </body>
-
+<script>
+    function uploadFile(){
+        var file = $('#upload-file');
+        var fReader = new FileReader();
+        fReader.readAsDataURL(file[0]);
+        fReader.onloadend = function (event) {
+            alert(event.target.result);
+        }
+    }
+</script>
 </html>
