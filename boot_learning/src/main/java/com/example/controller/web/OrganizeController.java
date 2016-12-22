@@ -298,7 +298,7 @@ public class OrganizeController {
 
     /**
      * 返回社团管理页面
-     * @pathvalue id
+     * @param  id
      * 社团对应的id
      * @return 社团视图
      */
@@ -307,6 +307,31 @@ public class OrganizeController {
         modelMap.addAttribute("clubId", id);
 
         return "web/club/manage";
+    }
+
+    /**
+     * 返回学生和社团之间的关系
+     * @param s_id
+     * 学生对应的id
+     * @param c_id
+     * 社团对应的id
+     * @return boolean
+     */
+    @RequestMapping(value = "/vertifyclubhost", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean vertifyClubHost(@RequestParam String s_id, @RequestParam Long c_id){
+        try{
+            Club club = clubService.findByMId(c_id).iterator().next();
+            if (club.getmChairmanId().equals(s_id)){
+                return true;
+            }else {
+                return false;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

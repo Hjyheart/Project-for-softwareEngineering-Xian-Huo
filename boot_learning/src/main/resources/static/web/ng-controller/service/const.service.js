@@ -27,6 +27,7 @@ app.service('constService', function(){
             getClubComment: `${ServiceHost}/club/getcomment`,
             getClubFiles: `${ServiceHost}/club/getfiles`,
             addComment: `${ServiceHost}/club/addcomment`,
+            vertifyClubHost: `${ServerHost}/club/vertifyclubhost`
         }
     };
 

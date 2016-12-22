@@ -9,7 +9,6 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
     $scope.clubNum = 0;
     $scope.chairman;
 
-    //noinspection JSUnnecessarySemicolon
     this.$onInit = function(){
         $http({
             method: 'POST',

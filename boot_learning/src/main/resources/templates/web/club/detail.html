@@ -18,10 +18,16 @@
 <div class="transition hidden" id="clubId" th:text="${id}"></div>
 
 <body class="pushable" ng-app="myApp" ng-controller="club-detailCtrl">
-
+    <style>
+        .ui.vertical.masthead.center.aligned.segment{
+            background-image: url({{club.mImgUrl}});
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+    </style>
     <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
     <div class="pusher">
-        <div class="ui inverted vertical masthead center aligned segment">
+        <div class="ui vertical masthead center aligned segment">
             <div ng-if="!isLogin">
                 <div th:include="web/nav/navbar-public :: navbar-public"></div>
             </div>
@@ -29,12 +35,12 @@
                 <div th:include="web/nav/navbar-personal :: navbar-personal"></div>
             </div>
             <div class="ui text container">
-                <br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <h1 class="ui inverted header">
                     {{club.mName}}
                 </h1>
-                <h2>{{club.mDescription}}</h2>
-                <br/>
+                <h1>{{club.mDescription}}</h1>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <i class="down arrow icon"></i>
             </div>
         </div>
