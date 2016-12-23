@@ -29,4 +29,7 @@ public interface FileRepository extends JpaRepository<ClubFile, String> {
 
     @Query("delete from ClubFile f where f.mUrl=?1")
     int deleteFileByUrl(String Url);
+
+    @Query("delete from ClubFile f where f.mName=?1")
+    int deleteFileByName(String name);
 }

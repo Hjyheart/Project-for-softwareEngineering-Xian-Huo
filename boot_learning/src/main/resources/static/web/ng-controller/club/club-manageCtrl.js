@@ -163,11 +163,111 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
             data: formData,
             processData: false,
             contentType: false
-        }).then( res=>{
+        }).done(function(res){
             console.log(res);
+            // 获得社团的资源文件
+            $http({
+                method: 'POST',
+                url: constService.urls().getClubFiles,
+                params:{
+                    'clubId': $scope.club.mId
+                }
+            }).then( res=>{
+                $scope.club.files = res.data.club_files;
+            }).catch( err=>{
+                console.log(err);
+            });
         }).catch( err=>{
             console.log(err);
         })
-
     };
+
+    // 删除文件
+    $scope.deleteFile = function (file) {
+        $http({
+            method: 'POST',
+            url: constService.urls().deleteClubFile,
+            params:{
+                'filename': file.mName,
+                'id': $scope.club.mId
+            }
+        }).then( res=>{
+            console.log(res.data);
+            // 获得社团的资源文件
+            $http({
+                method: 'POST',
+                url: constService.urls().getClubFiles,
+                params:{
+                    'clubId': $scope.club.mId
+                }
+            }).then( res=>{
+                $scope.club.files = res.data.club_files;
+            }).catch( err=>{
+                console.log(err);
+            });
+        }).catch( err=>{
+            console.log(err);
+        })
+    };
+    
+    // 更换头像
+    $scope.changeHead = function () {
+        $('#change-head').modal({
+            onApprove: function () {
+                var formData = new FormData();
+                formData.append('id', $scope.club.mId);
+                formData.append('file', $('#head-file')[0].files[0]);
+                $.ajax({
+                    method: 'POST',
+                    url: constService.urls().changeCover,
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done( function(res){
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().clubdetail,
+                        params:{
+                            'id': $('#clubId').text()
+                        }
+                    }).then( res=>{
+                        $scope.club.mImgUrl = res.data.mImgUrl;
+                    })
+                }).catch( err=>{
+                    console.log(err);
+                })
+            }
+        }).modal('show');
+    };
+
+    // 编辑基本资料
+    $scope.editbasicinfo = function(){
+        $('#edit-basic').modal({
+            onApprove: function () {
+                var formData = new FormData();
+                formData.append("id", $scope.club.mId);
+                formData.append("name", $('#club-new-name').val());
+                formData.append("des", $('#club-new-des').val());
+                $http({
+                    method: 'POST',
+                    url: constService.urls().editBasicInfo,
+                    data: formData,
+                    cache: false
+                }).then(function (res) {
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().clubdetail,
+                        params:{
+                            'id': $('#clubId').text()
+                        }
+                    }).then( res=>{
+                        $scope.club.mName = res.data.mName;
+                        $scope.club.mDescription = res.data.mDescription
+                    })
+                })
+
+            }
+        }).modal('show');
+    }
 }]);

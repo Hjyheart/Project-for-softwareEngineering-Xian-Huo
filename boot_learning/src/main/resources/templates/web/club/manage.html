@@ -54,14 +54,14 @@
                                     <div class="ui dimmer">
                                         <div class="content">
                                             <div class="center">
-                                                <div class="ui inverted button">更换封面照片</div>
+                                                <div class="ui inverted button" ng-click="changeHead()">更换封面照片</div>
                                             </div>
                                         </div>
                                     </div>
                                     <img src="{{club.mImgUrl}}"/>
                                 </div>
                                 <div class="content">
-                                    <a class="ui orange right ribbon label" ng-click="showEdit()"><i class="write icon"></i>编辑</a>
+                                    <a class="ui orange right ribbon label" ng-click="editbasicinfo()"><i class="write icon"></i>编辑</a>
                                     <a class="header">{{club.mName}}</a>
                                     <div class="meta">
                                         <span class="date">{{club.content}}</span>
@@ -141,6 +141,52 @@
         </div>
         <div th:include="web/footer :: footer"></div>
     </div>
+
+    <div class="ui modal" id="change-head">
+        <i class="close icon"></i>
+        <div class="header">
+            更换头像
+        </div>
+        <div class="content">
+            <form class="ui form" enctype="multipart/form-data">
+                <input type="file" name="head-file" id="head-file"/>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="edit-basic">
+        <i class="close icon"></i>
+        <div class="header">
+            编辑基本信息
+        </div>
+        <div class="content">
+            <form class="ui form">
+                <div class="field">
+                    <label>社团名称</label>
+                    <input type="text" placeholder="{{club.mName}}" id="club-new-name" />
+                </div>
+                <div class="field">
+                    <label>简述</label>
+                    <input type="text" placeholder="{{club.mDescription}}" id="club-new-des" />
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
     function uploadFile(){

@@ -246,7 +246,7 @@ public class OrganizeController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
     @ResponseBody
-    public boolean uploadFile(@RequestParam MultipartFile file, @RequestParam Long id){
+    public void uploadFile(@RequestParam MultipartFile file, @RequestParam Long id){
         try{
             Club c = clubService.findByMId(id).iterator().next();
             if (qiniuService.storeFile(file)){
@@ -258,10 +258,34 @@ public class OrganizeController {
                 fileService.save(clubFile);
                 c.getClubfiles().add(clubFile);
                 clubService.save(c);
-                return true;
-            }else {
-                return false;
             }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除文件
+     * @param filename
+     * 文件名
+     * @param id
+     * 社团对应的id
+     */
+    @RequestMapping(value = "/deletefile", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteFile(@RequestParam String filename, @RequestParam Long id){
+        try{
+            Club club = clubService.findByMId(id).iterator().next();
+//            qiniuService.deleteFile(filename);
+            for (ClubFile clubFile : club.getClubfiles()){
+                if (clubFile.getmName().equals(filename)){
+                    club.getClubfiles().remove(clubFile);
+                    fileService.remove(clubFile);
+                    break;
+                }
+            }
+            clubService.save(club);
+            return true;
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -349,6 +373,53 @@ public class OrganizeController {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * 设置社团的封面
+     * @param id
+     * 社团对应的id
+     * @param file
+     * 头像
+     * @return void
+     */
+    @RequestMapping(value = "/changecover", method = RequestMethod.POST, produces="text/html;charset=utf-8")
+    @ResponseBody
+    public void changeCover(@RequestParam MultipartFile file, @RequestParam Long id){
+        try{
+            Club club = clubService.findByMId(id).iterator().next();
+            String key = file.getOriginalFilename();
+            if (qiniuService.storeFile(file)){
+                club.setmImgUrl(qiniuService.createDownloadUrl("http://" + qiniuService.getDomain() + "/" + key));
+                clubService.save(club);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 编辑社团基本信息
+     * @param id
+     * 社团对应id
+     * @param name
+     * 社团新名字
+     * @param des
+     * 社团新的des
+     * @return void
+     */
+    @RequestMapping(value = "/editbasicinfo", method = RequestMethod.POST)
+    @ResponseBody
+    public void editBasicInfo(@RequestParam Long id, @RequestParam String name, @RequestParam String des){
+        try{
+            Club club = clubService.findByMId(id).iterator().next();
+            club.setmName(name);
+            club.setmDescription(des);
+
+            clubService.save(club);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

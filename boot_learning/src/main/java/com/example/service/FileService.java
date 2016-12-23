@@ -23,6 +23,11 @@ public class FileService {
         fileRepository.save(clubFile);
     }
 
+    @Transactional
+    public void remove(ClubFile clubFile){
+        fileRepository.delete(clubFile);
+    }
+
     public ClubFile findByUrl(String url){
         return fileRepository.findByMUrl(url).iterator().next();
     }

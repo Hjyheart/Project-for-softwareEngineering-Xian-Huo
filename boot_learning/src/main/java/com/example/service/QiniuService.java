@@ -103,10 +103,10 @@ public class QiniuService {
         }
     }
 
-    public void deleteFile(String clubId, String fileName){
+    public void deleteFile(String fileName){
         try{
             BucketManager bucketManager = new BucketManager(this.auth, this.configuration);
-            bucketManager.delete("Spring", clubId + "/" + fileName);
+            bucketManager.delete(BUCKET, fileName);
         }catch(QiniuException e){
             Response r = e.response;
             // request fail info
@@ -127,6 +127,6 @@ public class QiniuService {
     }
 
     public String createDownloadUrl(String url){
-        return auth.privateDownloadUrl(url, 3600);
+        return auth.privateDownloadUrl(url);
     }
 }

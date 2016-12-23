@@ -29,7 +29,10 @@ app.service('constService', function(){
             getClubFiles: `${ServiceHost}/club/getfiles`,
             addComment: `${ServiceHost}/club/addcomment`,
             vertifyClubHost: `${ServiceHost}/club/vertifyclubhost`,
-            uploadClubFile: `${ServiceHost}/club/upload`
+            uploadClubFile: `${ServiceHost}/club/upload`,
+            deleteClubFile: `${ServiceHost}/club/deletefile`,
+            changeCover: `${ServiceHost}/club/changecover`,
+            editBasicInfo: `${ServiceHost}/club/editbasicinfo`
         }
     };
 
