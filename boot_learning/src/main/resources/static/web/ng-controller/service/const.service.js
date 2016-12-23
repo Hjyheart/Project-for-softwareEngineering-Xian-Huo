@@ -33,6 +33,7 @@ app.service('constService', function(){
             deleteClubFile: `${ServiceHost}/club/deletefile`,
             changeCover: `${ServiceHost}/club/changecover`,
             editBasicInfo: `${ServiceHost}/club/editbasicinfo`,
+            sendMessageAll: `${ServiceHost}/club/informAll`,
 
             // 活动
             addActivity: `${ServiceHost}/club/addactivity`,

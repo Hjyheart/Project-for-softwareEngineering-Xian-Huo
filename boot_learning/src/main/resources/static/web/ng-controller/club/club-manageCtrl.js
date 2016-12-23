@@ -372,7 +372,22 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
 
     // 短信通知
     $scope.sendMessage = function () {
-
+        $('#inform-message').modal({
+            onApprove: function(){
+                $http({
+                    method:'POST',
+                    url: constService.urls().sendMessageAll,
+                    params:{
+                        'c_id': $scope.club.mId,
+                        'content': $('#message-content').val()
+                    }
+                }).then( res=>{
+                    $('#inform-success').modal('show');
+                }).catch( err=>{
+                    console.log(err);
+                })
+            }
+        }).modal('show');
     };
 
     // 通知活动

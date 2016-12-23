@@ -66,7 +66,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                     method: 'POST',
                     url: constService.urls().compelete,
                     params:{
-                        'id': $scope.student.id,
+                        'id': $scope.student.mId,
                         'user': $scope.user,
                         'major': $scope.major,
                         'grade': $('#gradeValue').val(),
@@ -74,9 +74,9 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                     }
                 }).then( res=>{
                     console.log('success');
-                    $scope.student.name = $scope.user;
-                    $scope.student.contact = $scope.contact;
-                    $scope.student.grade = $('#gradeValue').val();
+                    $scope.student.mName = $scope.user;
+                    $scope.student.mContact = $scope.contact;
+                    $scope.student.mGrade = $('#gradeValue').val();
                 }).catch(err =>{
                     alert('网络问题!');
                 })
