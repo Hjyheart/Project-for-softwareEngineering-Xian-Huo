@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.util.Date;
@@ -237,20 +238,19 @@ public class OrganizeController {
 
     /**
      * 上传文件
-     * @param filePath
+     * @param file
      * 文件本地路径
      * @param id
      * 社团对应的id
      * @return boolean
      */
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
     @ResponseBody
-    public boolean uploadFile(@RequestParam String filePath, @RequestParam Long id){
+    public boolean uploadFile(@RequestParam MultipartFile file, @RequestParam Long id){
         try{
             Club c = clubService.findByMId(id).iterator().next();
-            if (qiniuService.uploadFile(filePath)){
-                Integer gang = filePath.lastIndexOf("/");
-                String key = filePath.substring(gang + 1, filePath.length());
+            if (qiniuService.storeFile(file)){
+                String key = file.getOriginalFilename();
                 ClubFile clubFile = new ClubFile();
                 clubFile.setmName(key);
                 clubFile.setmClub(c.getmName());

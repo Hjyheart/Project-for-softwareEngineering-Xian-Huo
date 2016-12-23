@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Untitled Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js" crossorigin="anonymous"></script>-->
+</head>
+
+<body>
+<!-- FORM -->
+<form id="uploadForm" enctype="multipart/form-data">
+    <div>
+        <label>file</label>
+        <input type="file" name="file"/>
+        <span></span>
+    </div>
+
+    <!-- SUBMIT BUTTON -->
+    <button onclick= "save()">
+        <span> Submit!</span>
+    </button>
+</form>
+
+
+</body>
+<script type="text/javascript">
+    function save(){
+        $.ajax({
+            url: 'http://localhost:8080/Test/upload',
+            type: 'POST',
+            cache: false,
+            data: new FormData($('#uploadForm')[0]),
+            processData: false,
+            contentType: false
+        }).done(function(res) {
+        }).fail(function(res) {});
+    }
+</script>
+</html>

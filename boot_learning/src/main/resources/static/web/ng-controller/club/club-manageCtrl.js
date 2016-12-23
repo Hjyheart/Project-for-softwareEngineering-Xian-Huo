@@ -149,36 +149,25 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
 
     // 上传文件
     $scope.uploadFile = function () {
-        if ($('#upload-file').val() === '' || $('#upload-file').val() === null){
+        if ($('#file').val() === '' || $('#file').val() === null){
             return;
         }
+        var formData = new FormData();
+        formData.append('file', $('#file')[0].files[0]);
+        formData.append('id', $scope.club.mId);
+        console.log(formData);
+        $.ajax({
+            method: 'POST',
+            url: constService.urls().uploadClubFile,
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).then( res=>{
+            console.log(res);
+        }).catch( err=>{
+            console.log(err);
+        })
 
-        var file = $('#upload-file');
-        //file.select();
-        //console.log(document.selection.createRange().text);
-          //$http({
-          //    method: 'POST',
-          //    url: constService.urls().uploadClubFile,
-          //    params:{
-          //        'filePath': $('#upload-file').file[0].get,
-          //        'id': $scope.club.mId
-          //    }
-          //}).then( res=>{
-          //    console.log(res.data);
-          //    // 获得社团的资源文件
-          //    $http({
-          //        method: 'POST',
-          //        url: constService.urls().getClubFiles,
-          //        params:{
-          //            'clubId': $scope.club.mId
-          //        }
-          //    }).then( res=>{
-          //        $scope.club.files = res.data.club_files;
-          //    }).catch( err=>{
-          //        console.log(err);
-          //    });
-          //}).catch( err=>{
-          //    console.log(err);
-          //})
     };
 }]);

@@ -1,17 +1,13 @@
 package com.example.controller.web;
 
 import com.example.entity.Activity;
-import com.example.service.ActivityService;
-import com.example.service.EncryptionService;
-import com.example.service.MessageService;
-import com.example.service.StudentService;
+import com.example.service.*;
 import com.taobao.api.ApiException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.util.Date;
@@ -38,6 +34,9 @@ public class TestController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private QiniuService qiniuService;
+
 
     @RequestMapping("/nameapply")
     public String nameApply(){
@@ -50,6 +49,7 @@ public class TestController {
         }
 
     }
+
 
 
 //    @RequestMapping("/activitycomment")
@@ -113,16 +113,17 @@ public class TestController {
         }
     }
 
-//    @RequestMapping(value="/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
-//    public String upload(@RequestParam(value = "fileinput")MultipartFile mulFile, HttpServletRequest request){
-//       try{
-////           this.storageService.storeFile(mulFile, "TestClub");
-//           return "redirect:/Test";
-//        }catch(Exception e){
-//           e.printStackTrace();
-//           return "redirect:/Test";
-//        }
-//    }
+    @RequestMapping(value="/upload", method = RequestMethod.POST, produces="text/html;charset=utf-8")
+    public String upload(@RequestParam(value = "file")MultipartFile mulFile, HttpServletRequest request){
+       try{
+//           this.storageService.storeFile(mulFile, "TestClub");
+           qiniuService.storeFile(mulFile);
+           return "redirect:/Test";
+        }catch(Exception e){
+           e.printStackTrace();
+           return "redirect:/Test";
+        }
+    }
 
     @RequestMapping(value="")
     public String upPage(ModelMap map){
