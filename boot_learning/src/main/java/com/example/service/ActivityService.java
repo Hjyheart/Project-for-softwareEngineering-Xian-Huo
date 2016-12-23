@@ -133,4 +133,9 @@ public class ActivityService {
         }
     }
 
+    @Transactional
+    public void deleteActivityBymId(Long id){
+        activityRepository.deleteActivityById(id);
+    }
+
 }

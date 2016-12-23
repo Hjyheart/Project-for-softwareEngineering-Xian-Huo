@@ -245,15 +245,17 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
     $scope.editbasicinfo = function(){
         $('#edit-basic').modal({
             onApprove: function () {
-                var formData = new FormData();
-                formData.append("id", $scope.club.mId);
-                formData.append("name", $('#club-new-name').val());
-                formData.append("des", $('#club-new-des').val());
+                if($('#club-new-name').val() === ''){
+                    return;
+                }
                 $http({
                     method: 'POST',
                     url: constService.urls().editBasicInfo,
-                    data: formData,
-                    cache: false
+                    params:{
+                        "id": $('#clubId').text(),
+                        "name": $('#club-new-name').val(),
+                        "des": $('#club-new-des').val()
+                    }
                 }).then(function (res) {
                     $http({
                         method: 'POST',
@@ -269,5 +271,123 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
 
             }
         }).modal('show');
+    };
+
+    // 添加活动
+    $scope.addActivity = function () {
+        $('#add-activity').modal({
+            onApprove: function () {
+                var formData = new FormData();
+                var time = $('#activity-date').val() + '/' + $('#hour').val() + '/' + $('#minute').val();
+                formData.append("id", $scope.club.mId);
+                formData.append('time', time);
+                formData.append('name', $('#activity-name').val());
+                formData.append('location', $('#activity-location').val());
+                formData.append('des', $('#activity-des').val());
+                formData.append('contact', $('#activity-date').val());
+                formData.append('file', $('#activity-cover')[0].files[0]);
+                $.ajax({
+                    method: 'POST',
+                    url: constService.urls().addActivity,
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done(function () {
+                    // 获得社团活动
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().getClubActivity,
+                        params:{
+                            'id': $scope.club.mId
+                        }
+                    }).then( res=>{
+                        $scope.club.activity = res.data;
+
+                        for (let i = 0; i < $scope.club.activity.length; i++){
+                            let date = new Date($scope.club.activity[i].mTime);
+                            $scope.club.activity[i].time = date.getFullYear().toString() + '/'
+                                + date.getMonth().toString() + '/'
+                                + date.getDay().toString() + '  '
+                                + date.getHours().toString() + ':'
+                                + date.getMinutes().toString();
+                            console.log($scope.club.activity[i].time);
+                        }
+                        console.log($scope.club.activity);
+                    }).catch( err=>{
+                        console.log(err);
+                    });
+                });
+            }
+        }).modal('show');
+    };
+
+    // 转到活动详情页面
+    $scope.toActivity = function (activity) {
+        window.location.href = '/activity/' + activity.mId;
+    };
+
+    // 删除活动
+    $scope.deleteActivity = function (activity) {
+        $http({
+            method: 'POST',
+            url: constService.urls().deleteActivity,
+            params:{
+                'a_id': activity.mId,
+                'c_id': $scope.club.mId
+            }
+        }).then( res=>{
+            // 获得社团活动
+            $http({
+                method: 'POST',
+                url: constService.urls().getClubActivity,
+                params:{
+                    'id': $scope.club.mId
+                }
+            }).then( res=>{
+                $scope.club.activity = res.data;
+
+                for (let i = 0; i < $scope.club.activity.length; i++){
+                    let date = new Date($scope.club.activity[i].mTime);
+                    $scope.club.activity[i].time = date.getFullYear().toString() + '/'
+                        + date.getMonth().toString() + '/'
+                        + date.getDay().toString() + '  '
+                        + date.getHours().toString() + ':'
+                        + date.getMinutes().toString();
+                    console.log($scope.club.activity[i].time);
+                }
+                console.log($scope.club.activity);
+            }).catch( err=>{
+                console.log(err);
+            });
+        }).catch( err=>{
+            console.log(err);
+        })
+    };
+
+    // 申请场地
+    $scope.applyForPosterArea = function () {
+
+    };
+
+    // 短信通知
+    $scope.sendMessage = function () {
+
+    };
+
+    // 通知活动
+    $scope.inform = function(activity){
+        $http({
+            method: 'POST',
+            url: constService.urls().informAll,
+            params:{
+                'a_id': activity.mId,
+                'c_id': $scope.club.mId
+            }
+        }).then( res=>{
+            $('#inform-success').modal('show');
+        }).catch( err=>{
+            console.log(err);
+        })
     }
 }]);

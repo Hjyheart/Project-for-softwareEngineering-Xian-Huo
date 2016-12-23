@@ -23,6 +23,22 @@ public class MessageService {
         req = new AlibabaAliqinFcSmsNumSendRequest();
     }
 
+    /**
+     * 发送活动通知
+     * @param name
+     * 学生姓名
+     * @param contact
+     * 学生联系方式
+     * @param clubName
+     * 社团名字
+     * @param location
+     * 活动地点
+     * @param date
+     * 活动日期
+     * @param activity
+     * 活动内容
+     * @throws ApiException
+     */
     public void sendMessage(String name, String contact, String clubName, String location, Date date, String activity) throws ApiException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
@@ -35,6 +51,24 @@ public class MessageService {
         req.setSmsTemplateCode( "SMS_35050366" );
         AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
         System.out.println(rsp.getBody());
+    }
+
+    /**
+     * 发送自定义短信
+     * @param content
+     * 内容
+     * @param contact
+     * 联系方式
+     */
+    public void sendNoTemplateMessage(String content, String contact){
+//        req.setExtend( "" );
+//        req.setSmsType( "normal" );
+//        req.setSmsFreeSignName( "鲜活社团平台" );
+//        req.setSmsParamString();
+//        req.setRecNum( contact );
+//        req.setSmsTemplateCode( "SMS_35050366" );
+//        AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
+//        System.out.println(rsp.getBody());
     }
 
 }

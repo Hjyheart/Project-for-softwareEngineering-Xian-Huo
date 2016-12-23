@@ -6,7 +6,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0-rc.2/angular.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/Semantic-UI/semantic.min.css}"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
     <script type="text/javascript" th:src="@{/Semantic-UI/jquery-3.1.1.min.js}"/>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" th:src="@{/Semantic-UI/semantic.min.js}"/>
     <script type="text/javascript" th:src="@{/Semantic-UI/floatingNav.js}"/>
 
@@ -72,6 +74,15 @@
                                 </div>
                             </div>
                         </div>
+                        <br/>
+                        <br/>
+                        <!--三个按钮-->
+                        <div class="ui vertical buttons">
+                            <div class="ui basic green button" ng-click="addActivity()" >添加活动</div>
+                            <div class="ui basic blue button" ng-click="applyForPosterArea()">申请场地</div>
+                            <div class="ui basic red button" ng-click="sendMessage()">短信通知</div>
+                        </div>
+
                     </div>
 
                     <div class="ten wide column">
@@ -117,21 +128,39 @@
                                             <p>{{activity.mDescription}}</p>
                                         </div>
                                         <div class="extra">
-                                            <div class="ui right floated primary button" ng-click="toActivity(activity)">详情 <i class="right chevron icon"></i> </div>
+                                            <div class="ui right floated vertical buttons">
+                                                <div class="ui basic green button" ng-click="toActivity(activity)">详情 </div>
+                                                <div class="ui basic red button" ng-click="deleteActivity(activity)">删除 </div>
+                                                <div class="ui basic blue button" ng-click="inform(activity)">通知 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="ui bottom attached tab segment" id="student">
-                            <div class="ui relaxed divided list">
-                                <div class="item" ng-repeat="student in club.students">
-                                    <i class="large user middle aligned icon"></i>
-                                    <div class="content">
-                                        <a class="header" href="/other/{{student.mId}}">{{student.mName}}</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <table class="ui very basic celled table">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>联系方式</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="student in club.students">
+                                        <td>
+                                            <h4 class="ui image header">
+                                                <img src="{{student.mHeadUrl}}" class="ui mini rounded image"/>
+                                                <div class="content">{{student.mName}} <div class="sub header">{{student.mId}} </div>
+                                                </div>
+                                            </h4>
+                                        </td>
+                                        <td>
+                                            {{student.mContact}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
@@ -187,15 +216,164 @@
         </div>
     </div>
 
+    <div class="ui modal" id="add-activity">
+        <i class="close icon"></i>
+        <div class="header">
+            添加活动
+        </div>
+        <div class="content">
+            <form class="ui form" enctype="multipart/form-data">
+                <div class="ui field">
+                    <label>活动名</label>
+                    <input type="text" id="activity-name" placeholder="活动名称" />
+                </div>
+                <div class="ui field">
+                    <label>地点</label>
+                    <input type="text" id="activity-location" placeholder="地点"/>
+                </div>
+                <div class="ui field">
+                    <label>时间</label>
+                    <input type="text" id="activity-date"/>
+                </div>
+                <div class="ui two fields">
+                    <div class="ui field">
+                        <label>时</label>
+                        <select class="ui fluid dropdown" id="hour">
+                            <option value="00">0</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                    </div>
+                    <div class="ui field">
+                        <label>分</label>
+                        <select class="ui fluid dropdown" id="minute">
+                            <option value="00">0</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui field">
+                    <label>联系电话</label>
+                    <input type="text" id="activity-contact" placeholder="联系方式" />
+                </div>
+                <div class="ui field">
+                    <label>描述</label>
+                    <input type="text" id="activity-des" placeholder="描述" />
+                </div>
+                <div class="ui field">
+                    <label>活动封面</label>
+                    <input type="file" id="activity-cover" />
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="inform-success">
+        <i class="close icon"></i>
+        <div class="header">
+            短信通知
+        </div>
+        <div class="content">
+            成功通知所有成员!
+        </div>
+        <div class="actions">
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
-    function uploadFile(){
-        var file = $('#upload-file');
-        var fReader = new FileReader();
-        fReader.readAsDataURL(file[0]);
-        fReader.onloadend = function (event) {
-            alert(event.target.result);
-        }
-    }
+    $( function() {
+        $( "#activity-date" ).datepicker();
+    } );
 </script>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,19 +24,25 @@ import java.util.Map;
 public class OrganizeController {
 
     @Autowired
-    private ClubService clubService = new ClubService();
+    private ClubService clubService;
 
     @Autowired
-    private StudentService studentService = new StudentService();
+    private StudentService studentService;
 
     @Autowired
-    private QiniuService qiniuService = new QiniuService();
+    private QiniuService qiniuService;
 
     @Autowired
-    private FileService fileService = new FileService();
+    private FileService fileService;
 
     @Autowired
-    private CommentService commentService = new CommentService();
+    private CommentService commentService;
+
+    @Autowired
+    private ActivityService activityService;
+
+    @Autowired
+    private MessageService messageService;
 
     /**
      * 获取社团集锦的网页模板
@@ -418,6 +425,71 @@ public class OrganizeController {
             club.setmDescription(des);
 
             clubService.save(club);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 创建活动
+     * @Param id
+     * 社团id
+     * @param name
+     * 名字
+     * @param location
+     * 地点
+     * @param time
+     * 时间
+     * @param des
+     * 描述
+     * @param contact
+     * 联系人
+     * @param file
+     * 图片
+     * @return void
+     */
+    @RequestMapping(value = "/addactivity", method = RequestMethod.POST)
+    @ResponseBody
+    public void addActivity(@RequestParam Long id, @RequestParam String name, @RequestParam String location, @RequestParam String time,
+                            @RequestParam String des, @RequestParam String contact, @RequestParam MultipartFile file){
+        try{
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy/HH/mm");
+            Date date = sdf.parse(time);
+            System.out.println(date.toString());
+
+
+            Club club = clubService.findByMId(id).iterator().next();
+            Activity activity = new Activity();
+            String key = file.getOriginalFilename();
+            qiniuService.storeFile(file);
+            activity.setmDescription(des);
+            activity.setmName(name);
+            activity.setmContact(contact);
+            activity.setmImgUrl(qiniuService.createDownloadUrl("http://" + qiniuService.getDomain() + "/" + key));
+            activity.setmTime(date);
+            activity.setmPraise(0);
+            activity.setmLocation(location);
+
+            club.getActivities().add(activity);
+
+            activityService.save(activity);
+            clubService.save(club);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/informAll", method = RequestMethod.POST)
+    @ResponseBody
+    public void informAll(@RequestParam Long c_id, @RequestParam String content){
+        try{
+            Club club = clubService.findByMId(c_id).iterator().next();
+
+            for (Student student : club.getStudents()){
+                messageService.sendNoTemplateMessage(content, student.getmContact());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

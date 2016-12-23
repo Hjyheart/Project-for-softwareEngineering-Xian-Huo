@@ -47,6 +47,9 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
     @Query("update Activity a set a.mPraise = a.mPraise + 1 where a.mId=?1")
     int addOneActivityPraiseById(Long Id);
 
+    @Query("delete from Activity a where a.mId = ?1")
+    int deleteActivityById(Long id);
+
 
 
 
