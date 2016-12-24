@@ -50,9 +50,9 @@ public class OrganizeController {
      */
     @RequestMapping("")
     public String organizes(ModelMap map){
-        map.addAttribute("name", "organize");
+        map.addAttribute("name", "社团合集");
 
-        return "web/home";
+        return "web/club/home";
     }
 
     /**

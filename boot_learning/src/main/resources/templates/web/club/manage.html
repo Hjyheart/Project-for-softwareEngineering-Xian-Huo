@@ -29,7 +29,7 @@
         <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
     </div>
     <div ng-if="!isLogin">
-        <div th:include="web/nav/navbar-floating :: navbar-floating-public"></div>
+        <div th:include="web/nav/navbar-floating-public :: navbar-floating-public"></div>
     </div>
     <div class="pusher">
         <div class="ui vertical masthead center aligned segment">
@@ -81,13 +81,6 @@
                         </div>
                         <br/>
                         <br/>
-                        <!--三个按钮-->
-                        <div class="ui vertical buttons">
-                            <div class="ui basic green button" ng-click="addActivity()" >添加活动</div>
-                            <div class="ui basic blue button" ng-click="applyForPosterArea()">申请场地</div>
-                            <div class="ui basic red button" ng-click="sendMessage()">短信通知</div>
-                        </div>
-
                     </div>
 
                     <div class="ten wide column">
@@ -116,6 +109,8 @@
                         </div>
 
                         <div class="ui bottom attached tab segment" id="activity">
+                            <div class="ui basic green button" ng-click="addActivity()" >添加活动</div>
+                            <hr/>
                             <div class="ui divided items">
                                 <div class="item" ng-repeat="activity in club.activity">
                                     <div class="image">
@@ -148,6 +143,8 @@
                         </div>
 
                         <div class="ui bottom attached tab segment" id="student">
+                            <div class="ui basic red button" ng-click="sendMessage()">短信通知</div>
+                            <hr/>
                             <table class="ui very basic celled table">
                                 <thead>
                                     <tr>
@@ -173,7 +170,8 @@
                         </div>
 
                         <div class="ui bottom attached tab segment" id="apply">
-
+                            <div class="ui basic blue button" ng-click="applyForPosterArea()">申请场地</div>
+                            <hr/>
                         </div>
                     </div>
 
