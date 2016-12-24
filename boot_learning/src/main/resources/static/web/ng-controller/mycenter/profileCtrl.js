@@ -5,6 +5,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
     $scope.student;
     $scope.clubs;
     $scope.hclubs;
+    $scope.activities;
     $scope.isLogin = false;
     this.$onInit = function(){
         // 判断是否登录并获取个人基本信息
@@ -45,6 +46,20 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                 }).then( res=>{
                     console.log(res.data);
                     $scope.hclubs = res.data.host_clubs;
+                }).catch( err=>{
+                    console.log(err);
+                });
+
+                // 获取该学生参加的活动信息
+                $http({
+                    method: 'POST',
+                    url: constService.urls().getMyActivities,
+                    params:{
+                        'id': $scope.student.mId
+                    }
+                }).then( res=>{
+                    console.log(res.data);
+                    $scope.activities = res.data;
                 }).catch( err=>{
                     console.log(err);
                 })
@@ -115,11 +130,69 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
         })
     };
 
+    // 更换头像
+    $scope.changeHead = function () {
+        $('#change-head').modal({
+            onApprove: function () {
+                var formData = new FormData();
+                formData.append('id', $scope.student.mId);
+                formData.append('file', $('#head-file')[0].files[0]);
+                $.ajax({
+                    method: 'POST',
+                    url: constService.urls().changeHead,
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done( function(res){
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().loginIf
+                    }).then( res=>{
+                        $scope.student = res.data;
+                    })
+                }).catch( err=>{
+                    console.log(err);
+                })
+            }
+        }).modal('show');
+    };
+
+
     // 发起申请创建社团
     $scope.applyForClub = function () {
-        //$http({
-        //    method: 'POST',
-        //    url: constService.urls().
-        //})
+        $('#add-club').modal({
+            onApprove: function(){
+                var formData = new FormData();
+                formData.append('s_id', $scope.student.mId);
+                formData.append('name', $('#club-name').val());
+                formData.append('teacherName', $('#club-teacher').val());
+                formData.append('content', $('#club-content').val());
+                formData.append('des', $('#club-des').val());
+                formData.append('file', $('#club-cover')[0].files[0]);
+                $.ajax({
+                    method: 'POST',
+                    url: constService.urls().addClub,
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done(function () {
+                    // 获取该学生创建的俱乐部的信息
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().myHostClub,
+                        params:{
+                            'id': $scope.student.mId
+                        }
+                    }).then( res=>{
+                        console.log(res.data);
+                        $scope.clubs = res.data.host_clubs;
+                    }).catch( err=>{
+                        console.log(err);
+                    })
+                })
+            }
+        }).modal('show');
     };
 }]);

@@ -47,8 +47,6 @@
                 </div>
                 <!--右侧信息-->
                 <div class="ten wide right floated column">
-                    <br/>
-                    <br/>
                     <h2 class="ui header">
                         <i class="user icon"></i>
                         <div class="content">我的基本信息 </div>
@@ -80,6 +78,64 @@
     <!--编辑个人信息的弹窗-->
     <div th:include="web/mycenter/profile-edit :: profile-edit"/>
 </div>
+
+<div class="ui modal" id="change-head">
+    <i class="close icon"></i>
+    <div class="header">
+        更换头像
+    </div>
+    <div class="content">
+        <form class="ui form" enctype="multipart/form-data">
+            <input type="file" name="head-file" id="head-file"/>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">取消</div>
+        <div class="ui positive approve labeled icon button">
+            确定
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+<div class="ui modal" id="add-club">
+    <i class="close icon"></i>
+    <div class="header">
+        申请创建社团
+    </div>
+    <div class="content">
+        <form class="ui form" enctype="multipart/form-data">
+            <div class="ui field">
+                <label>社团名</label>
+                <input type="text" id="club-name" placeholder="社团名称" />
+            </div>
+            <div class="ui field">
+                <label>指导老师姓名</label>
+                <input type="text" id="club-teacher" placeholder="指导老师姓名"/>
+            </div>
+            <div class="ui field">
+                <label>申请标语</label>
+                <input type="text" id="club-content" placeholder="申请标语"/>
+            </div>
+            <div class="ui field">
+                <label>社团简述</label>
+                <input type="text" id="club-des" placeholder="社团简述" />
+            </div>
+            <div class="ui field">
+                <label>活动封面</label>
+                <input type="file" id="club-cover" />
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">取消</div>
+        <div class="ui positive approve labeled icon button">
+            确定
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
 <script>
     $('#school').dropdown({
         on: 'hover'

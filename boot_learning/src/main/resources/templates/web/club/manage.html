@@ -91,6 +91,7 @@
                             <div class="active item" ng-click="showSource()" id="first">资源区</div>
                             <div class="item" ng-click="showActivity()" id="second">活动</div>
                             <div class="item" ng-click="showStudent()" id="three">学生</div>
+                            <div class="item" ng-click="showApply()" id="four">申请</div>
                         </div>
 
                         <div class="ui bottom attached active tab segment" id="source">
@@ -108,6 +109,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="ui bottom attached tab segment" id="activity">
                             <div class="ui divided items">
                                 <div class="item" ng-repeat="activity in club.activity">
@@ -138,6 +140,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="ui bottom attached tab segment" id="student">
                             <table class="ui very basic celled table">
                                 <thead>
@@ -162,6 +165,10 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="ui bottom attached tab segment" id="apply">
+
+                        </div>
                     </div>
 
                 </div>
@@ -174,7 +181,7 @@
     <div class="ui modal" id="change-head">
         <i class="close icon"></i>
         <div class="header">
-            更换头像
+            更换封面
         </div>
         <div class="content">
             <form class="ui form" enctype="multipart/form-data">

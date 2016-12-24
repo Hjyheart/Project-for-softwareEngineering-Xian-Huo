@@ -1,9 +1,11 @@
 package com.example.controller.web;
 
+import com.example.entity.Activity;
 import com.example.entity.Club;
 import com.example.entity.Student;
 import com.example.service.ActivityService;
 import com.example.service.ClubService;
+import com.example.service.QiniuService;
 import com.example.service.StudentService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +30,16 @@ import java.util.Map;
 public class StudentController {
 
     @Autowired
-    private StudentService studentService = new StudentService();
+    private StudentService studentService;
 
     @Autowired
-    private ClubService clubService = new ClubService();
+    private ClubService clubService;
 
     @Autowired
-    private ActivityService activityService = new ActivityService();
+    private ActivityService activityService;
+
+    @Autowired
+    private QiniuService qiniuService;
 
     @RequestMapping("/profile")
     // 显示学生的个人管理主页 内包括学生个人信息
@@ -71,6 +77,12 @@ public class StudentController {
         return clubList;
     }
 
+    /**
+     * 列出用户建立的club
+     * @param id
+     * 学生id
+     * @return
+     */
     @RequestMapping(value = "/myhostclub", method = RequestMethod.POST)
     @ResponseBody
     // 获取用户建立的俱乐部
@@ -93,20 +105,23 @@ public class StudentController {
         }
     }
 
-    @RequestMapping("/myactivities")
-    // 显示用户参加的活动列表 支持跳转到该活动
-    public String myActivities(ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", "myActivities");
+    /**
+     * 列出我的活动列表
+     * @param id
+     * 学生id
+     * @return
+     */
+    @RequestMapping(value = "/myactivities", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Activity> myActivities(@RequestParam String id){
+        try{
+            Student student = studentService.findByMId(id).iterator().next();
 
-        return "web/home";
-    }
-
-    @RequestMapping("/myFavActivity")
-    // 显示用户收藏的活动列表
-    public String myFavActivities(ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", "myFavActivities");
-
-        return "web/home";
+            return student.getActivities();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @RequestMapping(value = "/getstu", method = RequestMethod.POST)
@@ -119,6 +134,28 @@ public class StudentController {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * 更换头像
+     * @param id
+     * 学生id
+     * @param file
+     * 头像文件
+     */
+    @RequestMapping(value = "/changehead", method = RequestMethod.POST)
+    @ResponseBody
+    public void changeHead(@RequestParam String id, @RequestParam MultipartFile file){
+        try{
+            Student student = studentService.findByMId(id).iterator().next();
+            String key = file.getOriginalFilename();
+            if (qiniuService.storeFile(file)){
+                student.setmHeadUrl(qiniuService.createDownloadUrl("http://" + qiniuService.getDomain() + "/" + key));
+                studentService.save(student);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

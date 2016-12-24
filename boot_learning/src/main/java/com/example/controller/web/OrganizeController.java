@@ -486,6 +486,7 @@ public class OrganizeController {
      * @param c_id
      * 社团对应id
      * @param content
+     * 内容
      */
     @RequestMapping(value = "/informAll", method = RequestMethod.POST)
     @ResponseBody
@@ -494,7 +495,7 @@ public class OrganizeController {
             Club club = clubService.findByMId(c_id).iterator().next();
 
             for (Student student : club.getStudents()){
-                messageService.sendNoTemplateMessage(content, student.getmContact());
+                messageService.sendNoTemplateMessage(content, student.getmContact(), club.getmName(), student.getmName());
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -513,13 +514,16 @@ public class OrganizeController {
      * 社团描述
      * @param teacherName
      * 指导老师姓名
+     * @Param file
+     * 封面
      */
     @RequestMapping(value = "/applyforclub", method = RequestMethod.POST)
     @ResponseBody
     public void applyForClub(@RequestParam String s_id, @RequestParam String name, @RequestParam String content,
-                             @RequestParam String des, @RequestParam String teacherName){
+                             @RequestParam String des, @RequestParam String teacherName, @RequestParam MultipartFile file){
         try{
             Student student = studentService.findByMId(s_id).iterator().next();
+            String key = file.getOriginalFilename();
 
             Club club = new Club();
             club.setmName(name);
@@ -528,8 +532,11 @@ public class OrganizeController {
             club.setmChairmanId(s_id);
             club.setmTeacher(teacherName);
             club.setmState(false);
-
+            if (qiniuService.storeFile(file)) {
+                club.setmImgUrl(qiniuService.createDownloadUrl("http://" + qiniuService.getDomain() + "/" + key));
+            }
             student.getClubs().add(club);
+            club.setmMemberNumber(1);
 
             clubService.save(club);
             studentService.save(student);

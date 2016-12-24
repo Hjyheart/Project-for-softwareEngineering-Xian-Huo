@@ -60,15 +60,15 @@ public class MessageService {
      * @param contact
      * 联系方式
      */
-    public void sendNoTemplateMessage(String content, String contact){
-//        req.setExtend( "" );
-//        req.setSmsType( "normal" );
-//        req.setSmsFreeSignName( "鲜活社团平台" );
-//        req.setSmsParamString();
-//        req.setRecNum( contact );
-//        req.setSmsTemplateCode( "SMS_35050366" );
-//        AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
-//        System.out.println(rsp.getBody());
+    public void sendNoTemplateMessage(String content, String contact, String clubName, String studentName) throws ApiException {
+        req.setExtend( "" );
+        req.setSmsType( "normal" );
+        req.setSmsFreeSignName( "鲜活社团平台" );
+        req.setSmsParamString("{club:" + clubName + ",name:" + studentName +",content:" + content + "}");
+        req.setRecNum( contact );
+        req.setSmsTemplateCode( "SMS_35430070" );
+        AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
+        System.out.println(rsp.getBody());
     }
 
 }

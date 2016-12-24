@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by hongjiayong on 2016/10/21.
  */
@@ -38,6 +40,21 @@ public class ActivityController {
         map.addAttribute("name", "activities");
 
         return "web/activity/home";
+    }
+
+    /**
+     * 返回所有活动
+     * @return
+     */
+    @RequestMapping(value = "/allactivity", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Activity> getAllActivity(){
+        try{
+            return activityService.findAllActivities();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @RequestMapping(value = "/{id}")

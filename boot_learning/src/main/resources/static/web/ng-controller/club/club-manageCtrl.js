@@ -150,6 +150,15 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
         $('#student').addClass('active');
     };
 
+    // 显示申请状况
+    $scope.showApply = function () {
+        $('.active.item').removeClass('active');
+        $('#four').addClass('active');
+
+        $('.active.tab.segment').removeClass('active');
+        $('#apply').addClass('active');
+    };
+
     // 上传文件
     $scope.uploadFile = function () {
         if ($('#file').val() === '' || $('#file').val() === null){

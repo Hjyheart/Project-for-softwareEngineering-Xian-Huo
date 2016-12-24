@@ -10,6 +10,7 @@ app.service('constService', function(){
             vertify: `${ServiceHost}/login/vertify`,
             compelete: `${ServiceHost}/login/compelete`,
             getstudent: `${ServiceHost}/mycenter/getstu`,
+            changeHead: `${ServiceHost}/mycenter/changehead`,
 
             // 首页
             indexInit: `${ServiceHost}/home/init`,
@@ -19,6 +20,7 @@ app.service('constService', function(){
             myHostClub: `${ServiceHost}/mycenter/myhostclub`,
 
             // 社团
+            addClub: `${ServiceHost}/club/applyforclub`,
             clubdetail: `${ServiceHost}/club/detail`,
             getState: `${ServiceHost}/club/state`,
             addStudent: `${ServiceHost}/club/addstudent`,
@@ -38,7 +40,9 @@ app.service('constService', function(){
             // 活动
             addActivity: `${ServiceHost}/club/addactivity`,
             deleteActivity: `${ServiceHost}/activity/delete`,
-            informAll: `${ServiceHost}/activity/informAll`
+            informAll: `${ServiceHost}/activity/informAll`,
+            getMyActivities: `${ServiceHost}/mycenter/myactivities`,
+            getAllActivities: `${ServiceHost}/activity/allactivity`
         }
     };
 

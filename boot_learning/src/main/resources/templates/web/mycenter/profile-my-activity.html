@@ -1,17 +1,16 @@
 <div th:fragment="profile-my-activity" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="ui cards">
-        <div class="card">
+        <div class="card" ng-repeat="activity in activities">
             <div class="content">
-                <div class="header">活动名称</div>
-                <div class="meta">活动时间 </div>
-                <div class="meta">活动地点 </div>
-                <div class="description">活动描述 </div>
+                <div class="header">{{activity.mName}}</div>
+                <div class="meta">{{activity.mTime}} </div>
+                <div class="meta">{{activity.mLocation}} </div>
+                <div class="description">{{activity.mDescription}} </div>
             </div>
             <div class="extra content">
-                <div class="ui three buttons">
-                    <div class="ui basic green button">More</div>
-                    <div class="ui basic blue button">Manage</div>
-                    <div class="ui basic red button">Delete</div>
+                <div class="ui two buttons">
+                    <div class="ui basic green button">详情</div>
+                    <div class="ui basic red button">退出</div>
                 </div>
             </div>
         </div>

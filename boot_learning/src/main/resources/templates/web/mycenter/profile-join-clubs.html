@@ -6,11 +6,14 @@
                 <div class="meta">人数: {{club.mMemberNumber}} </div>
                 <div class="description">{{club.mDescription}} </div>
             </div>
-            <div class="extra content">
+            <div class="extra content"  ng-if="club.mState">
                 <div class="ui three buttons">
                     <div class="ui basic green button" ng-click="more(club)">详情</div>
                     <div class="ui basic red button" ng-click="delete(club)">退出</div>
                 </div>
+            </div>
+            <div class="extra content" ng-if="!club.mState">
+                <div class="ui fluid red button">等待审核中</div>
             </div>
         </div>
     </div>

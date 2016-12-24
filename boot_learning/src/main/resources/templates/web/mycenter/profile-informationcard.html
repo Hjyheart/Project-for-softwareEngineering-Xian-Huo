@@ -1,8 +1,15 @@
 <div th:fragment="profile-card" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="ui cards">
+    <div class="ui special cards">
         <div class="ui card">
-            <div class="image">
-                <img src="/F.jpg"/>
+            <div class="blurring dimmable image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui inverted button" ng-click="changeHead()">更换头像</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="{{student.mHeadUrl}}"/>
             </div>
             <div class="content">
                 <a class="ui orange right ribbon label" ng-click="showEdit()"><i class="write icon"></i>编辑</a>
