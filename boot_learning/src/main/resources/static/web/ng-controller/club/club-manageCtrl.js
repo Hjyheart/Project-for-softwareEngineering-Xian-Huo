@@ -53,6 +53,9 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
         }).then( res =>{
             console.log(res);
             $scope.club = res.data;
+            if (!$scope.club.mState){
+                window.location.href = "/";
+            }
             $scope.clubNum = $scope.club.mMemberNumber;
             // 获得主席名字
             $http({

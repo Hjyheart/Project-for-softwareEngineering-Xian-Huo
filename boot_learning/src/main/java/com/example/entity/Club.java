@@ -19,7 +19,8 @@ public class Club {
     @Column(nullable = false, name = "NAME")
     private String mName;
 
-
+    @Column(nullable = false, name = "STATE")
+    private boolean mState;
 
     @Column(nullable = true, name = "TEACHER")
     private String mTeacher;
@@ -59,12 +60,13 @@ public class Club {
 
     public Club(){}
 
-    public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription) {
+    public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription, boolean state) {
         this.mName = mName;
         this.mTeacher = mTeacher;
         this.mChairmanId = mChairmanId;
         this.mMemberNumber = mMemberNumber;
         this.mDescription = mDescription;
+        this.mState = state;
     }
 
     public Long getmId() {
@@ -164,4 +166,14 @@ public class Club {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public void setmState(boolean mState) {
+        this.mState = mState;
+    }
+
+    public boolean getmState(){
+        return mState;
+    }
+
+
 }

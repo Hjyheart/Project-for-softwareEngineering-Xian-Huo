@@ -54,5 +54,9 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     @Query("update Club c set c.mMemberNumber=c.mMemberNumber-1 where c.mId=?1")
     int decreaseNumtFromClub(Long Id);
 
+    @Modifying
+    @Query("update Club c set c.mState=?1 where c.mId=?2")
+    int setClubStateById(boolean state, Long id);
+
 
 }

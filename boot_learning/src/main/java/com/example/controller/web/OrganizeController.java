@@ -481,6 +481,12 @@ public class OrganizeController {
         }
     }
 
+    /**
+     * 发送全体广播通知
+     * @param c_id
+     * 社团对应id
+     * @param content
+     */
     @RequestMapping(value = "/informAll", method = RequestMethod.POST)
     @ResponseBody
     public void informAll(@RequestParam Long c_id, @RequestParam String content){
@@ -490,6 +496,43 @@ public class OrganizeController {
             for (Student student : club.getStudents()){
                 messageService.sendNoTemplateMessage(content, student.getmContact());
             }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 创建新的社团等待审核
+     * @param s_id
+     * 学生id
+     * @param name
+     * 社团名称
+     * @param content
+     * 社团标语
+     * @param des
+     * 社团描述
+     * @param teacherName
+     * 指导老师姓名
+     */
+    @RequestMapping(value = "/applyforclub", method = RequestMethod.POST)
+    @ResponseBody
+    public void applyForClub(@RequestParam String s_id, @RequestParam String name, @RequestParam String content,
+                             @RequestParam String des, @RequestParam String teacherName){
+        try{
+            Student student = studentService.findByMId(s_id).iterator().next();
+
+            Club club = new Club();
+            club.setmName(name);
+            club.setmDescription(des);
+            club.setContent(content);
+            club.setmChairmanId(s_id);
+            club.setmTeacher(teacherName);
+            club.setmState(false);
+
+            student.getClubs().add(club);
+
+            clubService.save(club);
+            studentService.save(student);
         }catch (Exception e){
             e.printStackTrace();
         }

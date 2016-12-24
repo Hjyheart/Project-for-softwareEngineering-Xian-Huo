@@ -114,4 +114,12 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
             console.log(err);
         })
     };
+
+    // 发起申请创建社团
+    $scope.applyForClub = function () {
+        //$http({
+        //    method: 'POST',
+        //    url: constService.urls().
+        //})
+    };
 }]);
