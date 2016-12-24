@@ -1,7 +1,7 @@
 /**
- * Created by hongjiayong on 2016/12/10.
+ * Created by hongjiayong on 2016/12/24.
  */
-app.controller('activity-homeCtrl', ['$scope', '$http', 'constService', function($scope, $http, constService){
+app.controller('ac-homeCtrl', ['$scope', '$http', 'constService', function($scope, $http, constService){
     $scope.isLogin = false;
     $scope.student;
     $scope.activities;

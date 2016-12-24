@@ -296,7 +296,7 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
                 formData.append('name', $('#activity-name').val());
                 formData.append('location', $('#activity-location').val());
                 formData.append('des', $('#activity-des').val());
-                formData.append('contact', $('#activity-date').val());
+                formData.append('contact', $('#activity-contact').val());
                 formData.append('file', $('#activity-cover')[0].files[0]);
                 $.ajax({
                     method: 'POST',
