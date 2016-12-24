@@ -544,4 +544,16 @@ public class OrganizeController {
             e.printStackTrace();
         }
     }
+
+
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Club> getAllClub(){
+        try{
+            return clubService.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -36,6 +36,7 @@ app.service('constService', function(){
             changeCover: `${ServiceHost}/club/changecover`,
             editBasicInfo: `${ServiceHost}/club/editbasicinfo`,
             sendMessageAll: `${ServiceHost}/club/informAll`,
+            getAllClub: `${ServiceHost}/club/all`,
 
             // 活动
             addActivity: `${ServiceHost}/club/addactivity`,

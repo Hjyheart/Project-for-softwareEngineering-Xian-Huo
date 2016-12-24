@@ -64,9 +64,15 @@ public class StudentController {
         return "true";
     }
 
+
+    /**
+     * 返回我的社团
+     * @param id
+     * 学生id
+     * @return
+     */
     @RequestMapping(value = "/myclubs", method = RequestMethod.POST)
     @ResponseBody
-    // 显示用户加入的社团列表 点击之后重定向到该社团
     public List<Club> myOrganizes(@RequestParam String id){
 
         Student stu = studentService.findByMId(id).iterator().next();

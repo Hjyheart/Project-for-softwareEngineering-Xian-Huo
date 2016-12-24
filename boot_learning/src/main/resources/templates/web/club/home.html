@@ -51,36 +51,18 @@
                     <div class="ui two cards" >
                         <!--左侧展示社团卡片-->
                         <div class="ui card" ng-repeat="club in clubs">
-                            <div class="content">
-                                <div class="header">{{club.mName}}</div>
+                            <div class="image small">
+                                <img src="{{club.mImgUrl}}"/>
                             </div>
                             <div class="content">
-                                <div class="ui small feed">
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                                {{club.mLocation}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary">
-                                                {{club.mTime}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="meta">
-                                                {{club.mDescription}}
-                                            </div>
-                                        </div>
-                                    </div>
+                                <a class="header">{{club.mName}}</a>
+                                <div class="meta">
+                                    <span class="date">指导老师: {{club.mTeacher}}</span>
                                 </div>
+                                <div class="description">{{club.mDescription}}</div>
                             </div>
                             <div class="extra content">
-                                <button class="ui green button" ng-click="toActivityDetail(activity)">进来瞅一瞅</button>
+                                <a><i class="user icon"></i> {{club.mMemberNumber}} 社员</a>
                             </div>
                         </div>
                     </div>
@@ -89,12 +71,12 @@
                 <!--右侧标签栏-->
                 <div class="six wide right floated column" ng-if="isLogin">
                     <div class="ui top attached tabular menu">
-                        <a class="active item"  ng-click="showMyActivity()" id="first">我参与的活动 </a>
-                        <a class="item" ng-click="showMyHostActivity()" id="second">我组织的活动 </a>
+                        <a class="active item"  ng-click="showMyClub()" id="first">我参与的俱乐部 </a>
+                        <a class="item" ng-click="showMyHostClub()" id="second">我组织的俱乐部 </a>
                     </div>
                     <div class="ui bottom attached  tab segment active" id="my-club">
                         <div class="ui relaxed divided list">
-                            <div class="item" ng-repeat="activity in myactivities">
+                            <div class="item" ng-repeat="club in myclubs">
                                 <div class="content">
                                     <a class="header" href="/club/{{club.mId}}">{{club.mName}}</a>
                                 </div>
