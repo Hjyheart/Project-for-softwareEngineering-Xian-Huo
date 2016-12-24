@@ -124,6 +124,32 @@ public class StudentController {
         }
     }
 
+    /**
+     * 返回某个学生举办的活动列表
+     * @param id
+     * 学生id
+     * @return
+     */
+    @RequestMapping(value = "/myhostactivities", method = RequestMethod.POST)
+    @ResponseBody
+    public ArrayList<Activity> myHostActivities(@RequestParam String id){
+        try{
+            ArrayList<Activity> activityArrayList = new ArrayList<>();
+            Student student = studentService.findByMId(id).iterator().next();
+
+            for (Club club : student.getClubs()){
+                for (Activity activity : club.getActivities()){
+                    activityArrayList.add(activity);
+                }
+            }
+
+            return activityArrayList;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @RequestMapping(value = "/getstu", method = RequestMethod.POST)
     @ResponseBody
     public Student getStudent(HttpServletRequest request){

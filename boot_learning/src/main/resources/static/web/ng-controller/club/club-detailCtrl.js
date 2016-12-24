@@ -193,7 +193,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
     $scope.addComment = function(){
         $http({
             method: 'POST',
-            url: constService.urls().addComment,
+            url: constService.urls().addClubComment,
             params:{
                 's_id': $scope.student.mId,
                 'c_id': $scope.club.mId,

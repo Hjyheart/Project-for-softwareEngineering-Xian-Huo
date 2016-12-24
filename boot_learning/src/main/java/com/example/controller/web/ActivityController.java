@@ -2,11 +2,9 @@ package com.example.controller.web;
 
 import com.example.entity.Activity;
 import com.example.entity.Club;
+import com.example.entity.Comment;
 import com.example.entity.Student;
-import com.example.service.ActivityService;
-import com.example.service.ClubService;
-import com.example.service.MessageService;
-import com.example.service.StudentService;
+import com.example.service.*;
 import com.taobao.api.ApiException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +33,9 @@ public class ActivityController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping("")
     // 活动合集主页
@@ -60,9 +63,55 @@ public class ActivityController {
     @RequestMapping(value = "/{id}")
     // 根据活动名称展现活动
     public String showActivity(@PathVariable String id , ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", id);
+        map.addAttribute("id", id);
 
-        return "web/home";
+        return "web/activity/detail";
+    }
+
+    /**
+     * 返回活动细节
+     * @param id
+     * 活动id
+     * @return
+     */
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    @ResponseBody
+    public Activity activityDetail(@RequestParam Long id){
+        try{
+            Activity activity = activityService.findActivityById(id).iterator().next();
+
+            return activity;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 是否注册
+     * @param a_id
+     * 活动id
+     * @param s_id
+     * 学生id
+     * @return
+     */
+    @RequestMapping(value = "/isregister", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean isRegister(@RequestParam Long a_id, @RequestParam String s_id){
+        try{
+            Activity activity = activityService.findActivityById(a_id).iterator().next();
+            Student student = studentService.findByMId(s_id).iterator().next();
+
+            for (Activity activity1 : student.getActivities()){
+                if (activity1.equals(activity))
+                    return true;
+            }
+
+            return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -116,44 +165,91 @@ public class ActivityController {
         }
     }
 
-    @RequestMapping(value = "/{name}/apply")
-    // 申请参加活动
-    public @ResponseBody String applyActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    /**
+     * 申请活动
+     * @param a_id
+     * 活动id
+     * @param s_id
+     * 学生id
+     * @return
+     */
+    @RequestMapping(value = "/apply", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean applyActivity(@RequestParam Long a_id, @RequestParam String s_id){
+        try{
+            Activity activity = activityService.findActivityById(a_id).iterator().next();
+            Student student = studentService.findByMId(s_id).iterator().next();
 
-        return "true";
+            student.getActivities().add(activity);
+            activity.getStudents().add(student);
+            activity.setmPraise(activity.getmPraise() + 1);
+
+            studentService.save(student);
+            activityService.save(activity);
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
 
     }
 
-    @RequestMapping(value = "/{name}/unapply")
-    // 取消申请参加活动
-    public @ResponseBody String unApplyActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        System.out.println(name);
+    /**
+     * 退出某个活动
+     * @param a_id
+     * 活动id
+     * @param s_id
+     * 学生id
+     * @return
+     */
+    @RequestMapping(value = "/quit", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean unApplyActivity(@RequestParam Long a_id, @RequestParam String s_id){
+       try{
+           Activity activity = activityService.findActivityById(a_id).iterator().next();
+           Student student = studentService.findByMId(s_id).iterator().next();
 
-        return "true";
+           student.getActivities().remove(activity);
+           activity.getStudents().remove(student);
+           activity.setmPraise(activity.getmPraise() - 1);
+
+           studentService.save(student);
+           activityService.save(activity);
+
+           return true;
+       }catch (Exception e){
+           e.printStackTrace();
+           return false;
+       }
 
     }
 
-    @RequestMapping(value = "/{name}/comments")
-    // 查看活动对应的评论
-    public String commentsForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " comments");
+    @RequestMapping(value = "addcomment", method = RequestMethod.POST)
+    @ResponseBody
+    public Comment commentForActivity(@RequestParam Long a_id, @RequestParam String content, @RequestParam String s_id){
+        try{
+            Activity activity = activityService.findActivityById(a_id).iterator().next();
+            Student student = studentService.findByMId(s_id).iterator().next();
 
-        return "home";
-    }
+            Comment comment = new Comment();
+            comment.setActivity(activity);
+            comment.setmContent(content);
+            comment.setmStudentId(s_id);
+            comment.setmTargetType(1);
+            comment.setStudentName(student.getmName());
+            comment.setmTargetId(activity.getmId());
+            comment.setmDate(Date.from(Instant.now()));
 
-    @RequestMapping(value = "/{name}/good")
-    // 点赞
-    public @ResponseBody String goodForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " good");
+            activity.getComments().add(comment);
 
-        return "true";
-    }
+            commentService.save(comment);
+            activityService.save(activity);
 
-    @RequestMapping(value = "/{name}/ungood")
-    // 取消点赞
-    public @ResponseBody String unGoodForActivity(@PathVariable String name, ModelMap map, HttpServletRequest request){
-        map.addAttribute("name", name + " good");
-        return "true";
+            return comment;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

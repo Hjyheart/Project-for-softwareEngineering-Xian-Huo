@@ -29,7 +29,7 @@ app.service('constService', function(){
             getClubActivity: `${ServiceHost}/club/getactivity`,
             getClubComment: `${ServiceHost}/club/getcomment`,
             getClubFiles: `${ServiceHost}/club/getfiles`,
-            addComment: `${ServiceHost}/club/addcomment`,
+            addClubComment: `${ServiceHost}/club/addcomment`,
             vertifyClubHost: `${ServiceHost}/club/vertifyclubhost`,
             uploadClubFile: `${ServiceHost}/club/upload`,
             deleteClubFile: `${ServiceHost}/club/deletefile`,
@@ -42,7 +42,13 @@ app.service('constService', function(){
             deleteActivity: `${ServiceHost}/activity/delete`,
             informAll: `${ServiceHost}/activity/informAll`,
             getMyActivities: `${ServiceHost}/mycenter/myactivities`,
-            getAllActivities: `${ServiceHost}/activity/allactivity`
+            getAllActivities: `${ServiceHost}/activity/allactivity`,
+            getMyHostActivity: `${ServiceHost}/mycenter/myhostactivities`,
+            getActivityDetail: `${ServiceHost}/activity/detail`,
+            registerIf: `${ServiceHost}/activity/isregister`,
+            applyForActivity: `${ServiceHost}/activity/apply`,
+            quitActivity: `${ServiceHost}/activity/quit`,
+            addActivityComment: `${ServiceHost}/activity/addcomment`
         }
     };
 

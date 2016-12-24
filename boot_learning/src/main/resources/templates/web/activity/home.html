@@ -16,7 +16,12 @@
 </head>
 
 <body class="pushable" ng-app="myApp" ng-controller="ac-homeCtrl">
-    <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
+    <div ng-if="isLogin">
+        <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
+    </div>
+    <div class="!isLogin">
+        <div th:include="web/nav/navbar-floating :: navbar-floating-public"></div>
+    </div>
 
     <div class="pusher">
         <div class="ui inverted vertical masthead center aligned segment">
@@ -42,93 +47,65 @@
             <div class="ui aligned stackable grid container">
                 <div class="row">
                 <!--卡片活动-->
-                <div class="ten wide column dimmer">
+                <div class="ten wide column dimmer" id="activity-list">
                     <div class="ui two cards" >
                         <!--左侧展示活动卡片-->
-                        <div class="ui card">
+                        <div class="ui card" ng-repeat="activity in activities">
                             <div class="content">
-                                <div class="header">Project Timeline</div>
+                                <div class="header">{{activity.mName}}</div>
                             </div>
                             <div class="content">
-                                <h4 class="ui sub header">Activity</h4>
                                 <div class="ui small feed">
                                     <div class="event">
                                         <div class="content">
-                                            <div class="summary"><a>Elliot Fu</a> added <a>Jenny Hess</a> to the project </div>
+                                            <div class="summary">
+                                                {{activity.mLocation}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="event">
                                         <div class="content">
-                                            <div class="summary"><a>Stevie Feliciano</a> was added as an <a>Administrator</a> </div>
+                                            <div class="summary">
+                                                {{activity.mTime}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="event">
                                         <div class="content">
-                                            <div class="summary"><a>Helen Troy</a> added two pictures </div>
+                                            <div class="meta">
+                                                {{activity.mDescription}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="extra content">
-                                <button class="ui button">Join Project</button>
-                            </div>
-                        </div>
-                        <div class="ui card">
-                            <div class="content">
-                                <div class="header">Project Timeline</div>
-                            </div>
-                            <div class="content">
-                                <h4 class="ui sub header">Activity</h4>
-                                <div class="ui small feed">
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary"><a>Elliot Fu</a> added <a>Jenny Hess</a> to the project </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary"><a>Stevie Feliciano</a> was added as an <a>Administrator</a> </div>
-                                        </div>
-                                    </div>
-                                    <div class="event">
-                                        <div class="content">
-                                            <div class="summary"><a>Helen Troy</a> added two pictures </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <button class="ui button">Join Project</button>
+                                <button class="ui green button" ng-click="toActivityDetail(activity)">进来瞅一瞅</button>
                             </div>
                         </div>
                     </div>
                     <br/>
-                    <button class="ui fluid blue button" >More </button>
                 </div>
                 <!--右侧标签栏-->
-                <div class="six wide right floated column">
+                <div class="six wide right floated column" ng-if="isLogin">
                     <div class="ui top attached tabular menu">
-                        <a class="active item" data-tab="my-activity">我参与的活动 </a>
-                        <a class="item" data-tab="my-organ-activity">我组织的活动 </a>
+                        <a class="active item"  ng-click="showMyActivity()" id="first">我参与的活动 </a>
+                        <a class="item" ng-click="showMyHostActivity()" id="second">我组织的活动 </a>
                     </div>
-                    <div class="ui bottom attached  tab segment active" data-tab="my-activity">
+                    <div class="ui bottom attached  tab segment active" id="my-activity">
                         <div class="ui relaxed divided list">
-                            <div class="item">
+                            <div class="item" ng-repeat="activity in myactivities">
                                 <div class="content">
-
-                                    <a class="header">test</a>
-                                    <div class="description">Updated At </div>
+                                    <a class="header" href="/activity/{{activity.mId}}">{{activity.mName}}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ui bottom attached tab segment" data-tab="my-organ-activity">
+                    <div class="ui bottom attached tab segment" id="my-organ-activity">
                         <div class="ui relaxed divided list">
-                            <div class="item">
+                            <div class="item" ng-repeat="activity in myhostactivities">
                                 <div class="content">
-
-                                    <a class="header">w</a>
-                                    <div class="description">Updated At </div>
+                                    <a class="header" href="/activity/{{activity.mId}}">{{activity.mName}}</a>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +117,5 @@
 
         <div th:include="web/footer :: footer"></div>
     </div>
-<script>
-    $('.tabular.menu .item').tab();
-</script>
 </body>
 </html>
