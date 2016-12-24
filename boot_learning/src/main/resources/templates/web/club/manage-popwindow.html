@@ -1,0 +1,356 @@
+<div th:fragment="manage-pop-window" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="ui modal" id="change-head">
+        <i class="close icon"></i>
+        <div class="header">
+            更换封面
+        </div>
+        <div class="content">
+            <form class="ui form" enctype="multipart/form-data">
+                <input type="file" name="head-file" id="head-file"/>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="edit-basic">
+        <i class="close icon"></i>
+        <div class="header">
+            编辑基本信息
+        </div>
+        <div class="content">
+            <form class="ui form">
+                <div class="field">
+                    <label>社团名称</label>
+                    <input type="text" placeholder="{{club.mName}}" id="club-new-name" />
+                </div>
+                <div class="field">
+                    <label>简述</label>
+                    <input type="text" placeholder="{{club.mDescription}}" id="club-new-des" />
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="edit-activity">
+        <i class="close icon"></i>
+        <div class="header">
+            添加活动
+        </div>
+        <div class="content">
+            <form class="ui form" enctype="multipart/form-data">
+                <div class="ui field">
+                    <label>活动名</label>
+                    <input type="text" id="new-name" placeholder="活动名称" value="{{activity.mName}}" />
+                </div>
+                <div class="ui field">
+                    <label>地点</label>
+                    <input type="text" id="new-location" placeholder="地点" value="{{activity.mLocation}}"/>
+                </div>
+                <div class="ui field">
+                    <label>时间</label>
+                    <input type="text" id="new-date"/>
+                </div>
+                <div class="ui two fields">
+                    <div class="ui field">
+                        <label>时</label>
+                        <select class="ui fluid dropdown" id="new-hour">
+                            <option value="00">0</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                    </div>
+                    <div class="ui field">
+                        <label>分</label>
+                        <select class="ui fluid dropdown" id="new-minute">
+                            <option value="00">0</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui field">
+                    <label>联系电话</label>
+                    <input type="text" id="new-contact" placeholder="联系方式" value="{{activity.mContact}}"/>
+                </div>
+                <div class="ui field">
+                    <label>描述</label>
+                    <input type="text" id="new-des" placeholder="描述" value="{{activity.mDescription}}"/>
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="inform-success">
+        <i class="close icon"></i>
+        <div class="header">
+            短信通知
+        </div>
+        <div class="content">
+            成功通知所有成员!
+        </div>
+        <div class="actions">
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="inform-message">
+        <i class="close icon"></i>
+        <div class="header">
+            通知
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="ui field">
+                    <label>通知内容</label>
+                    <textarea id="message-content"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="add-activity">
+        <i class="close icon"></i>
+        <div class="header">
+            修改活动
+        </div>
+        <div class="content">
+            <form class="ui form" enctype="multipart/form-data">
+                <div class="ui field">
+                    <label>活动名</label>
+                    <input type="text" id="activity-name" placeholder="活动名称" />
+                </div>
+                <div class="ui field">
+                    <label>地点</label>
+                    <input type="text" id="activity-location" placeholder="地点"/>
+                </div>
+                <div class="ui field">
+                    <label>时间</label>
+                    <input type="text" id="activity-date"/>
+                </div>
+                <div class="ui two fields">
+                    <div class="ui field">
+                        <label>时</label>
+                        <select class="ui fluid dropdown" id="hour">
+                            <option value="00">0</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                    </div>
+                    <div class="ui field">
+                        <label>分</label>
+                        <select class="ui fluid dropdown" id="minute">
+                            <option value="00">0</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40">40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                            <option value="46">46</option>
+                            <option value="47">47</option>
+                            <option value="48">48</option>
+                            <option value="49">49</option>
+                            <option value="50">50</option>
+                            <option value="51">51</option>
+                            <option value="52">52</option>
+                            <option value="53">53</option>
+                            <option value="54">54</option>
+                            <option value="55">55</option>
+                            <option value="56">56</option>
+                            <option value="57">57</option>
+                            <option value="58">58</option>
+                            <option value="59">59</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui field">
+                    <label>联系电话</label>
+                    <input type="text" id="activity-contact" placeholder="联系方式" />
+                </div>
+                <div class="ui field">
+                    <label>描述</label>
+                    <input type="text" id="activity-des" placeholder="描述" />
+                </div>
+                <div class="ui field">
+                    <label>活动封面</label>
+                    <input type="file" id="activity-cover" />
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">取消</div>
+            <div class="ui positive approve labeled icon button">
+                确定
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+</div>

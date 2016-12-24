@@ -416,5 +416,57 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
         }).catch( err=>{
             console.log(err);
         })
+    };
+
+    // 编辑活动
+    $scope.editActivity = function(activity){
+        $scope.activity = activity;
+        $('#edit-activity').modal({
+            onApprove: function () {
+                var formData = new FormData();
+                var time = $('#new-date').val() + '/' + $('#hour').val() + '/' + $('#minute').val();
+                formData.append("id", activity.mId);
+                formData.append('time', time);
+                formData.append('name', $('#new-name').val());
+                formData.append('location', $('#new-location').val());
+                formData.append('des', $('#new-des').val());
+                formData.append('contact', $('#new-contact').val());
+
+                $.ajax({
+                    method: 'POST',
+                    url: constService.urls().editActivity,
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done( res=>{
+                    // 获得社团活动
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().getClubActivity,
+                        params:{
+                            'id': $scope.club.mId
+                        }
+                    }).then( res=>{
+                        $scope.club.activity = res.data;
+
+                        for (let i = 0; i < $scope.club.activity.length; i++){
+                            let date = new Date($scope.club.activity[i].mTime);
+                            $scope.club.activity[i].time = date.getFullYear().toString() + '/'
+                                + date.getMonth().toString() + '/'
+                                + date.getDay().toString() + '  '
+                                + date.getHours().toString() + ':'
+                                + date.getMinutes().toString();
+                            console.log($scope.club.activity[i].time);
+                        }
+                        console.log($scope.club.activity);
+                    }).catch( err=>{
+                        console.log(err);
+                    });
+                }).catch( err=>{
+                    console.log(err);
+                });
+            }
+        }).modal('show');
     }
 }]);

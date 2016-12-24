@@ -48,7 +48,8 @@ app.service('constService', function(){
             registerIf: `${ServiceHost}/activity/isregister`,
             applyForActivity: `${ServiceHost}/activity/apply`,
             quitActivity: `${ServiceHost}/activity/quit`,
-            addActivityComment: `${ServiceHost}/activity/addcomment`
+            addActivityComment: `${ServiceHost}/activity/addcomment`,
+            editActivity: `${ServiceHost}/activity/edit`
         }
     };
 

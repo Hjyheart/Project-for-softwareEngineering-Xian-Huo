@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -225,7 +226,17 @@ public class ActivityController {
 
     }
 
-    @RequestMapping(value = "addcomment", method = RequestMethod.POST)
+    /**
+     * 添加评论
+     * @param a_id
+     * 活动id
+     * @param content
+     * 评论内容
+     * @param s_id
+     * 学生id
+     * @return
+     */
+    @RequestMapping(value = "/addcomment", method = RequestMethod.POST)
     @ResponseBody
     public Comment commentForActivity(@RequestParam Long a_id, @RequestParam String content, @RequestParam String s_id){
         try{
@@ -250,6 +261,32 @@ public class ActivityController {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean editActivity(@RequestParam Long id, @RequestParam String name, @RequestParam String location, @RequestParam String time,
+                                @RequestParam String des, @RequestParam String contact){
+        try{
+            Activity activity = activityService.findActivityById(id).iterator().next();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy/HH/mm");
+            Date date = sdf.parse(time);
+            System.out.println(date.toString());
+
+            activity.setmName(name);
+            activity.setmDescription(des);
+            activity.setmLocation(location);
+            activity.setmContact(contact);
+            activity.setmTime(date);
+
+            activityService.save(activity);
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 }
