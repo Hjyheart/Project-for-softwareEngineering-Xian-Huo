@@ -35,6 +35,11 @@ public class ClubService {
         clubRepository.save(club);
     }
 
+    @Transactional
+    public void remove(Club club){
+        clubRepository.delete(club);
+    }
+
     public List<Club> findByMId(Long id) {
         return clubRepository.findByMId(id);
     }

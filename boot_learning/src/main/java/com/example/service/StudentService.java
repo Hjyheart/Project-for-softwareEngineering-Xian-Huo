@@ -68,24 +68,6 @@ public class StudentService {
         }
     }
 
-    public void addSendApply(String studentId, String toId, Integer type, String description, Boolean teacher) throws Exception{
-        try{
-            Student student = this.studentRepository.findByMId(studentId).iterator().next();
-            Apply   apply = new Apply(studentId, toId, type, description);
-            student.getSendApplies().add(apply);
-
-            if(teacher){
-                this.teacherRepository.findByMId(toId).iterator().next().getApplies().add(apply);
-            }
-            else{
-                this.studentRepository.findByMId(toId).iterator().next().getReceiveApplies().add(apply);
-            }
-
-        }catch(Exception e){
-            throw e;
-        }
-    }
-
 
     public List<Apply> getAllReceiveApplies(String studentId) throws Exception{
         try{

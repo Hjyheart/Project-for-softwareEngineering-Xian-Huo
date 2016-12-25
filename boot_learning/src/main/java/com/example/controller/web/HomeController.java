@@ -39,4 +39,9 @@ public class HomeController {
     public String Test(){
         return "test";
     }
+
+    @RequestMapping("/admin")
+    public String Admin(){
+        return "web/admin";
+    }
 }

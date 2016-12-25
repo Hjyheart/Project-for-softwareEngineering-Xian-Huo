@@ -531,7 +531,7 @@ public class OrganizeController {
             club.setContent(content);
             club.setmChairmanId(s_id);
             club.setmTeacher(teacherName);
-            club.setmState(false);
+            club.setmState(0);
             if (qiniuService.storeFile(file)) {
                 club.setmImgUrl(qiniuService.createDownloadUrl("http://" + qiniuService.getDomain() + "/" + key));
             }
@@ -545,7 +545,10 @@ public class OrganizeController {
         }
     }
 
-
+    /**
+     * 返回所有的活动
+     * @return
+     */
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     @ResponseBody
     public List<Club> getAllClub(){
@@ -554,6 +557,50 @@ public class OrganizeController {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /**
+     * 拒绝某个社团的申请并删除社团
+     * @param id
+     * 社团id
+     */
+    @RequestMapping(value = "/reject", method = RequestMethod.POST)
+    @ResponseBody
+    public void rejectClub(@RequestParam Long id){
+        try{
+            Club club = clubService.findByMId(id).iterator().next();
+
+            for (Student student : club.getStudents()){
+                student.getClubs().remove(club);
+                studentService.save(student);
+            }
+
+            club.setmState(-1);
+
+            clubService.save(club);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 同意某个社团创建
+     * @param id
+     * 社团id
+     */
+    @RequestMapping(value = "/accept", method = RequestMethod.POST)
+    @ResponseBody
+    public void acceptClub(@RequestParam Long id){
+        try{
+            Club club = clubService.findByMId(id).iterator().next();
+
+            club.setmState(1);
+
+            clubService.save(club);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

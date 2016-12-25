@@ -37,10 +37,10 @@ public class Student{
     @ManyToMany
     private List<Activity> favouriteactivities;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Apply> sendApplies;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Apply> receiveApplies;
 
 

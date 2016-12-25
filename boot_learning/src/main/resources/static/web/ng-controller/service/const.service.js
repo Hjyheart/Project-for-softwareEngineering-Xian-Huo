@@ -50,7 +50,11 @@ app.service('constService', function(){
             applyForActivity: `${ServiceHost}/activity/apply`,
             quitActivity: `${ServiceHost}/activity/quit`,
             addActivityComment: `${ServiceHost}/activity/addcomment`,
-            editActivity: `${ServiceHost}/activity/edit`
+            editActivity: `${ServiceHost}/activity/edit`,
+
+            // 管理页面
+            rejectClub: `${ServiceHost}/club/reject`,
+            acceptClub: `${ServiceHost}/club/accept`
         }
     };
 

@@ -20,11 +20,10 @@ public class Club {
     private String mName;
 
     @Column(nullable = false, name = "STATE")
-    private boolean mState;
+    private Integer mState;
 
     @Column(nullable = true, name = "TEACHER")
     private String mTeacher;
-
 
     @Column(nullable = true, name = "CHAIRMAN")
     private String mChairmanId;
@@ -60,7 +59,7 @@ public class Club {
 
     public Club(){}
 
-    public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription, boolean state) {
+    public Club(String mName, String mTeacher, String mChairmanId, Integer mMemberNumber, String mDescription, int state) {
         this.mName = mName;
         this.mTeacher = mTeacher;
         this.mChairmanId = mChairmanId;
@@ -167,13 +166,12 @@ public class Club {
         this.content = content;
     }
 
-    public void setmState(boolean mState) {
+    public void setmState(Integer mState) {
         this.mState = mState;
     }
 
-    public boolean getmState(){
+    public Integer getmState(){
         return mState;
     }
-
 
 }

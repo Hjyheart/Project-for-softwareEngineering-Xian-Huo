@@ -35,6 +35,10 @@ app.controller('loginCtrl', ['$scope', '$http', 'constService', function ($scope
             console.log(res.data);
             switch (res.data){
                 case 1:
+                    if (stuId === 'admin'){
+                        window.location.href = '/admin';
+                        break;
+                    }
                     window.location.href = '/home';
                     break;
                 case 0:

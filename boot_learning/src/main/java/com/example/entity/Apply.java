@@ -2,6 +2,7 @@ package com.example.entity;
 
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by deado on 2016/11/2.
@@ -14,14 +15,11 @@ public class Apply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mId;
 
-    @Column(nullable = false, name = "FROMAN")
-    private String mFromId;
+    @Column(nullable = false, name = "CLUBID")
+    private Long mClubId;
 
-    @Column(nullable = false, name = "TOMAN")
-    private String mToId;
-
-    @Column(nullable = false, name = "TYPE")
-    private Integer mType; // 0 -- poster, 1 -- classroom, 2 -- ground, 4 -- register, 5 -- message
+    @Column(nullable = false, name = "TIME")
+    private Date mDate;
 
     @Column(nullable = false, name = "DESCRIPTION")
     private String mDescription;
@@ -30,46 +28,24 @@ public class Apply {
     private Boolean mAccept;
 
 
-    //public
-
-
-    public Apply() {
-    }
-
-    public Apply(String mFromId, String mToId, Integer mType, String mDescription) {
-        this.mFromId = mFromId;
-        this.mToId = mToId;
-        this.mType = mType;
-        this.mDescription = mDescription;
-        this.mAccept = mAccept;
-    }
-
     public Long getmId() {
         return mId;
     }
 
-    public String getmFromId() {
-        return mFromId;
+    public void setClubId(Long clubId) {
+        this.mClubId = clubId;
     }
 
-    public void setmFromId(String mFromId) {
-        this.mFromId = mFromId;
+    public Long getClubId() {
+        return mClubId;
     }
 
-    public String getmToId() {
-        return mToId;
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 
-    public void setmToId(String mToId) {
-        this.mToId = mToId;
-    }
-
-    public Integer getmType() {
-        return mType;
-    }
-
-    public void setmType(Integer mType) {
-        this.mType = mType;
+    public Date getmDate() {
+        return mDate;
     }
 
     public String getmDescription() {
