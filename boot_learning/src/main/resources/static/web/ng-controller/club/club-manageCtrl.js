@@ -468,5 +468,14 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
                 });
             }
         }).modal('show');
-    }
+    };
+    
+    // 创建申请
+    $scope.applyForPosterArea = function () {
+        $('#add-apply').modal({
+            onApprove: function () {
+                
+            }
+        }).modal('show');
+    };
 }]);

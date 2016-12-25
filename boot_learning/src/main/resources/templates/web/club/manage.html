@@ -170,8 +170,32 @@
                         </div>
 
                         <div class="ui bottom attached tab segment" id="apply">
-                            <div class="ui basic blue button" ng-click="applyForPosterArea()">申请场地</div>
+                            <div class="ui basic blue button" ng-click="applyForPosterArea()">申请</div>
                             <hr/>
+                            <!--<table class="ui very basic celled table">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th>申请种类</th>-->
+                                    <!--<th>申请地点</th>-->
+                                    <!--<th>申请时间</th>-->
+                                    <!--<th>申请状态</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr ng-repeat="apply in club.applies">-->
+                                    <!--<td>-->
+                                        <!--<h4 class="ui image header">-->
+                                            <!--<img src="{{student.mHeadUrl}}" class="ui mini rounded image"/>-->
+                                            <!--<div class="content">{{student.mName}} <div class="sub header">{{student.mId}} </div>-->
+                                            <!--</div>-->
+                                        <!--</h4>-->
+                                    <!--</td>-->
+                                    <!--<td>-->
+                                        <!--{{student.mContact}}-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
                         </div>
                     </div>
 
@@ -182,9 +206,6 @@
         <div th:include="web/footer :: footer"></div>
         <div th:include="web/club/manage-popwindow :: manage-pop-window"></div>
     </div>
-
-
-
 </body>
 <script>
     $( function() {
@@ -193,5 +214,27 @@
     $( function() {
         $( "#new-date" ).datepicker();
     } );
+    $( function() {
+        $( "#apply-start-date" ).datepicker();
+    } );
+    $( function() {
+        $( "#apply-end-date" ).datepicker();
+    } );
+    // 设置类型
+    function setType() {
+        var type = $('#type').val();
+        switch (type){
+            case "1":
+                $('#ground-field').transition('hide');
+                $('#building-field').transition('vertical flip');
+                $('#classroom-field').transition('vertical flip');
+                break;
+            case "2":
+                $('#ground-field').transition('vertical flip');
+                $('#building-field').transition('hide');
+                $('#classroom-field').transition('hide');
+                break;
+        }
+    }
 </script>
 </html>
