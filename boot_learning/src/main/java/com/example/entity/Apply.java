@@ -25,7 +25,7 @@ public class Apply {
     private String mDescription;
 
     @Column(nullable = false, name = "ACCEPT")
-    private Boolean mAccept;
+    private Integer mAccept;
 
 
     public Long getmId() {
@@ -56,11 +56,11 @@ public class Apply {
         this.mDescription = mDescription;
     }
 
-    public Boolean getmAccept() {
+    public Integer getmAccept() {
         return mAccept;
     }
 
-    public void setmAccept(Boolean mAccept) {
+    public void setmAccept(Integer mAccept) {
         this.mAccept = mAccept;
     }
 }

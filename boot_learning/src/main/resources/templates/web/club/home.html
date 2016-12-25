@@ -50,7 +50,7 @@
                 <div class="ten wide column dimmer" id="club-list">
                     <div class="ui two cards" >
                         <!--左侧展示社团卡片-->
-                        <div class="ui card" ng-repeat="club in clubs">
+                        <div class="ui card" ng-repeat="club in clubs" ng-if="club.mState === 1">
                             <div class="image small">
                                 <img src="{{club.mImgUrl}}"/>
                             </div>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="ui bottom attached  tab segment active" id="my-club">
                         <div class="ui relaxed divided list">
-                            <div class="item" ng-repeat="club in myclubs">
+                            <div class="item" ng-repeat="club in myclubs" ng-if="club.mState === 1">
                                 <div class="content">
                                     <a class="header" href="/club/{{club.mId}}">{{club.mName}}</a>
                                 </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="ui bottom attached tab segment" id="my-organ-club">
                         <div class="ui relaxed divided list">
-                            <div class="item" ng-repeat="club in myhostclubs">
+                            <div class="item" ng-repeat="club in myhostclubs" ng-if="club.mState === 1">
                                 <div class="content">
                                     <a class="header" href="/club/{{club.mId}}">{{club.mName}}</a>
                                 </div>

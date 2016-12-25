@@ -132,7 +132,8 @@ public class ActivityController {
             for (Activity activity1 : club.getActivities()){
                 if (activity1.getmId().equals(a_id)){
                     club.getActivities().remove(activity1);
-                    activityService.deleteActivityBymId(a_id);
+                    activity.setmState(false);
+                    activityService.save(activity);
                     break;
                 }
             }

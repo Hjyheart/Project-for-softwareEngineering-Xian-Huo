@@ -50,7 +50,7 @@
                 <div class="ten wide column dimmer" id="activity-list">
                     <div class="ui two cards" >
                         <!--左侧展示活动卡片-->
-                        <div class="ui card" ng-repeat="activity in activities">
+                        <div class="ui card" ng-repeat="activity in activities" ng-if="activity.mState">
                             <div class="content">
                                 <div class="header">{{activity.mName}}</div>
                             </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="ui bottom attached  tab segment active" id="my-activity">
                         <div class="ui relaxed divided list">
-                            <div class="item" ng-repeat="activity in myactivities">
+                            <div class="item" ng-repeat="activity in myactivities" ng-if="activity.mState">
                                 <div class="content">
                                     <a class="header" href="/activity/{{activity.mId}}">{{activity.mName}}</a>
                                 </div>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="ui bottom attached tab segment" id="my-organ-activity">
                         <div class="ui relaxed divided list">
-                            <div class="item" ng-repeat="activity in myhostactivities">
+                            <div class="item" ng-repeat="activity in myhostactivities" ng-if="activity.mState">
                                 <div class="content">
                                     <a class="header" href="/activity/{{activity.mId}}">{{activity.mName}}</a>
                                 </div>

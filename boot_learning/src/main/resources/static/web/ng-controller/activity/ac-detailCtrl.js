@@ -46,6 +46,9 @@ app.controller('ac-detailCtrl', ['$scope', '$http', 'constService', function($sc
          }).then( res=>{
              console.log(res.data);
              $scope.activity = res.data;
+             if (!$scope.activity.mState){
+                 window.location.href = '/activity';
+             }
              let date = new Date($scope.activity.mTime);
              $scope.activity.mTime = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDay()
                  + '/ ' + date.getHours() + ':' + date.getMinutes();

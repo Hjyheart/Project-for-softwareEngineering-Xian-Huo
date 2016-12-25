@@ -31,6 +31,9 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
         }).then( res =>{
             console.log(res);
             $scope.club = res.data;
+            if ($scope.club.mState === -1 || $scope.club.mState === 0){
+                window.location.href = '/club';
+            }
             $scope.clubNum = $scope.club.mMemberNumber;
             // 获得主席名字
             $http({

@@ -465,6 +465,7 @@ public class OrganizeController {
             qiniuService.storeFile(file);
             activity.setmDescription(des);
             activity.setmName(name);
+            activity.setmState(true);
             activity.setmContact(contact);
             activity.setmImgUrl(qiniuService.createDownloadUrl("http://" + qiniuService.getDomain() + "/" + key));
             activity.setmTime(date);
@@ -574,6 +575,11 @@ public class OrganizeController {
             for (Student student : club.getStudents()){
                 student.getClubs().remove(club);
                 studentService.save(student);
+            }
+
+            for (Activity activity : club.getActivities()){
+                activity.setmState(false);
+                activityService.save(activity);
             }
 
             club.setmState(-1);

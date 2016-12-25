@@ -37,6 +37,9 @@ public class Activity {
     @Column(nullable = true, name = "DESCRIPTION")
     private String mDescription;
 
+    @Column(nullable = true, name = "STATE")
+    private boolean mState;
+
     @ManyToMany
     private List<Student> students;
 
@@ -145,5 +148,13 @@ public class Activity {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void setmState(boolean mState) {
+        this.mState = mState;
+    }
+
+    public boolean getmState(){
+        return mState;
     }
 }
