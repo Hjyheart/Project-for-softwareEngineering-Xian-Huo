@@ -172,30 +172,41 @@
                         <div class="ui bottom attached tab segment" id="apply">
                             <div class="ui basic blue button" ng-click="applyForPosterArea()">申请</div>
                             <hr/>
-                            <!--<table class="ui very basic celled table">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                    <!--<th>申请种类</th>-->
-                                    <!--<th>申请地点</th>-->
-                                    <!--<th>申请时间</th>-->
-                                    <!--<th>申请状态</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--<tr ng-repeat="apply in club.applies">-->
-                                    <!--<td>-->
-                                        <!--<h4 class="ui image header">-->
-                                            <!--<img src="{{student.mHeadUrl}}" class="ui mini rounded image"/>-->
-                                            <!--<div class="content">{{student.mName}} <div class="sub header">{{student.mId}} </div>-->
-                                            <!--</div>-->
-                                        <!--</h4>-->
-                                    <!--</td>-->
-                                    <!--<td>-->
-                                        <!--{{student.mContact}}-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                                <!--</tbody>-->
-                            <!--</table>-->
+                            <table class="ui selected celled table">
+                                <thead>
+                                <tr>
+                                    <th>申请种类</th>
+                                    <th>申请地点</th>
+                                    <th>申请时间</th>
+                                    <th>申请状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="apply in applies">
+                                    <td ng-if="apply.mType === 1">
+                                       场地申请
+                                    </td>
+                                    <td ng-if="apply.mType === 2">
+                                        海报张贴
+                                    </td>
+                                    <td>
+                                        {{apply.mLocation}}
+                                    </td>
+                                    <td>
+                                        {{apply.mStartDate}} ~ {{apply.mEndDate}}
+                                    </td>
+                                    <td class="warning" ng-if="apply.mAccept === 0">
+                                        审核中
+                                    </td>
+                                    <td class="error" ng-if="apply.mAccept === -1">
+                                        被拒绝
+                                    </td>
+                                    <td class="warning" ng-if="apply.mAccept === 1">
+                                        审核通过
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 

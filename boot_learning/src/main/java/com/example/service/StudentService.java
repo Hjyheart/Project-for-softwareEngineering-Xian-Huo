@@ -57,28 +57,6 @@ public class StudentService {
         return studentRepository.getStudentActivity(id);
     }
 
-
-    //
-    public List<Apply> getAllSendApplies(String studentId) throws Exception{
-        try{
-            Student student = this.studentRepository.findByMId(studentId).iterator().next();
-            return student.getSendApplies();
-        }catch(Exception e){
-            throw e;
-        }
-    }
-
-
-    public List<Apply> getAllReceiveApplies(String studentId) throws Exception{
-        try{
-            Student student = this.studentRepository.findByMId(studentId).iterator().next();
-            return student.getReceiveApplies();
-        }catch(Exception e){
-            throw e;
-        }
-    }
-
-
     public List<Activity> getAllFavouriteActivities(String studentId) throws Exception{
         try{
             Student student = this.studentRepository.findByMId(studentId).iterator().next();

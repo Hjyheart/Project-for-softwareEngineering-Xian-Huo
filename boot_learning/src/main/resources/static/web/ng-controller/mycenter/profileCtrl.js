@@ -187,7 +187,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
                         }
                     }).then( res=>{
                         console.log(res.data);
-                        $scope.clubs = res.data.host_clubs;
+                        $scope.hclubs = res.data.host_clubs;
                     }).catch( err=>{
                         console.log(err);
                     })

@@ -8,6 +8,7 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
     $scope.clubNum = 0;
     $scope.chairman;
     $scope.isHost;
+    $scope.applies;
 
     this.$onInit = function() {
         $http({
@@ -114,6 +115,35 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
             }).then( res=>{
                 console.log(res.data);
                 $scope.club.students = res.data;
+            }).catch( err=>{
+                console.log(err);
+            });
+            // 获得请求列表
+            $http({
+                method: 'POST',
+                url: constService.urls().getApplies,
+                params:{
+                    'id': $scope.club.mId
+                }
+            }).then( res=>{
+                console.log(res.data);
+                $scope.applies = res.data;
+
+                for (let i = 0; i < $scope.applies.length; i++){
+                    let startdate = new Date($scope.applies[i].mStartDate);
+                    $scope.applies[i].mStartDate = startdate.getFullYear().toString() + '/'
+                        + startdate.getMonth().toString() + '/'
+                        + startdate.getDay().toString() + '  '
+                        + startdate.getHours().toString() + ':'
+                        + startdate.getMinutes().toString();
+                    let enddate = new Date($scope.applies[i].mEndDate);
+                    $scope.applies[i].mEndDate = enddate.getFullYear().toString() + '/'
+                        + enddate.getMonth().toString() + '/'
+                        + enddate.getDay().toString() + '  '
+                        + enddate.getHours().toString() + ':'
+                        + enddate.getMinutes().toString();
+                }
+
             }).catch( err=>{
                 console.log(err);
             })
@@ -377,11 +407,6 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
         })
     };
 
-    // 申请场地
-    $scope.applyForPosterArea = function () {
-
-    };
-
     // 短信通知
     $scope.sendMessage = function () {
         $('#inform-message').modal({
@@ -474,7 +499,94 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
     $scope.applyForPosterArea = function () {
         $('#add-apply').modal({
             onApprove: function () {
-                
+                var startTime = $('#apply-start-date').val() + '/' + $('#apply-start-hour').val() + '/' + $('#apply-start-minute').val();
+                var endTime = $('#apply-end-date').val() + '/' + $('#apply-end-hour').val() + '/' + $('#apply-end-minute').val();
+                if($('#type').val() === '1'){
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().applyGround,
+                        params:{
+                            'id': $scope.club.mId,
+                            'building': $('#building').val(),
+                            'classroom': $('#classroom').val(),
+                            'startTime': startTime,
+                            'endTime': endTime,
+                            'des': $('#apply-des').val()
+                        }
+                    }).then( res=>{
+                        // 获得请求列表
+                        $http({
+                            method: 'POST',
+                            url: constService.urls().getApplies,
+                            params:{
+                                'id': $scope.club.mId
+                            }
+                        }).then( res=>{
+                            console.log(res.data);
+                            $scope.applies = res.data;
+                            for (let i = 0; i < $scope.applies.length; i++){
+                                let startdate = new Date($scope.applies[i].mStartDate);
+                                $scope.applies[i].mStartDate = startdate.getFullYear().toString() + '/'
+                                    + startdate.getMonth().toString() + '/'
+                                    + startdate.getDay().toString() + '  '
+                                    + startdate.getHours().toString() + ':'
+                                    + startdate.getMinutes().toString();
+                                let enddate = new Date($scope.applies[i].mEndDate);
+                                $scope.applies[i].mEndDate = enddate.getFullYear().toString() + '/'
+                                    + enddate.getMonth().toString() + '/'
+                                    + enddate.getDay().toString() + '  '
+                                    + enddate.getHours().toString() + ':'
+                                    + enddate.getMinutes().toString();
+                            }
+                        }).catch( err=>{
+                            console.log(err);
+                        });
+                    }).catch( err=>{
+                        console.log(err);
+                    });
+                }else if($('#type').val() === '2'){
+                    $http({
+                        method: 'POST',
+                        url: constService.urls().applyPoster,
+                        params:{
+                            'id': $scope.club.mId,
+                            'location': $('#ground').val(),
+                            'startTime': startTime,
+                            'endTime': endTime,
+                            'des': $('#apply-des').val()
+                        }
+                    }).then( res=>{
+                        // 获得请求列表
+                        $http({
+                            method: 'POST',
+                            url: constService.urls().getApplies,
+                            params:{
+                                'id': $scope.club.mId
+                            }
+                        }).then( res=>{
+                            console.log(res.data);
+                            $scope.applies = res.data;
+                            for (let i = 0; i < $scope.applies.length; i++){
+                                let startdate = new Date($scope.applies[i].mStartDate);
+                                $scope.applies[i].mStartDate = startdate.getFullYear().toString() + '/'
+                                    + startdate.getMonth().toString() + '/'
+                                    + startdate.getDay().toString() + '  '
+                                    + startdate.getHours().toString() + ':'
+                                    + startdate.getMinutes().toString();
+                                let enddate = new Date($scope.applies[i].mEndDate);
+                                $scope.applies[i].mEndDate = enddate.getFullYear().toString() + '/'
+                                    + enddate.getMonth().toString() + '/'
+                                    + enddate.getDay().toString() + '  '
+                                    + enddate.getHours().toString() + ':'
+                                    + enddate.getMinutes().toString();
+                            }
+                        }).catch( err=>{
+                            console.log(err);
+                        });
+                    }).catch( err=>{
+                        console.log(err);
+                    });
+                }
             }
         }).modal('show');
     };

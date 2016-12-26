@@ -37,14 +37,6 @@ public class Student{
     @ManyToMany
     private List<Activity> favouriteactivities;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Apply> sendApplies;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Apply> receiveApplies;
-
-
-
     public Student(){
 
     }
@@ -145,24 +137,6 @@ public class Student{
 
     public void setFavouriteactivities(List<Activity> favouriteactivities) {
         this.favouriteactivities = favouriteactivities;
-    }
-
-    @JsonBackReference
-    public List<Apply> getSendApplies() {
-        return sendApplies;
-    }
-
-    public void setSendApplies(List<Apply> sendApplies) {
-        this.sendApplies = sendApplies;
-    }
-
-    @JsonBackReference
-    public List<Apply> getReceiveApplies() {
-        return receiveApplies;
-    }
-
-    public void setReceiveApplies(List<Apply> receiveApplies) {
-        this.receiveApplies = receiveApplies;
     }
 
     public String getmHeadUrl() {

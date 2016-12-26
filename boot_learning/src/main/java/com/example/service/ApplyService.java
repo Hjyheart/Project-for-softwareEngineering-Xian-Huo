@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by deado on 2016/11/7.
@@ -19,5 +20,9 @@ public class ApplyService {
     @Transactional
     public void save(Apply apply){
         applyRepository.save(apply);
+    }
+
+    public List<Apply> findAll(){
+        return applyRepository.findAll();
     }
 }

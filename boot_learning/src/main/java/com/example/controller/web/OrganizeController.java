@@ -11,10 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by hongjiayong on 2016/10/22.
@@ -43,6 +40,9 @@ public class OrganizeController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private ApplyService applyService;
 
     /**
      * 获取社团集锦的网页模板
@@ -546,6 +546,7 @@ public class OrganizeController {
         }
     }
 
+
     /**
      * 返回所有的活动
      * @return
@@ -607,6 +608,113 @@ public class OrganizeController {
             clubService.save(club);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 申请场地
+     * @param id
+     * 社团id
+     * @param building
+     * 几号楼
+     * @param classroom
+     * 几号教室
+     * @param startTime
+     * 开始时间
+     * @param endTime
+     * 结束时间
+     * @param des
+     * 描述
+     */
+    @RequestMapping(value = "/applyground", method = RequestMethod.POST)
+    @ResponseBody
+    public void applyForGround(@RequestParam Long id, @RequestParam String building, @RequestParam String classroom,
+                               @RequestParam String startTime, @RequestParam String endTime, @RequestParam String des){
+        try{
+            Apply apply = new Apply();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy/HH/mm");
+            Date startDate = sdf.parse(startTime);
+            Date endDate = sdf.parse(endTime);
+
+            apply.setmClubId(id);
+            apply.setmLocation(building + '/' + classroom);
+            apply.setmDescription(des);
+            apply.setmAccept(0);
+            apply.setmStartDate(startDate);
+            apply.setmEndDate(endDate);
+            apply.setmType(1);
+
+            applyService.save(apply);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 申请海报张贴
+     * @param id
+     * 社团id
+     * @param location
+     * 张贴地点
+     * @param startTime
+     * 开始时间
+     * @param endTime
+     * 结束时间
+     * @param des
+     * 描述
+     */
+    @RequestMapping(value = "/applyposter", method = RequestMethod.POST)
+    @ResponseBody
+    public void applyForPoster(@RequestParam Long id, @RequestParam String location, @RequestParam String startTime,
+                          @RequestParam String endTime, @RequestParam String des){
+        try{
+            Apply apply = new Apply();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy/HH/mm");
+            Date startDate = sdf.parse(startTime);
+            Date endDate = sdf.parse(endTime);
+
+            apply.setmClubId(id);
+            apply.setmDescription(des);
+            apply.setmAccept(0);
+            apply.setmStartDate(startDate);
+            apply.setmEndDate(endDate);
+            apply.setmType(2);
+            if (location.equals("1")){
+                apply.setmLocation("春禾");
+            }else if (location.equals("2")){
+                apply.setmLocation("秋谷");
+            }
+
+            applyService.save(apply);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 返回社团对应的请求
+     * @param id
+     * 社团id
+     * @return
+     */
+    @RequestMapping(value = "/getapplies", method = RequestMethod.POST)
+    @ResponseBody
+    public ArrayList<Apply> getApplies(@RequestParam Long id){
+        try{
+            List<Apply> applyList = applyService.findAll();
+            ArrayList<Apply> applies = new ArrayList<>();
+
+            for (Apply apply : applyList){
+                if (apply.getClubId().equals(id)){
+                    applies.add(apply);
+                }
+            }
+
+            return applies;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

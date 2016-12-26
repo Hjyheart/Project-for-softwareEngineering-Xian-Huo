@@ -18,8 +18,17 @@ public class Apply {
     @Column(nullable = false, name = "CLUBID")
     private Long mClubId;
 
-    @Column(nullable = false, name = "TIME")
-    private Date mDate;
+    @Column(nullable = false, name = "TYPE")
+    private Integer mType;
+
+    @Column(nullable = false, name = "STIME")
+    private Date mStartDate;
+
+    @Column(nullable = false, name = "ETIME")
+    private Date mEndDate;
+
+    @Column(nullable = false, name = "LOCATION")
+    private String mLocation;
 
     @Column(nullable = false, name = "DESCRIPTION")
     private String mDescription;
@@ -40,12 +49,28 @@ public class Apply {
         return mClubId;
     }
 
-    public void setmDate(Date mDate) {
-        this.mDate = mDate;
+    public void setmClubId(Long mClubId) {
+        this.mClubId = mClubId;
     }
 
-    public Date getmDate() {
-        return mDate;
+    public Long getmClubId() {
+        return mClubId;
+    }
+
+    public void setmEndDate(Date mEndDate) {
+        this.mEndDate = mEndDate;
+    }
+
+    public Date getmEndDate() {
+        return mEndDate;
+    }
+
+    public void setmStartDate(Date mStartDate) {
+        this.mStartDate = mStartDate;
+    }
+
+    public Date getmStartDate() {
+        return mStartDate;
     }
 
     public String getmDescription() {
@@ -62,5 +87,21 @@ public class Apply {
 
     public void setmAccept(Integer mAccept) {
         this.mAccept = mAccept;
+    }
+
+    public void setmLocation(String mLocation) {
+        this.mLocation = mLocation;
+    }
+
+    public String getmLocation() {
+        return mLocation;
+    }
+
+    public Integer getmType() {
+        return mType;
+    }
+
+    public void setmType(Integer mType) {
+        this.mType = mType;
     }
 }
