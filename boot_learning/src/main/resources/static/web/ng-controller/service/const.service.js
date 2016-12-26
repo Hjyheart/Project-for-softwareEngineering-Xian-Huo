@@ -11,6 +11,7 @@ app.service('constService', function(){
             compelete: `${ServiceHost}/login/compelete`,
             getstudent: `${ServiceHost}/mycenter/getstu`,
             changeHead: `${ServiceHost}/mycenter/changehead`,
+            logOut: `${ServiceHost}/login/logout`,
 
             // 首页
             indexInit: `${ServiceHost}/home/init`,

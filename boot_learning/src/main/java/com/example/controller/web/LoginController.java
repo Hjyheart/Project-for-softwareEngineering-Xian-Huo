@@ -53,10 +53,10 @@ public class LoginController {
         return flag;
     }
 
-    @RequestMapping("/register")
-    // 跳转到注册页
-    public String turnToRegister(){
-        return "redirect:/register";
+    @RequestMapping("/logout")
+    @ResponseBody
+    public void logOut(HttpServletRequest request){
+        request.getSession().invalidate();
     }
 
     @RequestMapping("/if")

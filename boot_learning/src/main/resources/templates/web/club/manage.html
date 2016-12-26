@@ -84,12 +84,13 @@
                     </div>
 
                     <div class="ten wide column">
-                        <!--资源区-->
+                        <h1 class="ui header">社团管理专区</h1>
                         <div class="ui top attached tabular menu">
                             <div class="active item" ng-click="showSource()" id="first">资源区</div>
                             <div class="item" ng-click="showActivity()" id="second">活动</div>
                             <div class="item" ng-click="showStudent()" id="three">学生</div>
                             <div class="item" ng-click="showApply()" id="four">申请</div>
+                            <div class="item" ng-click="showRecommend()" id="five">个性化推荐</div>
                         </div>
 
                         <div class="ui bottom attached active tab segment" id="source">
@@ -211,6 +212,16 @@
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="ui bottom attached tab segment" id="recommend">
+                            <div class="ui error message">
+                                <div class="header">推荐系统暂未开放 敬请期待 </div>
+                                <ul class="list">
+                                    <li>算法和实现已经在后端初步实现</li>
+                                    <li>需要克服对社团分类等难点暂时未能上线</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 

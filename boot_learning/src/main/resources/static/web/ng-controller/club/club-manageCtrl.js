@@ -189,6 +189,15 @@ app.controller('club-manageCtrl', ['$scope', '$http', 'constService', function (
         $('#apply').addClass('active');
     };
 
+    // 显示个性化推荐
+    $scope.showRecommend = function () {
+        $('.active.item').removeClass('active');
+        $('#five').addClass('active');
+
+        $('.active.tab.segment').removeClass('active');
+        $('#recommend').addClass('active');
+    };
+
     // 上传文件
     $scope.uploadFile = function () {
         if ($('#file').val() === '' || $('#file').val() === null){
