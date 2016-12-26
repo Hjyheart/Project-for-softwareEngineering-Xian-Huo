@@ -88,6 +88,7 @@ public class LoginController {
             Student stu = studentService.findByMId(id).iterator().next();
             stu.setmContact(contact);
             stu.setmMajor(major);
+            stu.setmHeadUrl("/touxiang.jpg");
             stu.setmName(name);
             stu.setmGrade(grade);
             studentService.save(stu);

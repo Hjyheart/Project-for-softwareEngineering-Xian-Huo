@@ -15,8 +15,20 @@
     <script type="text/javascript" th:src="@{/web/ng-controller/service/const.service.js}"/>
 </head>
 <body class="pushable" ng-app="myApp" ng-controller="homeCtrl">
+    <style>
+        .ui.vertical.masthead.center.aligned.segment{
+            background-image: url(http://localhost:8080/home_bg.jpg);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+    </style>
 
-    <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
+    <div ng-if="isLogin">
+        <div th:include="web/nav/navbar-floating :: navbar-floating"></div>
+    </div>
+    <div class="!isLogin">
+        <div th:include="web/nav/navbar-floating-public :: navbar-floating-public"></div>
+    </div>
 
     <div class="pusher">
         <div class="ui inverted vertical masthead center aligned segment">
@@ -28,18 +40,36 @@
             </div>
 
             <div class="ui text container">
-                <br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <h1 class="ui inverted header">
                    鲜&nbsp;&nbsp;活
                 </h1>
                 <h2>最棒的大学生社团管理平台!</h2>
-                <br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 <i class="down arrow icon"></i>
             </div>
         </div>
 
-        <div class="ui stripe theming vertical segment">
+        <div class="ui stripe vertical segment">
+            <div class="ui stackable very relaxed grid container">
+                <div class="fourteen wide center aligned centered column">
+                    <h1 class="ui icon header"><img src="/club_logo.jpg" class="ui medium image"/>  </h1>
+                    <h1>强大的社团管理~</h1>
+                    <p>让志同道合的人相聚在鲜活!</p>
+                    <a class="ui large primary button" href="/club"> 传送门 <i class="right chevron icon"></i> </a>
+                </div>
+            </div>
+        </div>
 
+        <div class="ui stripe vertical segment">
+            <div class="ui stackable very relaxed grid container">
+                <div class="fourteen wide center aligned centered column">
+                    <h1 class="ui icon header"><img src="/activity_logo.png" class="ui medium image"/>  </h1>
+                    <h1>丰富多彩的活动</h1>
+                    <p>嗨起来!!</p>
+                    <a class="ui large primary button" href="/activity">传送门 <i class="right chevron icon"></i> </a>
+                </div>
+            </div>
         </div>
 
         <div th:include="web/footer :: footer"></div>

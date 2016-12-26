@@ -189,7 +189,7 @@ app.controller('club-detailCtrl', ['$scope', '$http', 'constService', function (
 
     // 转到活动
     $scope.toActivity = function (activity) {
-        window.location.href = '/activity/' + activity.mName;
+        window.location.href = '/activity/' + activity.mId;
     };
 
     // 添加评论

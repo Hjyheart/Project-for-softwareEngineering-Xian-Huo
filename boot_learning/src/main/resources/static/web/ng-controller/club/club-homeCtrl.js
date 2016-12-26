@@ -79,4 +79,9 @@ app.controller('club-homeCtrl', ['$scope', '$http', 'constService', function ($s
         $('.active.tab.segment').removeClass('active');
         $('#my-organ-club').addClass('active');
     };
+
+    // 转到具体俱乐部
+    $scope.toClubDetail = function (club) {
+        window.location.href = '/club/' + club.mId;
+    }
 }]);

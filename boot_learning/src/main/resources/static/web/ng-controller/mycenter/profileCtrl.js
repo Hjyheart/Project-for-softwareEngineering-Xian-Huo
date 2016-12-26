@@ -72,7 +72,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'constService', function ($sco
     };
 
     $scope.showEdit = function () {
-        $('.ui.modal').modal({
+        $('#profile-edit').modal({
             closable: false,
             blurring: true,
             transition: 'horizontal flip',
