@@ -25,4 +25,8 @@ public class ApplyService {
     public List<Apply> findAll(){
         return applyRepository.findAll();
     }
+
+    public Apply findByMId(Long id){
+        return applyRepository.findByMId(id).iterator().next();
+    }
 }

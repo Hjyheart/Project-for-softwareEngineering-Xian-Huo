@@ -178,6 +178,7 @@
                                     <th>申请种类</th>
                                     <th>申请地点</th>
                                     <th>申请时间</th>
+                                    <th>申请理由</th>
                                     <th>申请状态</th>
                                 </tr>
                                 </thead>
@@ -195,13 +196,16 @@
                                     <td>
                                         {{apply.mStartDate}} ~ {{apply.mEndDate}}
                                     </td>
+                                    <td>
+                                        {{apply.mDescription}}
+                                    </td>
                                     <td class="warning" ng-if="apply.mAccept === 0">
                                         审核中
                                     </td>
                                     <td class="error" ng-if="apply.mAccept === -1">
                                         被拒绝
                                     </td>
-                                    <td class="warning" ng-if="apply.mAccept === 1">
+                                    <td class="positive" ng-if="apply.mAccept === 1">
                                         审核通过
                                     </td>
                                 </tr>

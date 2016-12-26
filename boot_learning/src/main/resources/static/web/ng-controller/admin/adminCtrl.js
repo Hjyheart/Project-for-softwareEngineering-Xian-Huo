@@ -5,6 +5,7 @@ app.controller('adminCtrl', ['$scope', '$http', 'constService', function ($scope
     $scope.isLogin = false;
     $scope.student;
     $scope.clubs;
+    $scope.applies;
 
     this.$onInit = function(){
         $http({
@@ -27,10 +28,30 @@ app.controller('adminCtrl', ['$scope', '$http', 'constService', function ($scope
                     console.log(err);
                 });
 
-                // 获取场地申请
-
-
-                // 获取海报张贴申请
+                // 获得请求列表
+                $http({
+                    method: 'POST',
+                    url: constService.urls().getAllApplies,
+                }).then( res=>{
+                    console.log(res.data);
+                    $scope.applies = res.data;
+                    for (let i = 0; i < $scope.applies.length; i++){
+                        let startdate = new Date($scope.applies[i].mStartDate);
+                        $scope.applies[i].mStartDate = startdate.getFullYear().toString() + '/'
+                            + startdate.getMonth().toString() + '/'
+                            + startdate.getDay().toString() + '  '
+                            + startdate.getHours().toString() + ':'
+                            + startdate.getMinutes().toString();
+                        let enddate = new Date($scope.applies[i].mEndDate);
+                        $scope.applies[i].mEndDate = enddate.getFullYear().toString() + '/'
+                            + enddate.getMonth().toString() + '/'
+                            + enddate.getDay().toString() + '  '
+                            + enddate.getHours().toString() + ':'
+                            + enddate.getMinutes().toString();
+                    }
+                }).catch( err=>{
+                    console.log(err);
+                });
 
             }else{
                 window.location.href = '/login'
@@ -64,7 +85,7 @@ app.controller('adminCtrl', ['$scope', '$http', 'constService', function ($scope
         })
     };
 
-    // 同意申请
+    // 同意社团申请
     $scope.approve = function (club) {
         $http({
             method: 'POST',
@@ -87,4 +108,81 @@ app.controller('adminCtrl', ['$scope', '$http', 'constService', function ($scope
             console.log(err);
         })
     };
+
+    // 同意请求
+    $scope.approveApply = function (apply) {
+        $http({
+            method: 'POST',
+            url: constService.urls().approveApply,
+            params:{
+                'id': apply.mId
+            }
+        }).then( res=>{
+            // 获得请求列表
+            $http({
+                method: 'POST',
+                url: constService.urls().getAllApplies,
+            }).then( res=>{
+                console.log(res.data);
+                $scope.applies = res.data;
+                for (let i = 0; i < $scope.applies.length; i++){
+                    let startdate = new Date($scope.applies[i].mStartDate);
+                    $scope.applies[i].mStartDate = startdate.getFullYear().toString() + '/'
+                        + startdate.getMonth().toString() + '/'
+                        + startdate.getDay().toString() + '  '
+                        + startdate.getHours().toString() + ':'
+                        + startdate.getMinutes().toString();
+                    let enddate = new Date($scope.applies[i].mEndDate);
+                    $scope.applies[i].mEndDate = enddate.getFullYear().toString() + '/'
+                        + enddate.getMonth().toString() + '/'
+                        + enddate.getDay().toString() + '  '
+                        + enddate.getHours().toString() + ':'
+                        + enddate.getMinutes().toString();
+                }
+            }).catch( err=>{
+                console.log(err);
+            });
+        }).catch( err=>{
+            console.log(err);
+        })
+    };
+
+    // 拒绝请求
+    $scope.denyApply = function (apply) {
+        $http({
+            method: 'POST',
+            url: constService.urls().denyApply,
+            params:{
+                'id': apply.mId
+            }
+        }).then( res=>{
+            // 获得请求列表
+            $http({
+                method: 'POST',
+                url: constService.urls().getAllApplies,
+            }).then( res=>{
+                console.log(res.data);
+                $scope.applies = res.data;
+                for (let i = 0; i < $scope.applies.length; i++){
+                    let startdate = new Date($scope.applies[i].mStartDate);
+                    $scope.applies[i].mStartDate = startdate.getFullYear().toString() + '/'
+                        + startdate.getMonth().toString() + '/'
+                        + startdate.getDay().toString() + '  '
+                        + startdate.getHours().toString() + ':'
+                        + startdate.getMinutes().toString();
+                    let enddate = new Date($scope.applies[i].mEndDate);
+                    $scope.applies[i].mEndDate = enddate.getFullYear().toString() + '/'
+                        + enddate.getMonth().toString() + '/'
+                        + enddate.getDay().toString() + '  '
+                        + enddate.getHours().toString() + ':'
+                        + enddate.getMinutes().toString();
+                }
+            }).catch( err=>{
+                console.log(err);
+            });
+        }).catch( err=>{
+            console.log(err);
+        })
+    };
+
 }]);

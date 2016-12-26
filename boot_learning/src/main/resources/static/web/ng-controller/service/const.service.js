@@ -57,7 +57,10 @@ app.service('constService', function(){
 
             // 管理页面
             rejectClub: `${ServiceHost}/club/reject`,
-            acceptClub: `${ServiceHost}/club/accept`
+            acceptClub: `${ServiceHost}/club/accept`,
+            getAllApplies: `${ServiceHost}/club/getallapplies`,
+            approveApply: `${ServiceHost}/club/approveapply`,
+            denyApply: `${ServiceHost}/club/denyapply`
         }
     };
 

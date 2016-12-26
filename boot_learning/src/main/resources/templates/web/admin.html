@@ -91,13 +91,47 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="title"><i class="dropdown icon"></i> 场地申请 </div>
+                        <div class="title"><i class="dropdown icon"></i> 场地/海报张贴 申请 </div>
                         <div class="content">
-                            <!--把我的活动打表打出来-->
-                        </div>
-                        <div class="title"><i class="dropdown icon"></i> 海报张贴申请 </div>
-                        <div class="content">
-                            <!--把我创建的社团打出来-->
+                            <!--把我的请求打表打出来-->
+
+                            <table class="ui selected celled table">
+                                <thead>
+                                <tr>
+                                    <th>申请种类</th>
+                                    <th>申请地点</th>
+                                    <th>申请时间</th>
+                                    <th>申请理由</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="apply in applies" ng-if="apply.mAccept === 0">
+                                    <td ng-if="apply.mType === 1">
+                                        场地申请
+                                    </td>
+                                    <td ng-if="apply.mType === 2">
+                                        海报张贴
+                                    </td>
+                                    <td>
+                                        {{apply.mLocation}}
+                                    </td>
+                                    <td>
+                                        {{apply.mStartDate}} ~ {{apply.mEndDate}}
+                                    </td>
+                                    <td>
+                                        {{apply.mDescription}}
+                                    </td>
+                                    <td>
+                                        <div class="ui two buttons">
+                                            <div class="ui basic green button" ng-click="approveApply(apply)">通过</div>
+                                            <div class="ui basic red button" ng-click="denyApply(apply)">拒绝</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
                         </div>
 
                     </div>

@@ -717,4 +717,55 @@ public class OrganizeController {
             return null;
         }
     }
+
+    /**
+     * 返回所有的请求
+     * @return
+     */
+    @RequestMapping(value = "/getallapplies", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Apply> getAllApplies(){
+        try{
+            return applyService.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 同意某个请求
+     * @param id
+     * 请求id
+     */
+    @RequestMapping(value = "/approveapply", method = RequestMethod.POST)
+    @ResponseBody
+    public void approveApply(@RequestParam Long id){
+        try{
+            Apply apply = applyService.findByMId(id);
+            apply.setmAccept(1);
+
+            applyService.save(apply);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 拒绝某个请求
+     * @param id
+     * 请求id
+     */
+    @RequestMapping(value = "/denyapply", method = RequestMethod.POST)
+    @ResponseBody
+    public void denyApply(@RequestParam Long id){
+        try{
+            Apply apply = applyService.findByMId(id);
+            apply.setmAccept(-1);
+
+            applyService.save(apply);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
